@@ -38,4 +38,3 @@ func (s *service) CreateTodos(req DataRequest) (model.Todos, int, error) {
 
 	return todo, http.StatusOK, nil
 }
-
