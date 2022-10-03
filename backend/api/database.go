@@ -18,11 +18,6 @@ const (
 	dbname   = "simascontact"
 )
 
-var (
-	db  *gorm.DB
-	err error
-)
-
 func SetupDb() (*gorm.DB, error) {
 	var db *gorm.DB
 	var err error
