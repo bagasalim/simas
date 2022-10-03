@@ -5,9 +5,22 @@ import (
 	"os"
 
 	"github.com/bagasalim/simas/model"
-	"github.com/glebarez/sqlite"
+	// "github.com/glebarez/sqlite"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+)
+
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "postgres"
+	password = "simaS123"
+	dbname   = "simascontact"
+)
+
+var (
+	db  *gorm.DB
+	err error
 )
 
 func SetupDb() (*gorm.DB, error) {
@@ -18,7 +31,9 @@ func SetupDb() (*gorm.DB, error) {
 	if os.Getenv("ENVIRONMENT") == "PROD" {
 		db, err = gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 	} else {
-		db, err = gorm.Open(sqlite.Open(dbUrl), &gorm.Config{})
+		config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+
+		db, err = gorm.Open(postgres.Open(config), &gorm.Config{})
 	}
 
 	if err != nil {
@@ -33,7 +48,7 @@ func SetupDb() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	if err := db.AutoMigrate(&model.Todos{}); err != nil {
+	if err := db.AutoMigrate(model.Employee{}); err != nil {
 		return nil, fmt.Errorf("failed to migrate database: %w", err)
 	}
 
