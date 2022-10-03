@@ -43,8 +43,26 @@ func SetupDb() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	if err := db.AutoMigrate(model.Employee{}); err != nil {
-		return nil, fmt.Errorf("failed to migrate database: %w", err)
+	if os.Getenv("AUTO_MIGRATE") == "Y" {
+		if err := db.AutoMigrate(model.Employee{}); err != nil {
+			return nil, fmt.Errorf("failed to migrate database: %w", err)
+		}
+
+		admin := model.Employee{
+			Username: "admin",
+			Password: "123456",
+			Role:     1,
+		}
+
+		db.Create(&admin)
+
+		cs := model.Employee{
+			Username: "CS01",
+			Password: "123456",
+			Role:     2,
+		}
+
+		db.Create(&cs)
 	}
 
 	return db, err
