@@ -7,11 +7,19 @@ import info2 from "../assets/info2.jpg";
 
 export default function home() {
   return (
-    <div className={styles.contentcontainer} style={{ border: "solid" }}>
-      <h1>Selamat Datang Customer Service</h1>
+    <div
+      className="position-absolute top-50 start-50 translate-middle"
+      style={{ paddingBot: "22px" }}
+    >
+      <h2>Selamat Datang, Customer Service</h2>
+      <h3>Informasi</h3>
       <Image src={info1} width={1200} height={400} />
+      <br />
       <h4>Waspada Penipuan, Begini Tips Transaksi Aman di ATM Bank Sinarmas</h4>
+      <br />
       <Image src={info2} width={1200} height={400} />
+      <br />
+      <h4>Amankan Kartu Kredit dengan Cara Freeze Lewat Aplikasi Simobi+</h4>
     </div>
   );
 }
