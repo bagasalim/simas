@@ -1,7 +1,8 @@
 package api
 
 import (
-	"github.com/bagasalim/simas/todos"
+	"github.com/bagasalim/simas/auth"
+	"github.com/bagasalim/simas/custom"
 	"github.com/gin-contrib/cors"
 )
 
@@ -10,11 +11,12 @@ func (s *server) SetupRouter() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"POST", "GET", "DELETE", "PUT"},
 	}))
-
-	todosRepo := todos.NewRepository(s.DB)
-	todosService := todos.NewService(todosRepo)
-	todosHandler := todos.NewHandler(todosService)
-
-	s.Router.GET("/", todosHandler.GetTodos)
-	s.Router.POST("/send", todosHandler.CreateTodo)
+	authRepo := auth.NewRepository(s.DB)
+	authService := auth.NewService(authRepo)
+	authHandler := auth.NewHandler(authService)
+	s.Router.POST("/create-account", authHandler.CreateUser)
+	s.Router.POST("/login", authHandler.Login)
+	//example validation auth route
+	s.Router.Use(custom.MiddlewareAuth)
+	s.Router.POST("/test", authHandler.Test)
 }
