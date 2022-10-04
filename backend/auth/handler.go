@@ -3,7 +3,6 @@ package auth
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/bagasalim/simas/custom"
 	_ "github.com/bagasalim/simas/custom"
@@ -65,7 +64,7 @@ func (h *Handler) Login(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(time.Now().Add(60 * time.Minute))
+
 	c.JSON(status, gin.H{
 		"token": token,
 		"data": map[string]any{
