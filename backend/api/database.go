@@ -50,21 +50,27 @@ func SetupDb() (*gorm.DB, error) {
 
 		admin := model.User{
 			Username: "admin",
-			Password: "123456",
+			Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
 			Name:     "Administrator",
 			Role:     1,
 		}
 
-		db.Create(&admin)
+		err := db.Create(&admin).Error
+		if err != nil {
+			return nil, fmt.Errorf("failed to seeding admin database: %w", err)
+		}
 
 		cs := model.User{
 			Username: "CS01",
-			Password: "123456",
+			Password: "2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
 			Name:     "Customer Service",
 			Role:     2,
 		}
 
-		db.Create(&cs)
+		err1 := db.Create(&cs).Error
+		if err1 != nil {
+			return nil, fmt.Errorf("failed to seeding cs database: %w", err1)
+		}
 	}
 
 	return db, err
