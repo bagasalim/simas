@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bagasalim/simas/model"
@@ -23,11 +22,14 @@ func NewService(repo AuthRepository) *service {
 func (s *service) Login(data LoginRequest) (model.User, int, error) {
 	username := data.Username
 	User, err := s.repo.FindUser(username)
+
 	if err != nil {
+		if err.Error() == "Username or Password is wrong" {
+			return model.User{}, http.StatusUnauthorized, err
+		}
 		return model.User{}, http.StatusInternalServerError, err
 	}
 
-	fmt.Println(User.Password, data.Password)
 	err = bcrypt.CompareHashAndPassword([]byte(User.Password), []byte(data.Password))
 	if err != nil {
 		return model.User{}, http.StatusUnprocessableEntity, err

@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"errors"
+
 	"github.com/bagasalim/simas/model"
 	"gorm.io/gorm"
 )
@@ -19,9 +21,12 @@ func NewRepository(db *gorm.DB) *repository {
 }
 func (r *repository) FindUser(username string) (model.User, error) {
 	var User model.User
-	res := r.db.Where("username = ?", username).Find(&User)
+	res := r.db.Where("username = ?", username).First(&User)
 	// fmt.Println("findUser", res)
 	if res.Error != nil {
+		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
+			return model.User{}, errors.New("Username or Password is wrong")
+		}
 		return model.User{}, res.Error
 	}
 	return User, nil
