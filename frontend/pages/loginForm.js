@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 //import nookies from 'nookies';
-//import Router from 'next/router';
+import Router from 'next/router';
 
 
 // export async function getServerSideProps(ctx){
@@ -42,11 +42,16 @@ export default function loginForm() {
          }
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
             method: 'POST',
+            header:{
+               Authorization : "token"
+            },
             body: JSON.stringify(body)
           });
           const data = await res.json();
           
+
           if(data.token){
+            localStorage.setItem("token", data.token);
                 if(data.data.role == 1){
                     //console.log("Sukses Masuk Admin");
                     //nookies.set(null, 'token', data.token);
@@ -60,7 +65,7 @@ export default function loginForm() {
                 }
           }
           else{
-              console.log("Gagal");
+             alert("Username Password salah");
           }
            
         
