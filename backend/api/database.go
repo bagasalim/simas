@@ -14,7 +14,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "postgres"
+	password = "simaS123"
 	dbname   = "simascontact"
 )
 
@@ -55,9 +55,9 @@ func SetupDb() (*gorm.DB, error) {
 			Role:     1,
 		}
 
-		err := db.Create(&admin).Error
-		if err != nil {
-			return nil, fmt.Errorf("failed to seeding admin database: %w", err)
+		res := db.Create(&admin)
+		if res == nil {
+			return nil, fmt.Errorf("failed to seeding admin database: %w", res.Error)
 		}
 
 		cs := model.User{
@@ -67,9 +67,9 @@ func SetupDb() (*gorm.DB, error) {
 			Role:     2,
 		}
 
-		err1 := db.Create(&cs).Error
-		if err1 != nil {
-			return nil, fmt.Errorf("failed to seeding cs database: %w", err1)
+		res1 := db.Create(&cs)
+		if res1 == nil {
+			return nil, fmt.Errorf("failed to seeding cs database: %w", res1.Error)
 		}
 	}
 
