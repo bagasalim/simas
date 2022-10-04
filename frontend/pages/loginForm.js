@@ -48,13 +48,13 @@ export default function loginForm() {
           
           if(data.token){
                 if(data.data.role == 1){
-                    console.log("Sukses Masuk Admin");
+                    //console.log("Sukses Masuk Admin");
                     //nookies.set(null, 'token', data.token);
-                    //Router.replace('/dashboard');
+                    Router.replace('/project/admin');
                 }else if(data.data.role == 2){
-                    console.log("Sukses masuk CS");
+                    //console.log("Sukses masuk CS");
                     //nookies.set(null, 'token', data.token);
-                    //Router.replace('/dashboard');
+                    Router.replace('/project/customerservice');
                 }else{
                     console.log("Tidak ada Role");
                 }
