@@ -8,7 +8,12 @@ export default function Home() {
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-3 text-white"
-      style={{ width: "125%", height: "100%", backgroundColor: "#7E8A97" }}
+      style={{
+        width: "20%",
+        height: "100%",
+        backgroundColor: "#7E8A97",
+        position: "fixed",
+      }}
     >
       <Image src={logo} layout="responsive" />
 
