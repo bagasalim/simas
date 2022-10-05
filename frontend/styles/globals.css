@@ -2,7 +2,15 @@ html,
 body {
   padding: 0;
   margin: 0;
+<<<<<<< HEAD
   font-family: "Montserrat", sans-serif;
+=======
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Montserrat", sans-serif, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue;
+  min-height: -webkit-fill-available;
+>>>>>>> 4f3af4aa0f746494083cf3b9ec55668f84aa7f7f
 }
 
 a {
@@ -18,7 +26,12 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: white;
   }
+}
+
+.nav .active {
+  background-color: #36506a !important;
+  position: flex;
 }
