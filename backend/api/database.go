@@ -14,7 +14,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "simaS123"
+	password = "admin"
 	dbname   = "simascontact"
 )
 
@@ -62,7 +62,7 @@ func SetupDb() (*gorm.DB, error) {
 
 		cs := model.User{
 			Username: "CS01",
-			Password: "2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
+			Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
 			Name:     "Customer Service",
 			Role:     2,
 		}
