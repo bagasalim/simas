@@ -2,19 +2,17 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../../styles/Home.module.css";
 import logo from "../../../public/logo.png";
-import Sidebar from "./sidebar";
-import Halamanutama from "./content/halamanutama";
-import Footer from "../../../components/footer";
+import Sidebar from "../../../components/sidebarcs/sidebarn";
+import style from "./index.module.scss";
+import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 
 export default function home() {
   return (
-    <div style={{ height: "100%", width: "100%" }} className="container">
-      <div className="row">
-        <div className="col-sm-3" style={{ padding: 0 }}>
-          <Sidebar />
-        </div>
-        <div class="col-sm-9 d-flex">
-          <Halamanutama />
+    <div className={style.home}>
+      <Sidebar />
+      <div className={style.homeContainer}>
+        <div className={style.content}>
+          <HalamanUtama />
         </div>
       </div>
     </div>
