@@ -26,4 +26,5 @@ func (s *server) SetupRouter() {
 	manageLinkService := managelink.NewService(manageLinkRepo)
 	manageLinkHandler := managelink.NewHandler(manageLinkService)
 	s.Router.GET("/getlink", manageLinkHandler.GetLink)
+	s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
 }
