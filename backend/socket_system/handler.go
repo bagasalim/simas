@@ -12,11 +12,16 @@ type Handler struct {
 }
 
 func NewHandler(service Service) *Handler {
+	go handleMessage()
 	return &Handler{service}
 }
 func (h *Handler) ConnectRoom(c *gin.Context) {
 	var ws *websocket.Conn
 	room := c.Param("room")
+	if connectionMap == nil {
+		connectionMap = make(map[*websocket.Conn]connectionData)
+	}
+	userId := c.Param("id")
 	// if room == "" {
 	// 	return
 	// }
@@ -32,9 +37,10 @@ func (h *Handler) ConnectRoom(c *gin.Context) {
 			return
 		}
 
+		connectionMap[socket] = connectionData{room: room, name: userId}
 		// connectionList = append(connectionList, connectionType{websocket: socket, name: room})
 		ws = socket
 	}
 
-	Reader(ws, room, "12345")
+	Reader(ws, room, userId)
 }

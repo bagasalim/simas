@@ -16,7 +16,7 @@ func (s *server) SetupRouter() {
 	rtService := socket_system.NewService(rtRepo)
 	rtHandler := socket_system.NewHandler(rtService)
 
-	s.Router.GET("/ws/:room", rtHandler.ConnectRoom)
+	s.Router.GET("/ws/:room/:id", rtHandler.ConnectRoom)
 
 	todosRepo := todos.NewRepository(s.DB)
 	todosService := todos.NewService(todosRepo)
