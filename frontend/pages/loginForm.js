@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logo from "../public/assets/info2.jpg";
 
 //import nookies from 'nookies';
 import Router from "next/router";
@@ -67,7 +68,7 @@ export default function loginForm() {
   }
 
   return (
-    <>
+    <div>
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
@@ -80,26 +81,27 @@ export default function loginForm() {
         }}
       />
 
-      <div className="text-login">
-        <div className="logo-login">{/* <Image src={logo} style={{width : "20px", position : "relative"}}/> */}</div>
-        <h3>Simas Contact &amp; Info</h3>
-      </div>
       <div className="background">
         <div className="shape" />
         <div className="shape" />
       </div>
+
+      <div className="text-center mt-5">
+        <h2>Simas Contact dan Info</h2>
+      </div>
+
       <form onSubmit={doLogin}>
         <h3>Masuk</h3>
-        <label htmlFor="username">Username</label>
-        <input type="text" placeholder="Masukan Username" id="username" name="username" />
-        <hr />
-        <label htmlFor="password">Password</label>
-        <input type="password" placeholder="Password" id="password" name="password" />
+        <label htmlFor="username">NIK</label>
+        <input type="text" placeholder="Masukkan NIK" id="username" name="username" />
+
+        <label htmlFor="password">Kata Sandi</label>
+        <input className="mb-3" type="password" placeholder="Masukkan Kata Sandi" id="password" name="password" />
         <a href="#" style={{ marginLeft: "70%", color: "#4A8CFF" }}>
-          Lupa Kata Sandi ?
+          Lupa Kata Sandi?
         </a>
         <button>Masuk</button>
       </form>
-    </>
+    </div>
   );
 }
