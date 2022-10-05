@@ -22,7 +22,7 @@ func NewService(repo LinkRepository) *service {
 
 func (s *service) GetLink(data GetLinkRequest) (model.Link, int, error) {
 
-	link, err := s.repo.GetLink(data.Link_Type)
+	link, err := s.repo.GetLink(data.LinkType)
 	if err != nil {
 		return model.Link{}, http.StatusInternalServerError, err
 	}

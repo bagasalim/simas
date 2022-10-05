@@ -11,6 +11,7 @@ func (s *server) SetupRouter() {
 	s.Router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"POST", "GET", "DELETE", "PUT"},
+		AllowHeaders: []string{"*"},
 	}))
 	authRepo := auth.NewRepository(s.DB)
 	authService := auth.NewService(authRepo)

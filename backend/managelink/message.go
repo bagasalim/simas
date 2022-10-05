@@ -1,7 +1,7 @@
 package managelink
 
 type GetLinkRequest struct {
-	Link_Type string `json:"linktype" binding:"required"`
+	LinkType string `json:"linktype" binding:"required"`
 }
 
 type UpdateLinkRequest struct {

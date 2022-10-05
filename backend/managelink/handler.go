@@ -23,15 +23,22 @@ func (h *Handler) GetLink(c *gin.Context) {
 	}
 
 	var req GetLinkRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		messageErr := custom.ParseError(err)
-		if messageErr == nil {
-			messageErr = []string{"Input data not suitable"}
-		}
+	// if err := c.ShouldBindJSON(&req); err != nil {
+	// 	messageErr := custom.ParseError(err)
+	// 	if messageErr == nil {
+	// 		messageErr = []string{"Input data not suitable"}
+	// 	}
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+	// 	return
+	// }
+	linktype := c.Query("linktype")
+	_ = linktype
+	if linktype == "" {
+		messageErr := []string{"Input data not suitable"}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return
 	}
-
+	req = GetLinkRequest{LinkType: linktype}
 	link, status, err := h.Service.GetLink(req)
 	if err != nil {
 		c.JSON(status, gin.H{
