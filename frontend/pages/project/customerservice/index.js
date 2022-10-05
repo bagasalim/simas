@@ -5,6 +5,7 @@ import logo from "../../../public/logo.png";
 import Sidebar from "../../../components/sidebarcs/sidebarn";
 import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
+import ManageZoom from "../../../components/managezoom/managezoom";
 
 export default function home() {
   return (
@@ -12,7 +13,7 @@ export default function home() {
       <Sidebar />
       <div className={style.homeContainer}>
         <div className={style.content}>
-          <HalamanUtama />
+          <ManageZoom />
         </div>
       </div>
     </div>
