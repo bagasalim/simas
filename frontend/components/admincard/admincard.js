@@ -1,5 +1,5 @@
 import style from "./admincard.module.scss";
-import Foto from "../assets/fotocs.jpg";
+import Foto from "../../public/assets/fotocs.jpg";
 import Image from "next/image";
 
 const AdminCard = () => {

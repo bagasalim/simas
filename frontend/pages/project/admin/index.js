@@ -1,10 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../../../styles/Home.module.css";
-import logo from "../../../public/logo.png";
-import Sidebar from "./component/sidebar/sidebarn";
+import Sidebar from "../../../components/sidebaradmin/sidebarn";
 import style from "./index.module.scss";
-import HalamanUtama from "./component/halamanutama/halamanutama";
+import HalamanUtama from "../../../components/halamanutamaadmin/halamanutama";
 
 export default function home() {
   return (

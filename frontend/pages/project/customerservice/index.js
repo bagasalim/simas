@@ -2,9 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../../styles/Home.module.css";
 import logo from "../../../public/logo.png";
-import Sidebar from "./component/sidebar/sidebarn";
+import Sidebar from "../../../components/sidebarcs/sidebarn";
 import style from "./index.module.scss";
-import HalamanUtama from "./component/halamanutama/halamanutama";
+import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 
 export default function home() {
   return (
