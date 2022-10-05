@@ -5,6 +5,7 @@ import logo from "../../../public/logo.png";
 import Sidebar from "../../../components/sidebaradmin/sidebarn";
 import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamaadmin/halamanutama";
+import ManageWa from "../../../components/managewa/managewa";
 
 export default function home() {
   return (
