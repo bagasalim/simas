@@ -27,7 +27,7 @@ func GenerateJWT(username string, name string, role int8) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
-	tokenString, err := token.SignedString([]byte("kampang"))
+	tokenString, err := token.SignedString([]byte("token"))
 	if err != nil {
 		return "", err
 	}
@@ -59,7 +59,7 @@ func ClaimToken(tokenString string) (DataJWT, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &claims, func(token *jwt.Token) (interface{}, error) {
 		// since we only use the one private key to sign the tokens,
 		// we also only use its public counter part to verify
-		return []byte("kampang"), nil
+		return []byte("token"), nil
 	})
 	if err != nil {
 		fmt.Println("err claimToken", err)
