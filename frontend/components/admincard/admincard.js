@@ -16,7 +16,7 @@ const AdminCard = () => {
       {names.map((name,i) => (
         <div key={i} className={style.item}>
           <div className={style.foto}>
-            <Image src={Foto} />
+            <Image src={Foto} alt="Image" />
           </div>
           <p>{name}</p>
         </div>

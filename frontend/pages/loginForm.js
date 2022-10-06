@@ -2,7 +2,7 @@ import {  useEffect } from "react";
 import styles from "../styles/Login.module.css";
 
 import Router from "next/router";
-
+import Image from 'next/image'
 export default function LoginForm(){
   useEffect(()=>{
     let user=localStorage.getItem("user")
@@ -61,7 +61,8 @@ export default function LoginForm(){
         </div>
         <div className="text-center mt-5">
           <div>
-            <img src="/logo.png" style={{width:"20%"}}/>
+          <Image src={"/logo.png"} width="20%" alt="Logo"/>
+            {/* <img src="/logo.png" style={{width:"20%"}}/> */}
     
           </div>
           <h2>Simas Contact dan Info</h2>

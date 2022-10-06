@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
-        <Image src={Logo} />
+        <Image src={Logo} alt="logo"/>
       </div>
       <hr />
       <div className={style.center}>
