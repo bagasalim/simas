@@ -3,7 +3,7 @@ import styles from "../styles/Login.module.css";
 
 import Router from "next/router";
 
-export default ()=> {
+export default function LoginForm(){
   useEffect(()=>{
     let user=localStorage.getItem("user")
     let token=localStorage.getItem("token")
