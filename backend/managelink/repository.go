@@ -32,6 +32,11 @@ func (r *repository) GetLink(linktype string) (model.Link, error) {
 }
 
 func (r *repository) UpdateLink(link model.Link) (model.Link, error) {
+	_, err := r.GetLink(link.LinkType)
+	if err != nil {
+		return model.Link{}, errors.New("wrong link type")
+	}
+
 	res := r.db.Where("link_type=?", link.LinkType).Updates(model.Link{
 		LinkValue: link.LinkValue,
 		UpdatedBy: link.UpdatedBy,

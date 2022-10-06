@@ -39,3 +39,27 @@ func TestGetLink(t *testing.T) {
 	assert.Equal(t, err1.Error(), errors.New("link not found").Error())
 	assert.Equal(t, res1, model.Link{})
 }
+
+func TestUpdateLink(t *testing.T) {
+	db := newTestDB(t)
+	repo := NewRepository(db)
+
+	link := model.Link{
+		LinkType:  "WA",
+		LinkValue: "Ini Link WA",
+		UpdatedBy: "System",
+	}
+	res, err := repo.UpdateLink(link)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+
+	link2 := model.Link{
+		LinkType:  "No Link",
+		LinkValue: "No Link",
+		UpdatedBy: "System",
+	}
+	res2, err2 := repo.UpdateLink(link2)
+	assert.Equal(t, err2.Error(), errors.New("wrong link type").Error())
+	assert.Equal(t, res2, model.Link{})
+
+}
