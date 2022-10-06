@@ -1,72 +1,72 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 //import nookies from 'nookies';
 import Router from 'next/router';
 
 
-// export async function getServerSideProps(ctx){
-//     const cookies = nookies.get(ctx);
-//     if(cookies.token){
-//         return {
-//             redirect: {
-//                 destiantion: '/dashboard'
-//             }
-//         }
-//     }
-
-//     return {
-//         props : {}
-//     }
-// }
-
 export default function loginForm() {
-    //const[field,setField] = useState({});
-    // const [progress, setProgres] = useState(false);
-    // const[success, setSuccess] = useState(false);
-    // function setValue(e){
-    //     const target = e.target;
-    //     const name = target.name;
-    //     const value = target.value;
- 
-    // setField({
-    //     ... field,
-    //     [name]: value
-    // });
-    // }
+  const [loading, setLoading ]= useState(false)
+  useEffect(()=>{
+    const token = localStorage.getItem("token")
+    let user = localStorage.getItem("user")
+    if(token != null && user != null ){
+      user = JSON.parse(user)
+      if(user.role == 2){
+        console.log("redirect")
+        Router.replace('/project/customerservice');
+        return
+      }else if(user.role == 1){
+        Router.replace('/project/admin');
+        return
+      }
+    }
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+   
+  },[])
     async function doLogin(e){
+        if(loading){ return }
+        setLoading(true)
         e.preventDefault(); 
         const formData = new FormData(e.currentTarget);
         const body = {
             username: formData.get("username"),
             password: formData.get("password")
          }
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
-            method: 'POST',
-            header:{
-               Authorization : "token"
-            },
-            body: JSON.stringify(body)
-          });
-          const data = await res.json();
-          
-
-          if(data.token){
-            localStorage.setItem("token", data.token);
+        if(body.username == "" || body.password == ""){
+            alert("Masukkan email dan password")
+            return 
+        }
+        try{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login`, {
+                method: 'POST',
+                
+                body: JSON.stringify(body)
+            });
+            const data = await res.json();
+            
+            
+            if(data.token){
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data.data))
                 if(data.data.role == 1){
-                    //console.log("Sukses Masuk Admin");
-                    //nookies.set(null, 'token', data.token);
+                    
                     Router.replace('/project/admin');
+                    return
                 }else if(data.data.role == 2){
-                    //console.log("Sukses masuk CS");
-                    //nookies.set(null, 'token', data.token);
                     Router.replace('/project/customerservice');
+                    return
                 }else{
                     console.log("Tidak ada Role");
                 }
-          }
-          else{
-             alert("Username Password salah");
-          }
+            }else{
+                alert("Username Password salah");
+            }
+        }catch(e){
+            alert("server sedang bermasalah")
+        }
+        setLoading(false)
+        
            
         
           
@@ -97,25 +97,25 @@ export default function loginForm() {
         <div className="logo-login">
           {/* <Image src={logo} style={{width : "20px", position : "relative"}}/> */}
         </div>
-          <h3>Simas Contact &amp; Info</h3>
+            <h3>Simas Contact &amp; Info</h3>
       
         </div>
         <div className="background">
-          <div className="shape" />
-          <div className="shape" />
+            <div className="shape" />
+            <div className="shape" />
         </div>
         <form onSubmit={doLogin}>
-          <h3>Masuk</h3>
-          <label htmlFor="username">Username</label>
-          <input type="text" placeholder="Masukan Username" id="username" name ="username"/>
-          <hr />
-          <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password" id="password" name ="password" />
-          <a href="#" style={{ marginLeft: "70%", color: "#4A8CFF" }}>
-            Lupa Kata Sandi ?
-          </a>
-          <button>Masuk</button>
+            <h3>Masuk</h3>
+            <label htmlFor="username">Username</label>
+            <input type="text" placeholder="Masukan Username" id="username" name ="username"/>
+            <hr />
+            <label htmlFor="password">Password</label>
+            <input type="password" placeholder="Password" id="password" name ="password" />
+            <a href="#" style={{ marginLeft: "70%", color: "#4A8CFF" }}>
+              Lupa Kata Sandi ?
+            </a>
+            <button >{loading?"Please wait":"Masuk"}</button>
         </form>
-      </>
+        </>
     );
 }

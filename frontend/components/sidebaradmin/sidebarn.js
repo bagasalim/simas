@@ -5,8 +5,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import Router from 'next/router';
 const Sidebar = () => {
+  const logout = ()=>{
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      Router.replace('/loginForm');
+  }
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
@@ -31,7 +36,7 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="#" onClick={logout}>
               <LogoutIcon className={style.icon} />
               <span>Keluar</span>
             </a>
