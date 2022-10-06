@@ -4,6 +4,11 @@ import foto1 from "../../public/assets/info1.jpg";
 import foto2 from "../../public/assets/info2.jpg";
 
 const HalamanUtama = () => {
+  const logout = ()=>{
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    Router.replace('/loginForm');
+}
   return (
     <div className={style.utama}>
       <h1 className={style.title}>Selamat Datang Mr. Amron</h1>

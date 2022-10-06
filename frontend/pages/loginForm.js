@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles/Login.module.css";
 
-
-//import nookies from 'nookies';
 import Router from "next/router";
 
 export default function loginForm() {
@@ -26,12 +24,8 @@ export default function loginForm() {
     if (data.token) {
       localStorage.setItem("token", data.token);
       if (data.data.role == 1) {
-        //console.log("Sukses Masuk Admin");
-        //nookies.set(null, 'token', data.token);
         Router.replace("/project/admin");
       } else if (data.data.role == 2) {
-        //console.log("Sukses masuk CS");
-        //nookies.set(null, 'token', data.token);
         Router.replace("/project/customerservice");
       } else {
         console.log("Tidak ada Role");
