@@ -37,7 +37,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	c.JSON(status, gin.H{
 		"message": "success",
 	})
-	return
+	
 }
 func (h *Handler) Login(c *gin.Context) {
 	var req LoginRequest
