@@ -8,7 +8,7 @@ import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import { useEffect, useState } from "react";
 import Router from 'next/router';
 
-export default function home() {
+export default ()=> {
   const [loading, setLoading] = useState(true)
   useEffect(()=>{
     const token = localStorage.getItem("token")
