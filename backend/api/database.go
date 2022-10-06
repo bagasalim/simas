@@ -44,27 +44,48 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
-		admin := model.User{
-			Username: "admin",
-			Password: "123456",
-			Name:     "Administrator",
-			Role:     1,
+		users := []model.User{
+			{
+				Username: "admin",
+				Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
+				Name:     "Administrator",
+				Role:     1,
+			},
+			{
+				Username: "CS01",
+				Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
+				Name:     "Customer Service",
+				Role:     2,
+			},
 		}
 
-		db.Create(&admin)
-
-		cs := model.User{
-			Username: "CS01",
-			Password: "123456",
-			Name:     "Customer Service",
-			Role:     2,
+		links := []model.Link{
+			{
+				LinkType:  "WA",
+				LinkValue: "https://api.whatsapp.com/send?phone=6288221500153",
+				UpdatedBy: "System",
+			},
+			{
+				LinkType:  "Zoom",
+				LinkValue: "https://zoom.us/w/99582712162?tk=-ZsgZOP5esSZvy2g1sfWt8R3ugl9woAjQGuFFgUaU3k.DQMAAAAXL5eZYhZvdW5zcWJ4elJvaUt3cHFza1FBaVZRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=SzRUOFNIVldlRkR6SlFpc004OUs1Zz09",
+				UpdatedBy: "System",
+			},
 		}
 
-		db.Create(&cs)
+		resUsers := db.Create(&users)
+		if resUsers == nil {
+			return nil, fmt.Errorf("failed to seeding users database: %w", resUsers.Error)
+		}
+
+		resLinks := db.Create(&links)
+		if resLinks == nil {
+			return nil, fmt.Errorf("failed to seeding links database: %w", resLinks.Error)
+		}
+
 	}
 
 	return db, err
