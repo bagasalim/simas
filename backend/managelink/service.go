@@ -31,18 +31,18 @@ func (s *service) GetLink(data GetLinkRequest) (model.Link, int, error) {
 }
 
 func (s *service) UpdateLink(data UpdateLinkRequest) (model.Link, int, error) {
-	found, err := s.repo.GetLink(data.Link_Type)
+	found, err := s.repo.GetLink(data.LinkType)
 	if err != nil {
 		return model.Link{}, http.StatusInternalServerError, err
 	}
-	if err == nil && found.Link_Type == "" {
+	if err == nil && found.LinkType == "" {
 		return model.Link{}, http.StatusBadRequest, errors.New("wrong link type")
 	}
 
 	Link := model.Link{
-		Link_Type:  data.Link_Type,
-		Link_Value: data.Link_Value,
-		Updated_By: data.Updated_By,
+		LinkType:  data.LinkType,
+		LinkValue: data.LinkValue,
+		UpdatedBy: data.UpdatedBy,
 	}
 
 	res, err := s.repo.UpdateLink(Link)

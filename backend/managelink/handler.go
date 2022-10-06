@@ -23,16 +23,7 @@ func (h *Handler) GetLink(c *gin.Context) {
 	}
 
 	var req GetLinkRequest
-	// if err := c.ShouldBindJSON(&req); err != nil {
-	// 	messageErr := custom.ParseError(err)
-	// 	if messageErr == nil {
-	// 		messageErr = []string{"Input data not suitable"}
-	// 	}
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
-	// 	return
-	// }
 	linktype := c.Query("linktype")
-	_ = linktype
 	if linktype == "" {
 		messageErr := []string{"Input data not suitable"}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
@@ -62,6 +53,14 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 	}
 
 	var req UpdateLinkRequest
+	linktype := c.Query("linktype")
+
+	if linktype == "" {
+		messageErr := []string{"Param data not suitable"}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+
 	if err := c.ShouldBindJSON(&req); err != nil {
 		messageErr := custom.ParseError(err)
 		if messageErr == nil {
@@ -71,7 +70,12 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 		return
 	}
 
-	link, status, err := h.Service.UpdateLink(req)
+	reqFix := UpdateLinkRequest{
+		LinkType:  linktype,
+		LinkValue: req.LinkValue,
+		UpdatedBy: req.UpdatedBy,
+	}
+	link, status, err := h.Service.UpdateLink(reqFix)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),

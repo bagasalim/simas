@@ -65,14 +65,14 @@ func SetupDb() (*gorm.DB, error) {
 
 		links := []model.Link{
 			{
-				Link_Type:  "WA",
-				Link_Value: "https://api.whatsapp.com/send?phone=6288221500153",
-				Updated_By: "System",
+				LinkType:  "WA",
+				LinkValue: "https://api.whatsapp.com/send?phone=6288221500153",
+				UpdatedBy: "System",
 			},
 			{
-				Link_Type:  "Zoom",
-				Link_Value: "https://zoom.us/w/99582712162?tk=-ZsgZOP5esSZvy2g1sfWt8R3ugl9woAjQGuFFgUaU3k.DQMAAAAXL5eZYhZvdW5zcWJ4elJvaUt3cHFza1FBaVZRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=SzRUOFNIVldlRkR6SlFpc004OUs1Zz09",
-				Updated_By: "System",
+				LinkType:  "Zoom",
+				LinkValue: "https://zoom.us/w/99582712162?tk=-ZsgZOP5esSZvy2g1sfWt8R3ugl9woAjQGuFFgUaU3k.DQMAAAAXL5eZYhZvdW5zcWJ4elJvaUt3cHFza1FBaVZRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=SzRUOFNIVldlRkR6SlFpc004OUs1Zz09",
+				UpdatedBy: "System",
 			},
 		}
 
