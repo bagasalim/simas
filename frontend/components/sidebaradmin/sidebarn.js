@@ -10,6 +10,7 @@ const Sidebar = () => {
   const logout = ()=>{
       localStorage.removeItem("token")
       localStorage.removeItem("user")
+      console.log(localStorage.getItem('token'))
       Router.replace('/loginForm');
   }
   return (
