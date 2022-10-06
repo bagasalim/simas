@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import styles from "../styles/Login.module.css";
 
 import Router from "next/router";
