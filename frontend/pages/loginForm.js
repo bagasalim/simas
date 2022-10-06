@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/Login.module.css";
 
 import Router from "next/router";
 
 export default function loginForm() {
+  useEffect(()=>{
+    let user=localStorage.getItem("user")
+    let token=localStorage.getItem("token")
+    if(user !=null && token!=null){
+      user = JSON.parse(user)
+      if(user.role == 1){
+        Router.replace("/project/admin");
+        return
+      }else if(user.role ==  2){
+        Router.replace("/project/customerservice");
+        return
+      }
+      
+    }
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
 
+  },[])
   async function doLogin(e) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -23,6 +40,7 @@ export default function loginForm() {
 
     if (data.token) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user",JSON.stringify(data.data))
       if (data.data.role == 1) {
         Router.replace("/project/admin");
       } else if (data.data.role == 2) {
