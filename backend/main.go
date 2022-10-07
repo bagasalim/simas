@@ -8,8 +8,6 @@ import (
 func main() {
 	db, err := api.SetupDb()
 	if err != nil {
-		
-		
 		panic(err)
 	}
 

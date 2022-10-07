@@ -7,12 +7,18 @@ import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-
+import Router from 'next/router';
 const Sidebar = () => {
+  const logout = ()=>{
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    console.log(localStorage.getItem('token'))
+    Router.replace('/loginForm');
+  }
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
-        <Image src={Logo} />
+        <Image src={Logo} alt="logo"/>
       </div>
       <hr />
       <div className={style.center}>
@@ -45,7 +51,7 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="#" onClick={logout}>
               <LogoutIcon className={style.icon} />
               <span>Keluar</span>
             </a>

@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import React from 'react';
 
-export default function whatsapp() {
+export default function Whatsapp() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
   useEffect(() => {

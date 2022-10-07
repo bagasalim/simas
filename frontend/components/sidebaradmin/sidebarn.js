@@ -10,12 +10,13 @@ const Sidebar = () => {
   const logout = ()=>{
       localStorage.removeItem("token")
       localStorage.removeItem("user")
+      console.log(localStorage.getItem('token'))
       Router.replace('/loginForm');
   }
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
-        <Image src={Logo} />
+        <Image src={Logo} alt="logo" />
       </div>
       <hr />
       <div className={style.center}>
