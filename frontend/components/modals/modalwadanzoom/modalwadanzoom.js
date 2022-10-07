@@ -6,19 +6,14 @@ import React from "react";
 const ConfirmationModal = (props) => {
   const [modalOpen, setModalOpen] = React.useState(false);
 
-  const onClick = async (e) => {
-    e.preventDefault();
+  const onClick = () => {
     modalOpen = setModalOpen(true);
+    props.close;
   };
 
   return (
     <>
-      <Modal
-        ref={myRef}
-        modalClassName="modal"
-        toggle={props.close}
-        isOpen={props.show}
-      >
+      <Modal modalClassName="modal" toggle={props.close} isOpen={props.show}>
         <div className="modal-header" style={{ backgroundColor: "#36506A" }}>
           <h5
             className="modal-title"
