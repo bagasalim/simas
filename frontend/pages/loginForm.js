@@ -27,7 +27,7 @@ export default function LoginForm() {
       username: formData.get("username"),
       password: formData.get("password"),
     };
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}login`, {
       method: "POST",
       header: {
         Authorization: "token",
