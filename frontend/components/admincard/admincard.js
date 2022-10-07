@@ -13,10 +13,10 @@ const AdminCard = () => {
   ];
   return (
     <div className={style.admincard}>
-      {names.map((name) => (
-        <div className={style.item}>
+      {names.map((name,i) => (
+        <div key={i} className={style.item}>
           <div className={style.foto}>
-            <Image src={Foto} />
+            <Image src={Foto} alt="Image" />
           </div>
           <p>{name}</p>
         </div>
