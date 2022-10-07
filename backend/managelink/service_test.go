@@ -2,64 +2,41 @@ package managelink
 
 import (
 	"errors"
+	"net/http"
 	"testing"
 
-	_ "errors"
-
 	"github.com/bagasalim/simas/model"
-	"github.com/glebarez/sqlite"
 	"github.com/stretchr/testify/assert"
-	"gorm.io/gorm"
 )
 
-func newTestDB(t *testing.T) *gorm.DB {
-	db, err := gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
-	assert.NoError(t, err)
-	assert.NotNil(t, db)
-	err = db.AutoMigrate(&model.Link{})
-	assert.NoError(t, err)
-
-	link := []model.Link{
-		{
-			LinkType:  "WA",
-			LinkValue: "Ini Link WA",
-			UpdatedBy: "System",
-		},
-		{
-			LinkType:  "Zoom",
-			LinkValue: "Ini Link Zoom",
-			UpdatedBy: "System",
-		},
-	}
-	err = db.Create(&link).Error
-	assert.NoError(t, err)
-
-	return db
-}
-
-func TestGetLink(t *testing.T) {
+func TestGetLinkService(t *testing.T) {
 	db := newTestDB(t)
 	repo := NewRepository(db)
+	service := NewService(repo)
 
-	//get Link WA
-	res, err := repo.GetLink("WA")
+	//Get WA
+	req := GetLinkRequest{
+		LinkType: "WA",
+	}
+
+	link, status, err := service.GetLink(req)
 	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.LinkValue, "Ini Link WA")
+	assert.Equal(t, http.StatusOK, status)
+	assert.NotNil(t, link)
 
-	//get Link Zoom
-	res, err = repo.GetLink("Zoom")
+	//Get Zoom
+	req = GetLinkRequest{
+		LinkType: "Zoom",
+	}
+
+	link, status, err = service.GetLink(req)
 	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.LinkValue, "Ini Link Zoom")
+	assert.Equal(t, http.StatusOK, status)
+	assert.NotNil(t, link)
 
-	//No Link
-	res, err = repo.GetLink("No Link")
-	assert.Equal(t, err.Error(), errors.New("link not found").Error())
-	assert.Equal(t, res, model.Link{})
 }
 
-func TestUpdateLink(t *testing.T) {
+func TestUpdateLinkService(t *testing.T) {
 	db := newTestDB(t)
 	repo := NewRepository(db)
 
