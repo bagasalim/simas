@@ -14,7 +14,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "simaS123"
+	password = "admin"
 	dbname   = "simascontact"
 )
 
@@ -32,7 +32,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect database: %w", err)
+		return nil, fmt.Errorf("Failed to connect database: %w", err)
 	}
 	sqlDB, err := db.DB()
 	if err != nil {
