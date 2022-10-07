@@ -5,14 +5,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Router from 'next/router';
+import Router from "next/router";
 const Sidebar = () => {
-  const logout = ()=>{
-      localStorage.removeItem("token")
-      localStorage.removeItem("user")
-      console.log(localStorage.getItem('token'))
-      Router.replace('/loginForm');
-  }
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    console.log(localStorage.getItem("token"));
+    Router.replace("/loginForm");
+  };
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
@@ -31,7 +31,7 @@ const Sidebar = () => {
             <span>Akun CS</span>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <InfoIcon className={style.icon} />
               <span>Informasi</span>
             </a>
