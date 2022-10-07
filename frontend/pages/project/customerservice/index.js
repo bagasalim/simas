@@ -7,7 +7,7 @@ import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import ManageWa from "../../../components/managewa/managewa";
 
-export default function home() {
+export default function Home() {
   return (
     <div className={style.home}>
       <Sidebar />
