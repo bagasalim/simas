@@ -7,18 +7,18 @@ import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Router from 'next/router';
+import Router from "next/router";
 const Sidebar = () => {
-  const logout = ()=>{
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    console.log(localStorage.getItem('token'))
-    Router.replace('/loginForm');
-  }
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    console.log(localStorage.getItem("token"));
+    Router.replace("/loginForm");
+  };
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
-        <Image src={Logo} alt="logo"/>
+        <Image src={Logo} alt="logo" />
       </div>
       <hr />
       <div className={style.center}>
@@ -33,19 +33,19 @@ const Sidebar = () => {
             <span>Manage Chat</span>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <CallIcon className={style.icon} />
               <span>Manage Call</span>
             </a>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <VideocamIcon className={style.icon} />
               <span>Manage Zoom</span>
             </a>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <WhatsAppIcon className={style.icon} />
               <span>Manage WA</span>
             </a>
