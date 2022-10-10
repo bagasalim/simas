@@ -6,7 +6,7 @@ import Sidebar from "../../../components/sidebarcs/sidebarn";
 import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import ManageWA from "../../../components/managewa/managewa";
-
+import ManageZoom from "../../../components/managezoom/managezoom";
 import { useEffect, useState } from "react";
 import Router from "next/router";
 
@@ -50,6 +50,7 @@ export default function Index() {
           ) : (
             <>
               {showActive === "halamanutama" && <HalamanUtama />}
+              {showActive === "managezoom" && <ManageZoom />}
               {showActive === "managewa" && <ManageWA />}
             </>
           )}

@@ -39,11 +39,9 @@ const Sidebar = ({ toggleActive }) => {
               <span>Manage Call</span>
             </a>
           </li>
-          <li>
-            <a href="">
+          <li onClick={() => toggleActive("managezoom")}>
               <VideocamIcon className={style.icon} />
               <span>Manage Zoom</span>
-            </a>
           </li>
           <li onClick={() => toggleActive("managewa")}>
             <WhatsAppIcon className={style.icon} />
