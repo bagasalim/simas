@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./ManageWa.module.scss";
+import style from "./managewa.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
 import { useState, useEffect } from "react";
 
