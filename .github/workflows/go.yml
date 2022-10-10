@@ -18,10 +18,6 @@ jobs:
       with:
         go-version: 1.16
 
-    - name: Go initialization
-        run : go mod init
-        working-directory: backend
-
     - name: test
-        run : go test -cover -v ./auth
+        run : cd backend && go test -cover -v ./auth
         working-directory: backend
