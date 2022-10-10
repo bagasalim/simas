@@ -28,4 +28,5 @@ jobs:
     - name: test
       run : 
         go test -v ./auth 
+        go test -v ./managelink 
       working-directory: backend
