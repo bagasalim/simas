@@ -2,9 +2,15 @@ name: Go
 
 on:
   push:
-    branches: [ PBI-2-dbmanagelink ]
+    branches:
+    - main
+    - PBI-2-dbmanagelink
+    - staging
   pull_request:
-    branches: [ PBI-2-dbmanagelink ]
+    branches:
+    - main
+    - PBI-2-dbmanagelink
+    - staging
 
 jobs:
 
@@ -26,7 +32,7 @@ jobs:
       working-directory: backend
 
     - name: test
-      run : 
+      run : |
         go test -v ./auth 
         go test -v ./managelink 
       working-directory: backend
