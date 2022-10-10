@@ -50,7 +50,6 @@ const ManageWa = () => {
       d.data.linkvalue = body.newlink;
       console.log(d);
       setData(d);
-      setData(data);
       alert("Update Sukses");
     } catch (error) {
       alert("Update Gagal");
