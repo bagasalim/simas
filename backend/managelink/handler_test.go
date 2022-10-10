@@ -40,7 +40,7 @@ func Test_Get_Link_Handler(t *testing.T) {
 	r := gin.Default()
 
 	r.POST("/login", repoHandler.Login)
-	payload := `{"username": "remasertu", "password":"123456"}`
+	payload := `{"username": "CS01", "password":"123456"}`
 	req, err := http.NewRequest("POST", "/login", strings.NewReader(payload))
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 	assert.NoError(t, err)
@@ -119,7 +119,7 @@ func Test_Handler_Update_Link(t *testing.T) {
 	r := gin.Default()
 
 	r.POST("/login", repoHandler.Login)
-	payload := `{"username": "remasertu", "password":"123456"}`
+	payload := `{"username": "CS01", "password":"123456"}`
 	req, err := http.NewRequest("POST", "/login", strings.NewReader(payload))
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 	assert.NoError(t, err)
