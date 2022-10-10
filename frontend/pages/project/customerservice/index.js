@@ -14,8 +14,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [showActive, setShowActive] = useState("halamanutama");
 
-  const toggleActive = (key) =>
-    setShowActive((active) => (active === key ? "halamanutama" : key));
+  const toggleActive = (key) => setShowActive((active) => (active === key ? "halamanutama" : key));
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,7 +50,6 @@ export default function Index() {
           ) : (
             <>
               {showActive === "halamanutama" && <HalamanUtama />}
-              {showActive === "managezoom" && <ManageZoom />}
               {showActive === "managewa" && <ManageWA />}
             </>
           )}
