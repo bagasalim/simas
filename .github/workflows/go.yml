@@ -25,5 +25,5 @@ jobs:
         go get -u golang.org/x/lint/golint 
 
     - name: test
-        run : go test -cover -v ./auth
+        run : go test -v ./auth
         working-directory: backend
