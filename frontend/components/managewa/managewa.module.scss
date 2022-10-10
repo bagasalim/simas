@@ -1,4 +1,4 @@
-.wa {
+.zoom {
   padding-top: 30px;
   margin: 0 auto;
   display: flex;
@@ -14,7 +14,6 @@
     padding-top: 25px;
     padding-bottom: 50px;
     background-color: #f8f8f8;
-    border-radius: "16px";
   }
 
   h1 {
@@ -37,7 +36,7 @@
     border: 0.25px solid rgba(0, 0, 0, 0.15);
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: 8px;
+    border-radius: 5px;
     color: black;
   }
   input[type="text"]:active,
@@ -53,7 +52,7 @@
     background-color: #52b468;
     color: white;
     font-weight: 500;
-    border: 0.25px none;
+    border: 0.25px solid rgba(0, 0, 0, 0.15);
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     min-width: 750px;
     max-width: 750px;
