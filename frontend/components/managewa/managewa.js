@@ -23,7 +23,7 @@ const ManageWa = () => {
   };
   async function getWa(e) {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/getlink?linktype=Wa`,
+      `${process.env.NEXT_PUBLIC_URL}getlink?linktype=WA`,
       {
         method: "GET",
         headers: {
@@ -36,13 +36,11 @@ const ManageWa = () => {
     console.log(data);
   }
   async function putWa() {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
     setModalOpen(false);
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/updatelink?linktype=Zoom`,
+        `${process.env.NEXT_PUBLIC_URL}updatelink?linktype=WA`,
         {
           method: "PUT",
           headers: {
@@ -59,8 +57,9 @@ const ManageWa = () => {
       d.data.linkvalue = body.newlink;
       console.log(d);
       setData(d);
-      setData(data);
+      //setData(data);
       alert("Update Sukses");
+
     } catch (error) {
       setError(error);
     }
@@ -80,7 +79,7 @@ const ManageWa = () => {
             <input
               className={style.readonly}
               type="text"
-              placeholder="jabj"
+              placeholder={!data?"":data.data.linkvalue}
               readOnly
               disabled="true"
             />
