@@ -7,24 +7,26 @@ import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Router from 'next/router';
-const Sidebar = () => {
-  const logout = ()=>{
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    console.log(localStorage.getItem('token'))
-    Router.replace('/loginForm');
-  }
+import Router, { useRouter } from "next/router";
+
+const Sidebar = ({ toggleActive }) => {
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    console.log(localStorage.getItem("token"));
+    Router.replace("/loginForm");
+  };
+
   return (
     <div className={style.sidebar}>
       <div className={style.top}>
-        <Image src={Logo} alt="logo"/>
+        <Image src={Logo} alt="logo" />
       </div>
       <hr />
       <div className={style.center}>
         <ul>
           <p className={style.title}>MAIN MENU</p>
-          <li>
+          <li onClick={() => toggleActive("halamanutama")}>
             <HomeIcon className={style.icon} />
             <span>Halaman Utama</span>
           </li>
@@ -33,22 +35,20 @@ const Sidebar = () => {
             <span>Manage Chat</span>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <CallIcon className={style.icon} />
               <span>Manage Call</span>
             </a>
           </li>
           <li>
-            <a href="https://mangadex.org">
+            <a href="">
               <VideocamIcon className={style.icon} />
               <span>Manage Zoom</span>
             </a>
           </li>
-          <li>
-            <a href="https://mangadex.org">
-              <WhatsAppIcon className={style.icon} />
-              <span>Manage WA</span>
-            </a>
+          <li onClick={() => toggleActive("managewa")}>
+            <WhatsAppIcon className={style.icon} />
+            <span>Manage WA</span>
           </li>
           <li>
             <a href="#" onClick={logout}>

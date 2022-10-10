@@ -27,6 +27,7 @@ export default function LoginForm() {
       username: formData.get("username"),
       password: formData.get("password"),
     };
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}login`, {
       method: "POST",
       header: {
@@ -38,6 +39,7 @@ export default function LoginForm() {
 
     if (data.token) {
       localStorage.setItem("token", data.token);
+
       localStorage.setItem("user", JSON.stringify(data.data));
       if (data.data.role == 1) {
         Router.replace("/project/admin");
@@ -58,10 +60,8 @@ export default function LoginForm() {
         <div className={styles.shape} />
       </div>
       <div className="text-center mt-5">
-        <div>
-          <Image src={"/logo.png"} width="20%" alt="Logo" />
-          {/* <img src="/logo.png" style={{width:"20%"}}/> */}
-        </div>
+        <Image src={"/logo.png"} width="378" height="100" />
+
         <h2>Simas Contact dan Info</h2>
       </div>
       <form onSubmit={doLogin} id="formid" className={styles.form}>

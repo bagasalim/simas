@@ -5,11 +5,18 @@ import logo from "../../../public/logo.png";
 import Sidebar from "../../../components/sidebarcs/sidebarn";
 import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
+import ManageWA from "../../../components/managewa/managewa";
+
 import { useEffect, useState } from "react";
 import Router from "next/router";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
+  const [showActive, setShowActive] = useState("halamanutama");
+
+  const toggleActive = (key) =>
+    setShowActive((active) => (active === key ? "halamanutama" : key));
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
@@ -34,7 +41,7 @@ export default function Index() {
   }, []);
   return (
     <div className={style.home}>
-      <Sidebar />
+      <Sidebar toggleActive={toggleActive} />
       <div className={style.homeContainer}>
         <div className={style.content}>
           {loading ? (
@@ -42,7 +49,11 @@ export default function Index() {
               <h1>Please wait</h1>
             </div>
           ) : (
-            <HalamanUtama />
+            <>
+              {showActive === "halamanutama" && <HalamanUtama />}
+              {showActive === "managezoom" && <ManageZoom />}
+              {showActive === "managewa" && <ManageWA />}
+            </>
           )}
         </div>
       </div>
