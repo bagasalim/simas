@@ -18,5 +18,6 @@ jobs:
       with:
         go-version: 1.16
 
-    - name: Test
-      run: go test -v ./auth
+    - name: test
+        run : go test -cover -v ./auth
+        working-directory: backend
