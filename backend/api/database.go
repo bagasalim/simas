@@ -14,11 +14,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-<<<<<<< HEAD
 	password = "simaS123"
-=======
-	password = "admin"
->>>>>>> fa7ee3234dbb8eb5fd985883ee3e18480491e56e
 	dbname   = "simascontact"
 )
 
