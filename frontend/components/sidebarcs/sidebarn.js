@@ -9,7 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Router, { useRouter } from "next/router";
 
-const Sidebar = () => {
+const Sidebar = ({ toggleActive }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div className={style.center}>
         <ul>
           <p className={style.title}>MAIN MENU</p>
-          <li>
+          <li onClick={() => toggleActive("halamanutama")}>
             <HomeIcon className={style.icon} />
             <span>Halaman Utama</span>
           </li>
@@ -46,11 +46,9 @@ const Sidebar = () => {
               <span>Manage Zoom</span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <WhatsAppIcon className={style.icon} />
-              <span>Manage WA</span>
-            </a>
+          <li onClick={() => toggleActive("managewa")}>
+            <WhatsAppIcon className={style.icon} />
+            <span>Manage WA</span>
           </li>
           <li>
             <a href="#" onClick={logout}>

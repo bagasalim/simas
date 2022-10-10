@@ -2,10 +2,8 @@ import React from "react";
 import style from "./ManageWa.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/route";
 
 const ManageWa = () => {
-  const router = useRouter();
   const [data, setData] = useState(null);
   const [newLink, setNewLink] = useState("");
   const [error, setError] = useState(null);
@@ -24,12 +22,15 @@ const ManageWa = () => {
     setModalOpen(true);
   };
   async function getWa(e) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/getlink?linktype=Wa`, {
-      method: "GET",
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/getlink?linktype=Wa`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
     const data = await res.json();
     setData(data);
     console.log(data);
@@ -40,13 +41,19 @@ const ManageWa = () => {
     setModalOpen(false);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/updatelink?linktype=Zoom`, {
-        method: "PUT",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ linkvalue: body.newlink, UpdatedBy: "system" }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/updatelink?linktype=Zoom`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            linkvalue: body.newlink,
+            UpdatedBy: "system",
+          }),
+        }
+      );
       const resData = await res.json();
       const d = { ...data };
       d.data.linkvalue = body.newlink;
@@ -70,12 +77,24 @@ const ManageWa = () => {
         >
           <div>
             <h3>Link WhatsApp Lama</h3>
-            <input className={style.readonly} type="text" placeholder="jabj" readOnly disabled="true" />
+            <input
+              className={style.readonly}
+              type="text"
+              placeholder="jabj"
+              readOnly
+              disabled="true"
+            />
           </div>
           <br />
           <div>
             <h3>Link WhatsApp Baru</h3>
-            <input type="text" name="newlink" required value={newLink} onChange={(e) => setNewLink(e.target.value)} />
+            <input
+              type="text"
+              name="newlink"
+              required
+              value={newLink}
+              onChange={(e) => setNewLink(e.target.value)}
+            />
           </div>
           <br />
           <br />
@@ -84,7 +103,14 @@ const ManageWa = () => {
           </button>
         </form>
       </div>
-      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Wa"} data={body} response={putWa} />;
+      <ConfirmationModal
+        show={modalOpen}
+        close={() => setModalOpen(false)}
+        linktype={"Wa"}
+        data={body}
+        response={putWa}
+      />
+      ;
     </div>
   );
 };
