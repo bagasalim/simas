@@ -8,7 +8,7 @@ const HalamanUtama = () => {
   return (
     <div className={style.utama}>
       <h1 className={style.title}>Selamat Datang Mr. Amron</h1>
-      <hr style={{ width: "1200px" }} />
+      <hr />
       <br />
       <div className={style.admincards}>
         <h3 style={{ fontSize: "24px", fontWeight: "450" }}>List Customer Service</h3>

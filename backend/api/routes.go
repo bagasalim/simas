@@ -19,13 +19,25 @@ func (s *server) SetupRouter() {
 	s.Router.POST("/create-account", authHandler.CreateUser)
 	s.Router.POST("/login", authHandler.Login)
 	//example validation auth route
-	s.Router.Use(custom.MiddlewareAuth)
-	s.Router.POST("/test", authHandler.Test)
 
-	//manage link
+	middleware := custom.MiddleWare{}
+	authRoute := s.Router.Group("")
+	authRoute.Use(middleware.Auth)
+
 	manageLinkRepo := managelink.NewRepository(s.DB)
 	manageLinkService := managelink.NewService(manageLinkRepo)
 	manageLinkHandler := managelink.NewHandler(manageLinkService)
-	s.Router.GET("/getlink", manageLinkHandler.GetLink)
-	s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
+
+	csRoute := authRoute.Group("")
+	csRoute.Use(middleware.IsCS)
+	csRoute.PUT("/updatelink", manageLinkHandler.UpdateLink)
+	csRoute.GET("/getlink", manageLinkHandler.GetLink)
+	// s.Router.Use(custom.MiddlewareAuth)
+
+	// s.Router.POST("/test", authHandler.Test)
+
+	//manage link
+
+	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
+	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
 }
