@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 const ManageWa = () => {
   const [data, setData] = useState(null);
   const [newLink, setNewLink] = useState("");
-  const [error, setError] = useState(null);
   useEffect(() => {
     getZoom();
   }, []);
@@ -51,10 +50,10 @@ const ManageWa = () => {
       d.data.linkvalue = body.newlink;
       console.log(d);
       setData(d);
-      //setData(data);
+      setData(data);
       alert("Update Sukses");
     } catch (error) {
-      setError(error);
+      alert("Update Gagal");
     }
   }
 
@@ -83,7 +82,7 @@ const ManageWa = () => {
           </button>
         </form>
       </div>
-      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Wa"} data={body} response={putZoom} />;
+      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Zoom"} data={body} response={putZoom} />;
     </div>
   );
 };
