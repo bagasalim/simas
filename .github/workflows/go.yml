@@ -23,6 +23,7 @@ jobs:
       run: |
         go version
         go get -u golang.org/x/lint/golint 
+      working-directory: backend
 
     - name: test
         run : go test -v ./auth
