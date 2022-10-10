@@ -26,7 +26,6 @@ jobs:
       working-directory: backend
 
     - name: test
-      run : |
-        go mod init
+      run : 
         go test -v ./auth 
       working-directory: backend
