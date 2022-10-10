@@ -59,8 +59,8 @@ export default function LoginForm() {
         <div className={styles.shape} />
         <div className={styles.shape} />
       </div>
-      <div className="text-center mt-5">
-        <Image src={"/logo.png"} width="378" height="100" />
+      <div className="text-center mt-4">
+        <Image src={"/logo.png"} width="378" height="100" alt="Logo" />
 
         <h2>Simas Contact dan Info</h2>
       </div>

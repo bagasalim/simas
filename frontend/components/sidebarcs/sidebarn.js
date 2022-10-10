@@ -16,7 +16,6 @@ const Sidebar = ({ toggleActive }) => {
     console.log(localStorage.getItem("token"));
     Router.replace("/loginForm");
   };
-
   return (
     <div className={style.sidebar}>
       <div className={style.top}>

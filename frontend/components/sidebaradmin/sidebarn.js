@@ -5,7 +5,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa7ee3234dbb8eb5fd985883ee3e18480491e56e
 import Router from "next/router";
 const Sidebar = () => {
   const logout = () => {
