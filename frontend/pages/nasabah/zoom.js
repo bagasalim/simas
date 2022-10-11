@@ -68,7 +68,7 @@ export default function Zoom(){
         <br />
         <hr />
         <br />
-        <div class={styles.container}>
+        <div className={styles.container}>
         <form id="formZoom">
             <h3 className={styles.titleForm}>Isi Data Diri</h3>
 
