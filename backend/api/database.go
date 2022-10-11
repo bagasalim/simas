@@ -10,12 +10,12 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "Upil_joni10"
-	dbname   = "simascontact"
+var (
+	host = "localhost"
+	port = 5432
+	user = "postgres"
+
+	dbname = "simascontact"
 )
 
 func SetupDb() (*gorm.DB, error) {
@@ -26,7 +26,7 @@ func SetupDb() (*gorm.DB, error) {
 	if os.Getenv("ENVIRONMENT") == "PROD" {
 		db, err = gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 	} else {
-		config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+		config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, os.Getenv("DB_PASSWORD"), dbname)
 
 		db, err = gorm.Open(postgres.Open(config), &gorm.Config{})
 	}
