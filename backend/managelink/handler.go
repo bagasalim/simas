@@ -90,3 +90,23 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 
 	fmt.Println(dataUser)
 }
+func (h *Handler) GetLinkRequest(c *gin.Context) {
+	linktype, exist := c.Params.Get("type")
+	if exist == false {
+		messageErr := []string{"Input data not suitable"}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+	req := GetLinkRequest{LinkType: linktype}
+	link, status, err := h.Service.GetLink(req)
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    link,
+	})
+}
