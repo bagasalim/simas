@@ -21,7 +21,7 @@ export default function Nasabah() {
     if (linkWa == "") {
       setLoadingWA(true);
       const res = await getLinkWa();
-      if (res == false) {
+      if (!res) {
         alert("Gagal ke Wa");
         return;
       }
@@ -29,13 +29,13 @@ export default function Nasabah() {
   };
   const getLinkWa = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/get-link/WA`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/WA`);
       if (res.status != 200) {
-        throw new "gagal mendapatkan pesan"();
+        throw "gagal mendapatkan pesan"();
       }
       const data = await res.json();
       if (!data.data) {
-        throw new "gagal mendapatkan data"();
+        throw "gagal mendapatkan data"();
       }
       setLinkWA(data.data.linkvalue);
       setLoading(false);
