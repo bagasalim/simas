@@ -1,54 +1,89 @@
 import React from "react";
 import style from "./managezoom.module.scss";
-import ConfirmationModal from "../modals/modalwadanzoom/modalwadanzoom";
+import ConfirmationModal from "../modals/modalwadanzoom";
+import { useState, useEffect } from "react";
 
-const ManageZoom = () => {
+const ManageWa = () => {
+  const [data, setData] = useState(null);
+  const [newLink, setNewLink] = useState("");
+  useEffect(() => {
+    getZoom();
+  }, []);
+
   const [modalOpen, setModalOpen] = React.useState(false);
   const [body, setBodyData] = React.useState("");
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
     const dataform = {
-      newlink: formData.get("newlink"),
+      newlink: newLink,
     };
-    body = setBodyData(dataform);
-    modalOpen = setModalOpen(true);
+    setBodyData(dataform);
+    setModalOpen(true);
   };
+  async function getZoom(e) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}getlink?linktype=Zoom`, {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    const data = await res.json();
+    setData(data);
+    console.log(data);
+  }
+  async function putZoom() {
+    setModalOpen(false);
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}updatelink?linktype=Zoom`, {
+        method: "PUT",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          linkvalue: body.newlink,
+          UpdatedBy: "system",
+        }),
+      });
+      const resData = await res.json();
+      const d = { ...data };
+      d.data.linkvalue = body.newlink;
+      console.log(d);
+      setData(d);
+      alert("Update Sukses");
+    } catch (error) {
+      alert("Update Gagal");
+    }
+  }
 
   return (
     <div className={style.zoom}>
-      <h1>Manage link zoom</h1>
+      <h1>Manage Link Zoom</h1>
       <div className={style.inputbox}>
-        <form onSubmit={onSubmit}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <div>
-            <h3>Link ZOOM Lama</h3>
-            <input
-              className={style.readonly}
-              type="text"
-              placeholder="https://zoom.us/w/99582712162?tk=_ILvh4FKnvxojs9q0ShiqEJsUyaIf4eE7qlYPIpmBQI.DQMAAAAXL5eZYhZFTWZ1dVFqQ1NBMjB5THVjMjBHakh3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=SzRUOFNIVldlRkR6SlFpc004OUs1Zz09"
-              readOnly
-            />
+            <h3>Link Zoom Lama</h3>
+            <input className={style.readonly} type="text" placeholder={!data ? "" : data.data.linkvalue} readOnly disabled="true" />
           </div>
           <br />
           <div>
-            <h3>Link ZOOM Baru</h3>
-            <input type="text" name="newlink" required />
+            <h3>Link Zoom Baru</h3>
+            <input type="text" name="newlink" required value={newLink} onChange={(e) => setNewLink(e.target.value)} />
           </div>
           <br />
           <br />
-          <button className={style.buttonHijau}>SIMPAN</button>
+          <button className={style.buttonHijau} onClick={onSubmit}>
+            SIMPAN
+          </button>
         </form>
       </div>
-      <ConfirmationModal
-        show={modalOpen}
-        close={() => setModalOpen(false)}
-        linktype={"Zoom"}
-        data={body}
-      />
-      ;
+      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Zoom"} data={body} response={putZoom} />;
     </div>
   );
 };
 
-export default ManageZoom;
+export default ManageWa;

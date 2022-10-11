@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 const ManageWa = () => {
   const [data, setData] = useState(null);
   const [newLink, setNewLink] = useState("");
-  const [error, setError] = useState(null);
   useEffect(() => {
     getWa();
   }, []);
@@ -51,10 +50,9 @@ const ManageWa = () => {
       d.data.linkvalue = body.newlink;
       console.log(d);
       setData(d);
-      //setData(data);
       alert("Update Sukses");
     } catch (error) {
-      setError(error);
+      alert("Update Gagal");
     }
   }
 
