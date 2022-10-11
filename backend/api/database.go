@@ -14,7 +14,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "admin"
+	password = "simaS123"
 	dbname   = "simascontact"
 )
 
@@ -44,7 +44,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}, model.Link{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Zoom{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
