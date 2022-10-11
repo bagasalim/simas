@@ -87,13 +87,15 @@ export default function Zoom(){
                 <option value="pin">Mengganti PIN Channel</option>
                 <option value="custcare">Berbicara dengan CustCare</option>
             </select>
+
+            <label htmlFor="keluhanZoom" className={styles.label}>Keluhan</label>
+            <textarea id="keluhanZoom" name="keluhanZoom" placeholder="Masukkan Keluhan Anda" className={styles.input}/>
             
             {
                             loading ?
                             ( <div>
                                 Please Wait
                             </div> ):(
-                                //  <button className="btn text-white" style={{background:"#2D8CFF"}} onClick={openZoom}>Melanjutkan ke Zoom</button>
                                     <button className={styles.button} onClick={openZoom}>Melanjutkan ke Zoom</button>
                             )
             }
