@@ -102,7 +102,7 @@ func SetupDb() (*gorm.DB, error) {
 		}
 
 		resRiwayats := db.Create(&riwayats)
-		if resLinks == nil {
+		if resRiwayats == nil {
 			return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
 		}
 
