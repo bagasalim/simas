@@ -6,7 +6,7 @@ import (
 )
 
 type ZoomRepository interface {
-	AddUser(zoom model.Zoom) (model.Zoom, error)
+	AddUser(Riwayat model.Riwayat) (model.Riwayat, error)
 }
 type repository struct {
 	db *gorm.DB
@@ -15,11 +15,11 @@ type repository struct {
 func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
-func (r *repository) AddUser(zoom model.Zoom) (model.Zoom, error) {
-	res := r.db.Create(&zoom)
+func (r *repository) AddUser(Riwayat model.Riwayat) (model.Riwayat, error) {
+	res := r.db.Create(&Riwayat)
 	if res.Error != nil {
-		return model.Zoom{}, res.Error
+		return model.Riwayat{}, res.Error
 	}
 
-	return zoom, nil
+	return Riwayat, nil
 }

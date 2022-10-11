@@ -7,7 +7,7 @@ import (
 )
 
 type Service interface {
-	CreateZoomHistory(data ZoomHistoryRequest) (model.Zoom, int, error)
+	CreateZoomHistory(data ZoomHistoryRequest) (model.Riwayat, int, error)
 }
 
 type service struct {
@@ -18,16 +18,16 @@ func NewService(repo ZoomRepository) *service {
 	return &service{repo}
 }
 
-func (s *service) CreateZoomHistory(data ZoomHistoryRequest) (model.Zoom, int, error) {
-	Zoom := model.Zoom{
-		Username: data.Username,
-		Email:    data.Email,
-		Kategori: data.Kategori,
-		Keluhan:  data.Keluhan,
+func (s *service) CreateZoomHistory(data ZoomHistoryRequest) (model.Riwayat, int, error) {
+	Riwayat := model.Riwayat{
+		Nama:       data.Nama,
+		Email:      data.Email,
+		Kategori:   data.Kategori,
+		Keterangan: data.Keterangan,
 	}
-	res, err := s.repo.AddUser(Zoom)
+	res, err := s.repo.AddUser(Riwayat)
 	if err != nil {
-		return model.Zoom{}, http.StatusInternalServerError, err
+		return model.Riwayat{}, http.StatusInternalServerError, err
 	}
 	return res, http.StatusOK, nil
 }

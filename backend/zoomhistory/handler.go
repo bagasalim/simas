@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/bagasalim/simas/custom"
-	_ "github.com/bagasalim/simas/custom"
 	"github.com/gin-gonic/gin"
 )
 
