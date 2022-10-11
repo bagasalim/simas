@@ -19,7 +19,7 @@ func (m *MiddleWare) Auth(c *gin.Context) {
 	auth := c.Request.Header["Authorization"]
 	if len(auth) == 0 {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "You not have access1",
+			"message": "You not have access",
 		})
 		c.Abort()
 		fmt.Println("no auth")
@@ -29,7 +29,7 @@ func (m *MiddleWare) Auth(c *gin.Context) {
 	dataUser, err := ClaimToken(token)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "You not have access1.1",
+			"message": "You not have access",
 		})
 		c.Abort()
 		return
@@ -41,7 +41,7 @@ func (m *MiddleWare) IsAdmin(c *gin.Context) {
 	data, exist := c.Get("user")
 	if exist == false {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "You not have access2",
+			"message": "You not have access",
 		})
 		c.Abort()
 		return
@@ -59,7 +59,7 @@ func (m *MiddleWare) IsCS(c *gin.Context) {
 	data, exist := c.Get("user")
 	if exist == false {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"message": "You not have access3",
+			"message": "You not have access",
 		})
 		c.Abort()
 		return
