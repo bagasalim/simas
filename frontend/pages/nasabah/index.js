@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Image from "next/future/image";
 import cslaki from "../../public/cslaki.png";
 import info from "../../public/info.png";
-import UserFooter from "../../components/userfooter";
 
 export default function Nasabah() {
   const [showCS, setShowCS] = useState(false);
@@ -149,7 +148,6 @@ export default function Nasabah() {
           </div>
         </div>
       </div>
-      <UserFooter />
     </div>
   );
 }
