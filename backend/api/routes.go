@@ -32,6 +32,8 @@ func (s *server) SetupRouter() {
 	csRoute.Use(middleware.IsCS)
 	csRoute.PUT("/updatelink", manageLinkHandler.UpdateLink)
 	csRoute.GET("/getlink", manageLinkHandler.GetLink)
+
+	s.Router.GET("/get-link/:type", manageLinkHandler.GetLinkRequest)
 	// s.Router.Use(custom.MiddlewareAuth)
 
 	// s.Router.POST("/test", authHandler.Test)

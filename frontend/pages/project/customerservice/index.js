@@ -6,9 +6,10 @@ import Sidebar from "../../../components/sidebarcs/sidebarn";
 import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import ManageWA from "../../../components/managewa/managewa";
-
+import userfooter from "../../../components/userfooter";
 import { useEffect, useState } from "react";
 import Router from "next/router";
+import UserFooter from "../../../components/userfooter";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
