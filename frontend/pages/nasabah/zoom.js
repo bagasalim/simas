@@ -73,10 +73,10 @@ export default function Zoom(){
             <h3 className={styles.titleForm}>Isi Data Diri</h3>
 
             <label htmlFor="namaZoom" className={styles.label}>Nama</label>
-            <input type="text" placeholder="Masukan Nama" id="namaZoom" name="namaZoom" className={styles.input} />
+            <input type="text" placeholder="Masukan Nama" id="namaZoom" name="namaZoom" className={styles.input} required/>
 
             <label htmlFor="emailZoom" className={styles.label}>Email</label>
-            <input type="text" placeholder="Masukkan Email" id="emailZoom" name="emailZoom" className={styles.input} />
+            <input type="email" placeholder="Masukkan Email" id="emailZoom" name="emailZoom" className={styles.input} required/>
 
             <label htmlFor="kategoriZoom" className={styles.label}>Kategori</label>
             <select id="kategoriZoom" name="kategoriZoom" className={styles.input}>
@@ -89,7 +89,7 @@ export default function Zoom(){
             </select>
 
             <label htmlFor="keluhanZoom" className={styles.label}>Keluhan</label>
-            <textarea id="keluhanZoom" name="keluhanZoom" placeholder="Masukkan Keluhan Anda" className={styles.input}/>
+            <textarea id="keluhanZoom" name="keluhanZoom" placeholder="Masukkan Keluhan Anda" className={styles.input} required/>
             
             {
                             loading ?
