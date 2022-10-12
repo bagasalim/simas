@@ -28,7 +28,7 @@ export default function Nasabah() {
   };
   const getLinkWa = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/get-link/WA`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/WA`);
       if (res.status != 200) {
         throw new "gagal mendapatkan pesan"();
       }

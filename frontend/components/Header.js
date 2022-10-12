@@ -1,11 +1,25 @@
 import React from "react";
 import Image from "next/image";
 import Logo from "~/public/logo.png";
+import { useRouter } from "next/router";
+
 export default function Header() {
+  const router = useRouter();
+
+  const home = () => {
+    router.push("/");
+  };
+
   return (
     <div>
       <div style={{ paddingLeft: "20px", paddingTop: "10px" }}>
-        <Image src={Logo} width="200px" height="50px" layout="fixed" />
+        <Image
+          src={Logo}
+          width="200px"
+          height="50px"
+          layout="fixed"
+          onClick={home}
+        />
       </div>
       <div style={{ background: "#CC100F", width: "100%", height: "50px" }}>
         <div
@@ -16,6 +30,7 @@ export default function Header() {
             href="#layananinfo"
             className="pe-2 text-white px-5"
             style={{ fontWeight: "bold", fontSize: "20px" }}
+            onClick={home}
           >
             Pusat Informasi
           </a>
@@ -23,6 +38,7 @@ export default function Header() {
             href="#layanancs"
             className="pe-2 text-white px-5"
             style={{ fontWeight: "bold", fontSize: "20px" }}
+            onClick={home}
           >
             Layanan CS
           </a>
