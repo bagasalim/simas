@@ -22,6 +22,10 @@ export default function Nasabah() {
     router.push("/nasabah/zoom");
   };
 
+  const asuransi = () => {
+    router.push("/nasabah/asuransi");
+  };
+
   const wa = async () => {
     if (linkWa == "") {
       setLoadingWA(true);
@@ -139,7 +143,7 @@ export default function Nasabah() {
                   </div>
                 ) : (
                   <div className="d-flex mt-3">
-                    <button className="btn me-2" style={{ background: "#CC100F", color: "white" }}>
+                    <button className="btn me-2" style={{ background: "#CC100F", color: "white" }} onClick={asuransi}>
                       Asuransi
                     </button>
                     <button className="btn" style={{ background: "#CC100F", color: "white" }} onClick={kontakresmi}>
