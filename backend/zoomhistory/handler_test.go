@@ -12,6 +12,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	post = "/createzoomhistory"
+)
+
 func TestCreateZoom(t *testing.T) {
 	db := newTestDB(t)
 	repo := NewRepository(db)
@@ -19,9 +23,9 @@ func TestCreateZoom(t *testing.T) {
 	handler := NewHandler(service)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
-	r.POST("/createzoomhistory", handler.CreateZoom)
+	r.POST(post, handler.CreateZoom)
 	payload := `{"nama": "cayo", "email":"calvin@gmail.com", "kategori":"Kredit","keterangan":"gatau"}`
-	req, err := http.NewRequest("POST", "/createzoomhistory", strings.NewReader(payload))
+	req, err := http.NewRequest("POST", post, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	type responseMess struct {
@@ -37,7 +41,7 @@ func TestCreateZoom(t *testing.T) {
 
 	// error validation
 	payload = ``
-	req, err = http.NewRequest("POST", "/createzoomhistory", strings.NewReader(payload))
+	req, err = http.NewRequest("POST", post, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	w = httptest.NewRecorder()
