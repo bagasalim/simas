@@ -41,7 +41,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}, model.Link{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
@@ -73,6 +73,21 @@ func SetupDb() (*gorm.DB, error) {
 			},
 		}
 
+		riwayats := []model.Riwayat{
+			{
+				Nama:       "John",
+				Email:      "john@gmail.com",
+				Kategori:   "Kartu Kredit",
+				Keterangan: "Complain CC",
+			},
+			{
+				Nama:       "Doe",
+				Email:      "doe@gmail.com",
+				Kategori:   "Digital Loan",
+				Keterangan: "Cara Daftar Loan",
+			},
+		}
+
 		resUsers := db.Create(&users)
 		if resUsers == nil {
 			return nil, fmt.Errorf("failed to seeding users database: %w", resUsers.Error)
@@ -81,6 +96,11 @@ func SetupDb() (*gorm.DB, error) {
 		resLinks := db.Create(&links)
 		if resLinks == nil {
 			return nil, fmt.Errorf("failed to seeding links database: %w", resLinks.Error)
+		}
+
+		resRiwayats := db.Create(&riwayats)
+		if resRiwayats == nil {
+			return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
 		}
 
 	}
