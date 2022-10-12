@@ -33,6 +33,6 @@ jobs:
 
     - name: test
       run : |
-        go test -v ./auth 
-        go test -v ./managelink 
+        go test -cover -v ./auth 
+        go test -cover -v ./managelink 
       working-directory: backend
