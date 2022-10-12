@@ -3,14 +3,12 @@ name: Go
 on:
   push:
     branches:
-      - main
-      - PBI-2-dbmanagelink
-      - staging
+    - main
+    - staging
   pull_request:
     branches:
-      - main
-      - PBI-2-dbmanagelink
-      - staging
+    - main
+    - staging
 
 jobs:
   build:
@@ -23,15 +21,9 @@ jobs:
         with:
           go-version: 1.19
 
-      # Install all the dependencies
-      - name: Install dependencies
-        run: |
-          go version
-          go get -u golang.org/x/lint/golint
-        working-directory: backend
-
-      - name: test
-        run: |
-          go test -v ./auth 
-          go test -v ./managelink
-        working-directory: backend
+    - name: test
+      run : |
+        go test -cover -v ./auth 
+        go test -cover -v ./managelink 
+        go test -cover -v ./zoomhistory 
+      working-directory: backend
