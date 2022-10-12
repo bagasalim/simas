@@ -27,7 +27,7 @@ func (s *service) CreateZoomHistory(data ZoomHistoryRequest) (model.Riwayat, int
 	}
 	res, err := s.repo.AddUser(Riwayat)
 	if err != nil {
-		return model.Riwayat{}, http.StatusInternalServerError, err
+		return model.Riwayat{}, http.StatusBadRequest, err
 	}
 	return res, http.StatusOK, nil
 }
