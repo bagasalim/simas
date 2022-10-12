@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div>
       <div style={{ paddingLeft: "20px", paddingTop: "10px" }}>
-        <Image src={Logo} width="200px" height="50px" layout="fixed" />
+        <Image src={Logo} width="200px" height="50px" layout="fixed" alt="Header Logo" />
       </div>
       <div style={{ background: "#CC100F", width: "100%", height: "50px" }}>
         <div className="d-flex flex-row-reverse me-5 align-items-center " style={{ height: "100%" }}>

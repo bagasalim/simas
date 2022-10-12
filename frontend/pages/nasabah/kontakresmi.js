@@ -17,7 +17,7 @@ const KontakResmi = () => {
           <table className="mt-5">
             <tr>
               <td>
-                <a href="https://id-id.facebook.com/BankSinarmas/" target="_blank">
+                <a href="https://id-id.facebook.com/BankSinarmas/" target="_blank" rel="noreferrer">
                   {" "}
                   <Image src={logofacebook} width={76} height={71} alt={"logo instagram"} />
                   @BankSinarmas
