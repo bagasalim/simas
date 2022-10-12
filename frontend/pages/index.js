@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/future/image";
 import cslaki from "../public/cslaki.png";
 import info from "../public/info.png";
+import UserFooter from "../components/userfooter";
 
 export default function Nasabah() {
   const [showCS, setShowCS] = useState(false);
@@ -20,7 +21,7 @@ export default function Nasabah() {
     if (linkWa == "") {
       setLoadingWA(true);
       const res = await getLinkWa();
-      if (res == false) {
+      if (!res) {
         alert("Gagal ke Wa");
         return;
       }
@@ -30,11 +31,11 @@ export default function Nasabah() {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/WA`);
       if (res.status != 200) {
-        throw new "gagal mendapatkan pesan"();
+        throw "gagal mendapatkan pesan"();
       }
       const data = await res.json();
       if (!data.data) {
-        throw new "gagal mendapatkan data"();
+        throw "gagal mendapatkan data"();
       }
       setLinkWA(data.data.linkvalue);
       setLoading(false);
@@ -61,11 +62,8 @@ export default function Nasabah() {
             <div className="mx-auto">
               <h3 className="fw-bold mb-3">Layanan Customer Service</h3>
               <p style={{ textAlign: "justify" }}>
-                Layanan customer service sinarmas hadir untuk menyelesaikan
-                masalah anda terkait layanan yang berada di sinarmas. Layanan CS
-                sinarmas tidak hanya menangani permasalahan untuk nasabah,
-                tetapi terbuka untuk nasabah yang mau menjelajahi kebebasan
-                finansial bersama sinarmas.
+                Layanan customer service sinarmas hadir untuk menyelesaikan masalah anda terkait layanan yang berada di sinarmas. Layanan CS sinarmas tidak hanya menangani permasalahan untuk nasabah, tetapi terbuka untuk nasabah yang mau
+                menjelajahi kebebasan finansial bersama sinarmas.
               </p>
             </div>
 
@@ -89,19 +87,10 @@ export default function Nasabah() {
                   </div>
                 ) : (
                   <div className="d-flex mt-3">
-                    <button
-                      className="btn me-2"
-                      style={{ background: "#CC100F", color: "white" }}
-                      onClick={zoom}
-                    >
+                    <button className="btn me-2" style={{ background: "#CC100F", color: "white" }} onClick={zoom}>
                       Video Zoom
                     </button>
-                    <a
-                      className="btn"
-                      style={{ background: "#CC100F", color: "white" }}
-                      onClick={wa}
-                      href={linkWa}
-                    >
+                    <a className="btn" style={{ background: "#CC100F", color: "white" }} onClick={wa} href={linkWa}>
                       {loadWA ? "Please wait" : ""} Whatsapp
                     </a>
                   </div>
@@ -117,22 +106,12 @@ export default function Nasabah() {
         <br />
         <div className="row my-5" id="layananinfo">
           <div className="col-6 border-end-0 border-3">
-            <Image
-              src={info}
-              width={500}
-              height={400}
-              style={{ borderRadius: "75%" }}
-              alt={"info"}
-            />
+            <Image src={info} width={500} height={400} style={{ borderRadius: "75%" }} alt={"info"} />
           </div>
           <div className="col-6">
             <div className="mx-auto">
               <h3 className="fw-bold mb-3">Pusat Informasi</h3>
-              <p style={{ textAlign: "justify" }}>
-                Pusat Informasi Bank Sinarmas hadir untuk menyediakan
-                informasi-informasi terkini mengenai Promosi, Asuransi, dan
-                Kontak Resmi.
-              </p>
+              <p style={{ textAlign: "justify" }}>Pusat Informasi Bank Sinarmas hadir untuk menyediakan informasi-informasi terkini mengenai Promosi, Asuransi, dan Kontak Resmi.</p>
             </div>
 
             <div className="mt-5">
@@ -155,16 +134,10 @@ export default function Nasabah() {
                   </div>
                 ) : (
                   <div className="d-flex mt-3">
-                    <button
-                      className="btn me-2"
-                      style={{ background: "#CC100F", color: "white" }}
-                    >
+                    <button className="btn me-2" style={{ background: "#CC100F", color: "white" }}>
                       Asuransi
                     </button>
-                    <button
-                      className="btn"
-                      style={{ background: "#CC100F", color: "white" }}
-                    >
+                    <button className="btn" style={{ background: "#CC100F", color: "white" }}>
                       Kontak Resmi
                     </button>
                   </div>
@@ -176,6 +149,7 @@ export default function Nasabah() {
           </div>
         </div>
       </div>
+      <UserFooter />
     </div>
   );
 }

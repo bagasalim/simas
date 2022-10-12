@@ -16,7 +16,7 @@ func newTestDB(t *testing.T) *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
 	assert.NoError(t, err)
 	assert.NotNil(t, db)
-	err = db.AutoMigrate(&model.Link{})
+	err = db.AutoMigrate(&model.Link{}, &model.User{})
 	assert.NoError(t, err)
 
 	link := []model.Link{
@@ -33,6 +33,16 @@ func newTestDB(t *testing.T) *gorm.DB {
 	}
 	err = db.Create(&link).Error
 	assert.NoError(t, err)
+
+	dataUser := []model.User{
+		{
+			Username: "CS01",
+			Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
+			Name:     "Customer Service",
+			Role:     2,
+		},
+	}
+	db.Create(&dataUser)
 
 	return db
 }

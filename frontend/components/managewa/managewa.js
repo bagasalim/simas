@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./managezoom.module.scss";
+import style from "./managewa.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
 import { useState, useEffect } from "react";
 
@@ -7,7 +7,7 @@ const ManageWa = () => {
   const [data, setData] = useState(null);
   const [newLink, setNewLink] = useState("");
   useEffect(() => {
-    getZoom();
+    getWa();
   }, []);
 
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -20,8 +20,8 @@ const ManageWa = () => {
     setBodyData(dataform);
     setModalOpen(true);
   };
-  async function getZoom(e) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}getlink?linktype=Zoom`, {
+  async function getWa(e) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}getlink?linktype=WA`, {
       method: "GET",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -31,11 +31,11 @@ const ManageWa = () => {
     setData(data);
     console.log(data);
   }
-  async function putZoom() {
+  async function putWa() {
     setModalOpen(false);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}updatelink?linktype=Zoom`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}updatelink?linktype=WA`, {
         method: "PUT",
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -58,7 +58,7 @@ const ManageWa = () => {
 
   return (
     <div className={style.zoom}>
-      <h1>Manage Link Zoom</h1>
+      <h1>Manage Link WhatsApp</h1>
       <div className={style.inputbox}>
         <form
           onSubmit={(e) => {
@@ -66,12 +66,12 @@ const ManageWa = () => {
           }}
         >
           <div>
-            <h3>Link Zoom Lama</h3>
+            <h3>Link WhatsApp Lama</h3>
             <input className={style.readonly} type="text" placeholder={!data ? "" : data.data.linkvalue} readOnly disabled="true" />
           </div>
           <br />
           <div>
-            <h3>Link Zoom Baru</h3>
+            <h3>Link WhatsApp Baru</h3>
             <input type="text" name="newlink" required value={newLink} onChange={(e) => setNewLink(e.target.value)} />
           </div>
           <br />
@@ -81,7 +81,7 @@ const ManageWa = () => {
           </button>
         </form>
       </div>
-      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Zoom"} data={body} response={putZoom} />;
+      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} linktype={"Wa"} data={body} response={putWa} />;
     </div>
   );
 };

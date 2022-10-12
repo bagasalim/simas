@@ -81,5 +81,6 @@ export default function LoginForm() {
         <button className={styles.button}>Masuk</button>
       </form>
     </div>
+    
   );
 }
