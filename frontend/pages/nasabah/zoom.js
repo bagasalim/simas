@@ -43,7 +43,7 @@ export default function Zoom() {
     };
     console.log(body);
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}createzoomhistory`, {
+      await fetch(`${process.env.NEXT_PUBLIC_URL}createzoomhistory`, {
         method: "POST",
         body: JSON.stringify(body),
       });
