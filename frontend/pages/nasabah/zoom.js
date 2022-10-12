@@ -11,14 +11,6 @@ export default function Zoom() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const openZoom = () => {
-    if (link == "") {
-      alert("link zoom sedang bermasalah, silahkan merefresh ulang");
-      return;
-    }
-    router.push(link);
-  };
-
   const getLinkZoom = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/Zoom`);
@@ -49,11 +41,17 @@ export default function Zoom() {
       kategori: formData.get("kategoriZoom"),
       keterangan: formData.get("keluhanZoom"),
     };
+    console.log(body);
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send`, {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}createzoomhistory`, {
         method: "POST",
         body: JSON.stringify(body),
       });
+      if (link == "") {
+        alert("link zoom sedang bermasalah, silahkan merefresh ulang");
+        return;
+      }
+      router.push(link);
     } catch (e) {
       if (typeof e === "string") {
         alert("Gagal menginputkan form data diri, silahkan refresh ulang");
@@ -79,6 +77,7 @@ export default function Zoom() {
               width={500}
               height={400}
               alt={"desktopzoom"}
+              priority={true}
             />
           </div>
           <div className="col-6">
@@ -161,9 +160,7 @@ export default function Zoom() {
           {loading ? (
             <div>Please Wait</div>
           ) : (
-            <button className={styles.button} onClick={openZoom}>
-              Melanjutkan ke Zoom
-            </button>
+            <button className={styles.button}>Melanjutkan ke Zoom</button>
           )}
         </form>
       </div>
