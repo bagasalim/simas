@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bagasalim/simas/custom"
@@ -75,10 +74,4 @@ func (h *Handler) Login(c *gin.Context) {
 	})
 	return
 }
-func (h *Handler) Test(c *gin.Context) {
-	dataUser, exist := c.Get("user")
-	if exist == false {
 
-	}
-	fmt.Println(dataUser)
-}
