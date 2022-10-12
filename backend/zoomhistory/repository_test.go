@@ -1,6 +1,7 @@
 package zoomhistory
 
 import (
+	"fmt"
 	"testing"
 
 	_ "errors"
@@ -37,10 +38,10 @@ func TestCreateUser(t *testing.T) {
 	assert.NotNil(t, res)
 
 	Riwayat = model.Riwayat{
-		Nama: "cayo",
+		Nama: "cayooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 	}
-	_, err = repo.AddUser(Riwayat)
-	// fmt.Println(err())
+	res, err = repo.AddUser(Riwayat)
+	fmt.Println(err, res)
 	assert.NotNil(t, err)
 
 }
