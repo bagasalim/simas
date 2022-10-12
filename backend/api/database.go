@@ -10,12 +10,11 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "admin"
-	dbname   = "simascontact"
+var (
+	host   = "localhost"
+	port   = 5432
+	user   = "postgres"
+	dbname = "simascontact"
 )
 
 func SetupDb() (*gorm.DB, error) {
@@ -26,7 +25,7 @@ func SetupDb() (*gorm.DB, error) {
 	if os.Getenv("ENVIRONMENT") == "PROD" {
 		db, err = gorm.Open(postgres.Open(dbUrl), &gorm.Config{})
 	} else {
-		config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+		config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, os.Getenv("DB_PASSWORD"), dbname)
 
 		db, err = gorm.Open(postgres.Open(config), &gorm.Config{})
 	}
@@ -44,7 +43,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}, model.Link{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
@@ -76,6 +75,21 @@ func SetupDb() (*gorm.DB, error) {
 			},
 		}
 
+		riwayats := []model.Riwayat{
+			{
+				Nama:       "John",
+				Email:      "john@gmail.com",
+				Kategori:   "Kartu Kredit",
+				Keterangan: "Complain CC",
+			},
+			{
+				Nama:       "Doe",
+				Email:      "doe@gmail.com",
+				Kategori:   "Digital Loan",
+				Keterangan: "Cara Daftar Loan",
+			},
+		}
+
 		resUsers := db.Create(&users)
 		if resUsers == nil {
 			return nil, fmt.Errorf("failed to seeding users database: %w", resUsers.Error)
@@ -84,6 +98,11 @@ func SetupDb() (*gorm.DB, error) {
 		resLinks := db.Create(&links)
 		if resLinks == nil {
 			return nil, fmt.Errorf("failed to seeding links database: %w", resLinks.Error)
+		}
+
+		resRiwayats := db.Create(&riwayats)
+		if resRiwayats == nil {
+			return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
 		}
 
 	}
