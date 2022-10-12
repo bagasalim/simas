@@ -8,22 +8,11 @@ export default function Header() {
         <Image src={Logo} width="200px" height="50px" layout="fixed" />
       </div>
       <div style={{ background: "#CC100F", width: "100%", height: "50px" }}>
-        <div
-          className="d-flex flex-row-reverse me-5 align-items-center "
-          style={{ height: "100%" }}
-        >
-          <a
-            href="#layananinfo"
-            className="pe-2 text-white px-5"
-            style={{ fontWeight: "bold", fontSize: "20px" }}
-          >
+        <div className="d-flex flex-row-reverse me-5 align-items-center " style={{ height: "100%" }}>
+          <a href="#layananinfo" className="pe-2 text-white px-5" style={{ fontWeight: "bold", fontSize: "20px" }}>
             Pusat Informasi
           </a>
-          <a
-            href="#layanancs"
-            className="pe-2 text-white px-5"
-            style={{ fontWeight: "bold", fontSize: "20px" }}
-          >
+          <a href="#layanancs" className="pe-2 text-white px-5" style={{ fontWeight: "bold", fontSize: "20px" }}>
             Layanan CS
           </a>
         </div>

@@ -3,36 +3,35 @@ name: Go
 on:
   push:
     branches:
-    - main
-    - PBI-2-dbmanagelink
-    - staging
+      - main
+      - PBI-2-dbmanagelink
+      - staging
   pull_request:
     branches:
-    - main
-    - PBI-2-dbmanagelink
-    - staging
+      - main
+      - PBI-2-dbmanagelink
+      - staging
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.19
-    
-    # Install all the dependencies
-    - name: Install dependencies
-      run: |
-        go version
-        go get -u golang.org/x/lint/golint 
-      working-directory: backend
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.19
 
-    - name: test
-      run : |
-        go test -v ./auth 
-        go test -v ./managelink 
-      working-directory: backend
+      # Install all the dependencies
+      - name: Install dependencies
+        run: |
+          go version
+          go get -u golang.org/x/lint/golint
+        working-directory: backend
+
+      - name: test
+        run: |
+          go test -v ./auth 
+          go test -v ./managelink
+        working-directory: backend
