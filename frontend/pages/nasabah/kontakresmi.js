@@ -17,7 +17,7 @@ const KontakResmi = () => {
           <table className="mt-5">
             <tr>
               <td>
-                <a href="https://id-id.facebook.com/BankSinarmas/" target="_blank" rel="noreferrer">
+                <a href="https://id-id.facebook.com/BankSinarmas/" target="_blank" rel="noopener noreferrer">
                   {" "}
                   <Image src={logofacebook} width={76} height={71} alt={"logo instagram"} />
                   @BankSinarmas
@@ -26,7 +26,7 @@ const KontakResmi = () => {
             </tr>
             <tr>
               <td>
-                <a href="https://www.instagram.com/banksinarmas/" target="_blank">
+                <a href="https://www.instagram.com/banksinarmas/" target="_blank" rel="noopener noreferrer">
                   {" "}
                   <Image src={logoinstagram} width={76} height={71} alt={"logo instagram"} />
                   @banksinarmas
@@ -35,7 +35,7 @@ const KontakResmi = () => {
             </tr>
             <tr>
               <td>
-                <a href="https://twitter.com/BankSinarmas" target="_blank">
+                <a href="https://twitter.com/BankSinarmas" target="_blank" rel="noopener noreferrer">
                   {" "}
                   <Image src={logotwitter} width={76} height={71} alt={"logo tiktok"} />
                   @BankSinarmas
@@ -44,7 +44,7 @@ const KontakResmi = () => {
             </tr>
             <tr>
               <td>
-                <a href="https://www.tiktok.com/@banksinarmasofficial" target="_blank">
+                <a href="https://www.tiktok.com/@banksinarmasofficial" target="_blank" rel="noopener noreferrer">
                   {" "}
                   <Image src={logotiktok} width={76} height={71} alt={"logo tiktok"} />
                   @banksinarmasofficial
@@ -53,7 +53,7 @@ const KontakResmi = () => {
             </tr>
             <tr>
               <td>
-                <a href="https://www.youtube.com/c/BankSinarmasOfficial" target="_blank">
+                <a href="https://www.youtube.com/c/BankSinarmasOfficial" target="_blank" rel="noopener noreferrer">
                   {" "}
                   <Image src={logoyoutube} width={76} height={71} alt={"logo youtube"} />
                   @BankSinarmas
