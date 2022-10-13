@@ -21,7 +21,7 @@ const Asuransi = () => {
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
-      ]
+      ];
       setData(data);
     }
     catch (e) {
