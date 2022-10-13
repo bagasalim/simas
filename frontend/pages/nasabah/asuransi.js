@@ -8,7 +8,7 @@ const Asuransi = () => {
     <div>
       <Header />
       <div>
-        <Image className={style.jumbotron} src={jumbotron} alt="jumbotron" />
+        <Image className="{style.jumbotron}" src={jumbotron} alt="jumbotron" />
       </div>
       <div className={style.buttonpa}>
         <div>
