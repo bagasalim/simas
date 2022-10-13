@@ -4,6 +4,15 @@
   height: 214px;
 }
 
+.covid {
+  width: 100%;
+  height: 250px;
+  justify-content: center;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 10px 10px 10px 10px;
+}
+
 .buttonpa {
   display: flex;
   position: relative;
@@ -11,7 +20,7 @@
   justify-content: center;
   font-weight: bold;
   font-size: 24px;
-  margin-bottom: 500px;
+  margin-bottom: 50px;
 }
 
 .buttonpromo {
@@ -42,4 +51,33 @@
   :active {
     background-color: #cc100f;
   }
+}
+
+.detailContent{
+    height: auto;
+    width: auto;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background: white;
+    border: 1px;
+    box-shadow: 14px 14px 10px #cbced1, -14px -14px 10px #cbced1;
+    margin-bottom: 50px;
+}
+
+.buttonDetail {
+  margin: 10px 0 10px 10px;
+  width: 95%;
+  background-color:#cc100f;
+  color: #ffffff;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.textContent{
+    text-align: left;
+    margin-left: 10px;
+    padding: 10px 10px 10px 10px;
 }
