@@ -21,6 +21,7 @@ const Asuransi = () => {
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
+        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" }
       ];
       setData(data);
     }
@@ -46,8 +47,9 @@ const Asuransi = () => {
         </div>
       </div>
       
+      {getData}
         < div className="row justify-content-start" style={{paddingLeft:80, paddingRight:80}}>
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
         <div key={index} className="col-4" style={{paddingLeft:50, paddingRight:50}}>
           <div className={style.detailContent}>
               <Image className={style.covid} src={covid} alt="covid" />
