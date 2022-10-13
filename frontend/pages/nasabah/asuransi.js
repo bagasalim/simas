@@ -4,10 +4,24 @@ import UserFooter from "../../components/userfooter";
 import style from "./asuransi.module.scss";
 import Image from "next/future/image";
 import jumbotron from "../../public/jumbotron.png";
+import ConfirmationModal from "../../components/modals/modalDetailCart";
 import covid from "../../public/covid.jpg";
+import React from "react";
 
 const Asuransi = () => {
   const [data, setData] = useState(null);
+  const [newLink, setNewLink] = useState("");
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [body, setBodyData] = React.useState("");
+
+  const onSubmit = async (e) => {
+    const dataform = {
+      newlink: newLink,
+    };
+    setBodyData(dataform);
+    setModalOpen(true);
+  };
+
   useEffect(() => {
     getData()
   }, []);
@@ -36,7 +50,7 @@ const Asuransi = () => {
     <div>
       <Header />
       <div>
-        <Image className={style.jumbotron} src={jumbotron} alt="jumbotron" />
+        <Image className={style.jumbotron} src={jumbotron} alt="jumbotron" hidden/>
       </div>
       <div className={style.buttonpa}>
         <div>
@@ -56,13 +70,13 @@ const Asuransi = () => {
               <h2 className={style.textContent}>{item.judul}</h2>
               <h5 className={style.textContent}>Premi: {item.premi}</h5>
               <h5 className={style.textContent}>Uang Pertanggungan: {item.uangpertanggungan}</h5>
-              <button className={style.buttonDetail}>Lihat Detail</button>
+              <button className={style.buttonDetail} onClick={onSubmit}>Lihat Detail</button>
           </div>
         </div>
         ))}
         </div>
 
-      
+      <ConfirmationModal show={modalOpen} close={() => setModalOpen(false)} />;
       <UserFooter />
 
     </div>
