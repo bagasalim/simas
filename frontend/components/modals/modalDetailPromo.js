@@ -2,7 +2,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
 import { useState, useEffect } from "react";
 import Image from "next/future/image";
-import cslaki from "../../public/covid.jpg";
+import cslaki from "../../public/promotion.jpg";
 const ConfirmationDetailCart = (props) => {
     
     const [data, setData] = useState(null);
@@ -13,9 +13,9 @@ const ConfirmationDetailCart = (props) => {
         <Modal className={style.container} isOpen={props.show} cancel={props.close}>
           <div className="modal-header" style={{ backgroundColor: "white" }}>
             <h5 className="modal-title" id="exampleModalLabel">
-              Simas Covid<br></br>
+              Serunya Oktober<br></br>
               <h6>Deskripsi <br></br>
-              <h6>Premi mulai dari Rp. 50.000</h6>
+              <h6>Ayo Belanja sekarang dapatkan diskon 50%</h6>
               </h6>
             </h5>
             <button aria-label="Close" className=" close" type="button" onClick={props.close}>

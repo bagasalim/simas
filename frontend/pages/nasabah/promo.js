@@ -4,12 +4,12 @@ import UserFooter from "../../components/userfooter";
 import style from "./asuransi.module.scss";
 import Image from "next/future/image";
 import jumbotron from "../../public/jumbotron.png";
-import ConfirmationModal from "../../components/modals/modalDetailCart";
-import covid from "../../public/covid.jpg";
+import ConfirmationModal from "../../components/modals/modalDetailPromo";
+import promotionDummy from "../../public/promotion.jpg";
 import React from "react";
 import { useRouter } from "next/router";
 
-const Asuransi = () => {
+const Promo = () => {
   const [data, setData] = useState(null);
   const [newLink, setNewLink] = useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -24,8 +24,8 @@ const Asuransi = () => {
     setModalOpen(true);
   };
 
-  const promo = () => {
-    router.push("/nasabah/promo");
+  const asuransi = () => {
+    router.push("/nasabah/asuransi");
   };
 
   useEffect(() => {
@@ -37,11 +37,11 @@ const Asuransi = () => {
       // const res = await fetch(`${process.env.NEXT_PUBLIC_URL}`);
       // const data = await res.json();
       const data = [
-        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
-        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
-        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
-        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
-        { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" }
+        { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
+        { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
+        { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
+        { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
+        { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" }
       ];
       setData(data);
     }
@@ -60,10 +60,10 @@ const Asuransi = () => {
       </div>
       <div className={style.buttonpa}>
         <div>
-          <button className={style.buttonpromo} onClick={promo}>Promo</button>
+          <button className={style.buttonpromoActive}>Promo</button>
         </div>
         <div>
-          <button className={style.buttonasuransiActive}>Asuransi</button>
+          <button className={style.buttonasuransi} onClick={asuransi}>Asuransi</button>
         </div>
       </div>
       
@@ -72,10 +72,10 @@ const Asuransi = () => {
         {data?.map((item, index) => (
         <div key={index} className="col-4" style={{paddingLeft:50, paddingRight:50}}>
           <div className={style.detailContent}>
-              <Image className={style.imageDummy} src={covid} alt="covid" />
+              <Image className={style.imageDummy} src={promotionDummy} alt="promotionDummy" />
               <h2 className={style.textContent}>{item.judul}</h2>
-              <h5 className={style.textContent}>Premi: {item.premi}</h5>
-              <h5 className={style.textContent}>Uang Pertanggungan: {item.uangpertanggungan}</h5>
+              <h5 className={style.textContent}>Periode: {item.startdate} - {item.enddate}</h5>
+              <h5 className={style.textContent}>Kode Promo: {item.kodepromo}</h5>
               <button className={style.buttonDetail} onClick={onSubmit}>Lihat Detail</button>
           </div>
         </div>
@@ -89,4 +89,4 @@ const Asuransi = () => {
   );
 };
 
-export default Asuransi;
+export default Promo;
