@@ -70,3 +70,12 @@
     }
   }
 }
+
+@media (min-width: 1366px) {
+  .sidebar {
+    min-width: 200px;
+  }
+}
+
+@media only screen and (min-width: 1024) {
+}

@@ -1,7 +1,6 @@
 package managelink
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bagasalim/simas/custom"
@@ -17,11 +16,6 @@ func NewHandler(service Service) *Handler {
 }
 
 func (h *Handler) GetLink(c *gin.Context) {
-	dataUser, exist := c.Get("user")
-	if !exist {
-		return
-	}
-
 	var req GetLinkRequest
 	linktype := c.Query("linktype")
 	if linktype == "" {
@@ -42,15 +36,10 @@ func (h *Handler) GetLink(c *gin.Context) {
 		"message": "success",
 		"data":    link,
 	})
-
-	fmt.Println(dataUser)
 }
 
 func (h *Handler) UpdateLink(c *gin.Context) {
-	dataUser, exist := c.Get("user")
-	if !exist {
-		return
-	}
+	
 
 	var req UpdateLinkRequest
 	linktype := c.Query("linktype")
@@ -88,5 +77,24 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 		"data":    link,
 	})
 
-	fmt.Println(dataUser)
+}
+func (h *Handler) GetLinkRequest(c *gin.Context) {
+	linktype, _ := c.Params.Get("type")
+	// if exist == false {
+	// 	messageErr := []string{"Input data not suitable"}
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+	// 	return
+	// }
+	req := GetLinkRequest{LinkType: linktype}
+	link, status, err := h.Service.GetLink(req)
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    link,
+	})
 }
