@@ -3,59 +3,41 @@ name: Go
 on:
   push:
     branches:
-      - main
-      - staging
+    - main
+    - staging
+  pull_request:
+    branches:
+    - main
+    - staging
 
 jobs:
+
   build:
-    name: Build, Test and Analyze
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-      - name: Install dependencies
-        run: go get .
-      - name: Build
-        run: go build -v ./...
-      - name: Test with the Go CLI 
-        run:
-          go test -v ./... -covermode count -coverprofile coverage.out
-        # run: |
-        #   go test -cover -v ./auth 
-        #   go test -cover -v ./managelink 
-        #   go test -cover -v ./zoomhistory
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.19
     
-    # steps:
-    # - uses: actions/checkout@v2
-    # - name: Set up Go
-    #   uses: actions/setup-go@v2
-    #   with:
-    #     go-version: 1.19
-    # # - name: test
-    # #   run : |
-    # #     go test -coverprofile=coverage.out ./... -json  >> report.json
-    # #   working-directory: backend
-    # - name: test
-    #   run : |
-    #     go test -cover -v ./auth 
-    #     go test -cover -v ./managelink 
-    #     go test -cover -v ./zoomhistory 
-    #   working-directory: backend
-    # - name: SonarCloud Scan
-    #   uses: sonarsource/sonarcloud-github-action@master
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    # Install all the dependencies
+    - name: Install dependencies
+      run: |
+        go version
+        go get -u golang.org/x/lint/golint 
+      working-directory: backend
+
+    - name: test
+      run : |
+        go test -cover -v ./auth 
+        go test -cover -v ./managelink 
+        go test -cover -v ./zoomhistory 
+      working-directory: backend
+
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
