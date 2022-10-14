@@ -28,7 +28,8 @@ type responseSuccess struct {
 	Message string     `json:"message"`
 	Data    model.Link `json:"data"`
 }
-func initialRepoAuth(t *testing.T) *auth.Handler{
+
+func initialRepoAuth(t *testing.T) *auth.Handler {
 	db := newTestDB(t)
 	repoUser := auth.NewRepository(db)
 
@@ -36,17 +37,19 @@ func initialRepoAuth(t *testing.T) *auth.Handler{
 	repoHandler := auth.NewHandler(repoService)
 	return repoHandler
 }
-func initialRepo(t *testing.T) *Handler{
+func initialRepo(t *testing.T) *Handler {
 	db := newTestDB(t)
 	repo := NewRepository(db)
 	service := NewService(repo)
 	handler := NewHandler(service)
 	return handler
 }
+
 type ResponseMessage struct {
 	Message string
 }
-func getToken(t *testing.T) string{
+
+func getToken(t *testing.T) string {
 	handler := initialRepoAuth(t)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
@@ -62,18 +65,18 @@ func getToken(t *testing.T) string{
 	return data.Token
 
 }
-func Test_Get_Link_Request(t *testing.T){
+func TestGetLinkRequest(t *testing.T) {
 	// token := getToken(t)
 	handler := initialRepo(t)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.GET("/get-link/:type", handler.GetLinkRequest)
-	
+
 	//link not found
 	req, _ := http.NewRequest("GET", "/get-link/wa", nil)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
-	resMes:= ResponseMessage{}
+	resMes := ResponseMessage{}
 	assert.Equal(t, 500, w.Code)
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &resMes))
 
@@ -85,8 +88,8 @@ func Test_Get_Link_Request(t *testing.T){
 	assert.Equal(t, 200, w.Code)
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &res))
 }
-func Test_Get_Link_Handler(t *testing.T) {
-	
+func TestGetLinkHandler(t *testing.T) {
+
 	token := getToken(t)
 	handler := initialRepo(t)
 
@@ -98,7 +101,7 @@ func Test_Get_Link_Handler(t *testing.T) {
 	manageLinkRoute.Use(middleware.Auth)
 	manageLinkRoute.Use(middleware.IsCS)
 	manageLinkRoute.GET("/getlink", handler.GetLink)
-	
+
 	//not foundLink
 	req, _ := http.NewRequest("GET", "/getlink?linktype=wa", nil)
 	req.Header.Set("Authorization", token)
@@ -125,13 +128,13 @@ func Test_Get_Link_Handler(t *testing.T) {
 	type DataResponse struct {
 		LinkValue string `json:"linkvalue"`
 	}
-	
+
 	res := responseSuccess{}
 	assert.Equal(t, 200, w.Code)
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &res))
 
 }
-func Test_Handler_Update_Link(t *testing.T) {
+func TestHandlerUpdateLink(t *testing.T) {
 	token := getToken(t)
 	handler := initialRepo(t)
 
@@ -157,7 +160,7 @@ func Test_Handler_Update_Link(t *testing.T) {
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &responseMessage))
 
 	//test fail update because no data insert
-	req, _= http.NewRequest("POST", "/update-link?linktype=wa", nil)
+	req, _ = http.NewRequest("POST", "/update-link?linktype=wa", nil)
 	req.Header.Set("Authorization", token)
 	w = httptest.NewRecorder()
 	r.ServeHTTP(w, req)
