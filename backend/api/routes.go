@@ -47,4 +47,5 @@ func (s *server) SetupRouter() {
 
 	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
 	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
+
 }
