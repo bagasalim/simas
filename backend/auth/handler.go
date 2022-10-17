@@ -75,7 +75,7 @@ func (h *Handler) Login(c *gin.Context) {
 	return
 }
 
-func (h *Handler) SendKey(c *gin.Context){
+func (h *Handler) SendOTP(c *gin.Context){
 	
 	var req SendOTPRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -86,16 +86,20 @@ func (h *Handler) SendKey(c *gin.Context){
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return
 	}
-	token,email, status, err := h.Service.SetOtp(req.Username)
+	token, email,  status, err := h.Service.SetOtp(req.Username)
 	if err != nil{
+		mes := err.Error()
+		if mes == "Username not found"{
+			mes = "Fail to send otp"
+		}
 		c.JSON(status, gin.H{
-			"message":err.Error(),
+			"message":mes,
 		})
 		return 
 	}
     to := []string{email}
     cc := []string{}
-    subject := "OTP Kode"
+    subject := "Simas Contact OTP Kode"
     message := "OTP Kode:"+token
 	err = custom.SendMail(to, cc, subject, message)
 	resp :="sukses"

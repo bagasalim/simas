@@ -75,19 +75,19 @@ func(s *service) SetOtp(Username string) (string, string, int, error){
 	if err != nil {
 		return  "","", http.StatusInternalServerError, err
 	}
-	// time.Now().Sub(time.Minute *1)
-	if data.Code == "" || data.Expire.Before(time.Now()){
-		userLog := model.UserOTP{
-			UserID: User.ID,
-			Code: custom.RandStringBytes(6),
-			Expire: time.Now().Add(5 * time.Minute),
-		}
-		err = s.repo.AddOTP(&userLog)
-		if err != nil {
-			return  "","", http.StatusInternalServerError, err
-		}
-		return userLog.Code, User.Email, http.StatusOK, nil
+	loc, _ := time.LoadLocation("Asia/Jakarta")
+	if data.Code != "" && data.Expire.In(loc).After(time.Now().In(loc)){
+		return data.Code, User.Email, http.StatusOK, nil
 	}
-	
-	return data.Code, User.Email, http.StatusOK, nil
+	loc, _ = time.LoadLocation("UTC")
+	userLog := model.UserOTP{
+		UserID: User.ID,
+		Code: custom.RandStringBytes(6),
+		Expire: time.Now().Add(3 * time.Minute).In(loc),
+	}
+	err = s.repo.AddOTP(userLog)
+	if err != nil {
+		return  "","", http.StatusInternalServerError, err
+	}
+	return userLog.Code, User.Email, http.StatusOK, nil
 }

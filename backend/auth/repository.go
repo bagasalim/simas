@@ -10,8 +10,9 @@ import (
 type AuthRepository interface {
 	FindUser(username string) (model.User, error)
 	AddUser(user model.User) (model.User, error)
-	AddOTP(data *model.UserOTP) (error)
+	AddOTP(data model.UserOTP) (error)
 	FindOTP(id uint) (model.UserOTP, error)
+	AddingLog(id uint) (error)
 }
 
 type repository struct {
@@ -39,8 +40,8 @@ func (r *repository) AddUser(user model.User) (model.User, error) {
 
 	return user, nil
 }
-func (r *repository) AddOTP(data *model.UserOTP) error{
-	res := r.db.Create(data)
+func (r *repository) AddOTP(data model.UserOTP) error{
+	res := r.db.Create(&data)
 	if res.Error != nil {
 		return res.Error
 	}
@@ -56,4 +57,8 @@ func (r *repository) FindOTP(id uint) (model.UserOTP, error){
 		return model.UserOTP{}, err
 	}
 	return dataOtp, nil
+}
+func (r *repository) AddingLog(id uint)( error){
+	// r.db.
+	return nil
 }
