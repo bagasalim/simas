@@ -45,7 +45,7 @@ const ManageWa = () => {
         }),
       });
       if(res.status != 200){
-        throw "Gagal"
+        throw "gagal mendapatkan pesan Zoom"();
       }
       const d = { ...data };
       d.data.linkvalue = body.newlink;

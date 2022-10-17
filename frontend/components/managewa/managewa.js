@@ -1,6 +1,7 @@
+import React,{ useState, useEffect } from "react";
 import style from "./managewa.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
-import React,{ useState, useEffect } from "react";
+
 
 const ManageWa = () => {
   const [data, setData] = useState(null);
@@ -45,7 +46,7 @@ const ManageWa = () => {
         }),
       });
       if(res.status != 200){
-        throw "Gagal"
+        throw "gagal mendapatkan pesan WA"();
       }
       const d = { ...data };
       d.data.linkvalue = body.newlink;
