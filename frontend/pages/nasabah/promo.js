@@ -10,17 +10,16 @@ import { useRouter } from "next/router";
 
 const Promo = () => {
   const [data, setData] = useState(null);
-  const [newLink, setNewLink] = useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
   const [body, setBodyData] = React.useState("");
   const router = useRouter();
 
   const onSubmit = async (e) => {
     const dataform = {
-      newlink: newLink,
+      newlink: "newLink",
     };
     setBodyData(dataform);
-    setNewLink(newLink);
+
     setModalOpen(true);
   };
 

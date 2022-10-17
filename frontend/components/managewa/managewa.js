@@ -44,6 +44,9 @@ const ManageWa = () => {
           UpdatedBy: "system",
         }),
       });
+      if(res.status != 200){
+        throw "Gagal"
+      }
       const d = { ...data };
       d.data.linkvalue = body.newlink;
       console.log(d);

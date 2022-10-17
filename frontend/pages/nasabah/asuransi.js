@@ -10,17 +10,15 @@ import { useRouter } from "next/router";
 
 const Asuransi = () => {
   const [data, setData] = useState(null);
-  const [newLink, setNewLink] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [body, setBodyData] = useState("");
   const router = useRouter();
 
   const onSubmit = async (e) => {
     const dataform = {
-      newlink: newLink,
+      newlink: "newLink",
     };
     setBodyData(dataform);
-    setNewLink(newLink);
     setModalOpen(true);
   };
 
