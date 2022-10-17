@@ -1,11 +1,7 @@
 package asuransi
 
-type GetAsuransiRequest struct {
-	Judul string `json:"judul"`
-}
-
-type UpdateAsuransiRequest struct {
-	Judul             string `json:"judul"`
+type AsuransiRequest struct {
+	Judul             string `json:"judul" binding:"required"`
 	Premi             int32  `json:"premi" binding:"required"`
 	UangPertanggungan int64  `json:"uangpertanggungan" binding:"required"`
 	Deskripsi         string `json:"deskripsi" binding:"required"`

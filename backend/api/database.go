@@ -41,7 +41,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}, model.Asuransi{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
@@ -88,6 +88,25 @@ func SetupDb() (*gorm.DB, error) {
 			},
 		}
 
+		asuransis := []model.Asuransi{
+			{
+				Judul             :"Asuransi Kesehatan",
+				Premi             :200000,
+				UangPertanggungan :100000000,
+				Deskripsi         :"Asuransi Kesehatan setiap tahun Anda hanya membayar premi sebesar Rp200.000 dan mendapat uang pertanggunan Rp100.000.000",
+				Syarat            :"Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Foto              :"test123",
+			},
+			{
+				Judul             :"Asuransi Mobil Kesehatan",
+				Premi             : 200000,
+				UangPertanggungan : 100000000,
+				Deskripsi         :"Asuransi Kesehatan setiap tahun Anda hanya membayar premi sebesar Rp200.000 dan mendapat uang pertanggunan Rp100.000.000",
+				Syarat            :"Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Foto              :"test12355",
+			},
+		}
+
 		resUsers := db.Create(&users)
 		if resUsers == nil {
 			return nil, fmt.Errorf("failed to seeding users database: %w", resUsers.Error)
@@ -101,6 +120,11 @@ func SetupDb() (*gorm.DB, error) {
 		resRiwayats := db.Create(&riwayats)
 		if resRiwayats == nil {
 			return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
+		}
+
+		resAsuransis := db.Create(&asuransis)
+		if resAsuransis == nil {
+			return nil, fmt.Errorf("failed to seeding asuransi database: %w", resAsuransis.Error)
 		}
 
 	}

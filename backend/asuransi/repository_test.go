@@ -1,7 +1,6 @@
 package asuransi
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/bagasalim/simas/model"
@@ -14,102 +13,35 @@ func newTestDB(t *testing.T) *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
 	assert.NoError(t, err)
 	assert.NotNil(t, db)
-	err = db.AutoMigrate(&model.Asuransi{}, &model.User{})
+	err = db.AutoMigrate(&model.Asuransi{})
 	assert.NoError(t, err)
 
 	asuransi := []model.Asuransi{
 		{
-			Judul: "Asuransi Kesehatan",
-			Premi: 300000,
-			UangPertanggungan: 100000000,
-			Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-			Syarat: "Minimal 17 Tahun",
-			Foto: "",
-		},
-		{
-			Judul: "Asuransi Mobil",
-			Premi: 200000,
-			UangPertanggungan: 200000000,
-			Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-			Syarat: "Minimal 18 Tahun",
-			Foto: "",
+			Judul             :"Asuransi Kesehatan",
+			Premi             :200000,
+			UangPertanggungan :100000000,
+			Deskripsi         :"Asuransi Kesehatan setiap tahun Anda hanya membayar premi sebesar Rp200.000 dan mendapat uang pertanggunan Rp100.000.000",
+			Syarat            :"Minimal 17 tahun dan maksimal 62 tahun, WNI",
+			Foto              :"test123",
 		},
 	}
 	err = db.Create(&asuransi).Error
 	assert.NoError(t, err)
-
-	dataUser := []model.User{
-		{
-			Username: "CS01",
-			Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
-			Name:     "Customer Service",
-			Role:     2,
-		},
-	}
-	db.Create(&dataUser)
-
 	return db
 }
 
-func TestGetAsuransi(t *testing.T) {
+func TestGetAsuransi(t *testing.T){
 	db := newTestDB(t)
 	repo := NewRepository(db)
 
-	res, err := repo.GetAsuransi("Asuransi Kesehatan")
+	res, err := repo.GetAsuransi()
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Ini Asuransi Kesehatan")
+	assert.Equal(t, res[0].Judul, "Asuransi Kesehatan")
 
-	res, err = repo.GetAsuransi("Asuransi Mobil")
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Ini Asuransi Mobil")
+	db.Exec("delete from info_promos where ID = 1")
 
-	res, err = repo.GetAsuransi("No Link")
-	assert.Equal(t, err.Error(), errors.New("Asuransi Tidak Ditemukan").Error())
-	assert.Equal(t, res, model.Asuransi{})
-}
-
-func TestUpdateAsuransi(t *testing.T) {
-	db := newTestDB(t)
-	repo := NewRepository(db)
-
-	asuransi := model.Asuransi{
-		Judul: "Asuransi Kesehatan",
-		Premi: 300000,
-		UangPertanggungan: 100000000,
-		Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-		Syarat: "Minimal 17 Tahun",
-		Foto: "",
-	}
-	res, err := repo.UpdateAsuransi(asuransi)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Ini Asuransi Update")
-
-	asuransi = model.Asuransi{
-		Judul: "Asuransi Mobil",
-		Premi: 200000,
-		UangPertanggungan: 200000000,
-		Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-		Syarat: "Minimal 18 Tahun",
-		Foto: "",
-	}
-	res, err = repo.UpdateAsuransi(asuransi)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Ini Asuransi Update")
-
-	asuransi = model.Asuransi{
-		Judul: "",
-		Premi: 0,
-		UangPertanggungan: 0,
-		Deskripsi: "",
-		Syarat: "",
-		Foto: "",
-	}
-	res, err = repo.UpdateAsuransi(asuransi)
-	assert.Equal(t, err.Error(), errors.New("wrong insurance").Error())
-	assert.Equal(t, res, model.Asuransi{})
-
+	res, _ = repo.GetAsuransi()
+	assert.Equal(t, res, []model.Asuransi{})
 }

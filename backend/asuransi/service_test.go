@@ -1,84 +1,39 @@
 package asuransi
 
 import (
-	"errors"
+	"fmt"
 	"net/http"
 	"testing"
 
-	"github.com/bagasalim/simas/model"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetAsuransiService(t *testing.T) {
+func TestServiceGetAsuransi(t *testing.T) {
 	db := newTestDB(t)
 	repo := NewRepository(db)
 	service := NewService(repo)
 
-	req := GetAsuransiRequest{
-		Judul : "Asuransi Kesehatan",
-	}
-
-	asuransi, status, err := service.GetAsuransi(req)
+	info, status, err := service.GetAsuransi()
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, status)
-	assert.NotNil(t, asuransi)
-
-	
-	req = GetAsuransiRequest{
-		Judul: "Asuransi Mobil",
-	}
-
-	asuransi, status, err = service.GetAsuransi(req)
-	assert.NoError(t, err)
-	assert.Equal(t, http.StatusOK, status)
-	assert.NotNil(t, asuransi)
-
+	assert.NotNil(t, info)
 }
 
-func TestUpdateAsuransiService(t *testing.T) {
+func TestServiceCreateAsuransi(t *testing.T){
 	db := newTestDB(t)
 	repo := NewRepository(db)
 	service := NewService(repo)
-	asuransi := UpdateAsuransiRequest{
-		Judul: "Asuransi Kesehatan",
-		Premi: 300000,
-		UangPertanggungan: 100000000,
-		Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-		Syarat: "Minimal 17 Tahun",
-		Foto: "",
+
+	data := AsuransiRequest{
+		Judul             :"Asuransi Kesehatan",
+		Premi             :200000,
+		UangPertanggungan :100000000,
+		Deskripsi         :"Asuransi Kesehatan setiap tahun Anda hanya membayar premi sebesar Rp200.000 dan mendapat uang pertanggunan Rp100.000.000",
+		Syarat            :"Minimal 17 tahun dan maksimal 62 tahun, WNI",
+		Foto              :"test123",
 	}
-	res, status, err := service.UpdateAsuransi(asuransi)
+	res, _, err := service.CreateAsuransi(data)
+	fmt.Println("Asuransi Kesehatan", data.Judul, res, err)
 	assert.NoError(t, err)
-	assert.Equal(t, http.StatusOK, status)
 	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Asuransi Kesehatan")
-
-	asuransi = UpdateAsuransiRequest{
-		Judul: "Asuransi Mobil",
-		Premi: 200000,
-		UangPertanggungan: 200000000,
-		Deskripsi: "Asuransi kesehatan yang dikeluarkan oleh AsuransiKu",
-		Syarat: "Minimal 18 Tahun",
-		Foto: "",
-	}
-	res, status, err = service.UpdateAsuransi(asuransi)
-	assert.NoError(t, err)
-	assert.Equal(t, http.StatusOK, status)
-	assert.NotNil(t, res)
-	assert.Equal(t, res.Judul, "Asuransi Mobil")
-
-	
-	asuransi = UpdateAsuransiRequest{
-		Judul: "",
-		Premi: 0,
-		UangPertanggungan: 0,
-		Deskripsi: "",
-		Syarat: "",
-		Foto: "",
-	}
-	res, status, err = service.UpdateAsuransi(asuransi)
-	assert.Equal(t, err.Error(), errors.New("Asuransi not Found").Error())
-	assert.Equal(t, http.StatusInternalServerError, status)
-	assert.Equal(t, res, model.Asuransi{})
-
 }
