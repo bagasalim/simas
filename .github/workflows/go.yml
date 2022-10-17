@@ -26,4 +26,5 @@ jobs:
         go test -cover -v ./auth 
         go test -cover -v ./managelink 
         go test -cover -v ./zoomhistory 
+        go test -cover -v ./infoPromo 
       working-directory: backend
