@@ -69,8 +69,11 @@ func ClaimToken(tokenString string) (DataJWT, error) {
 		fmt.Println("err claimToken", "novalid")
 		return DataJWT{}, errors.New("no valid")
 	}
-	if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) < 0*time.Second {
+	if time.Unix(claims.ExpiresAt, 0).Before(time.Now()){
 		return DataJWT{}, errors.New("expire")
 	}
+	// if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) < 0*time.Second {
+	// 	return DataJWT{}, errors.New("expire")
+	// }
 	return claims, nil
 }

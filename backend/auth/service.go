@@ -3,7 +3,9 @@ package auth
 import (
 	"errors"
 	"net/http"
+	"time"
 
+	"github.com/bagasalim/simas/custom"
 	"github.com/bagasalim/simas/model"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -11,6 +13,7 @@ import (
 type Service interface {
 	Login(data LoginRequest) (model.User, int, error)
 	CreateAccount(data RegisterRequest) (model.User, int, error)
+	SetOtp(Username string) (string,string, int, error)
 }
 
 type service struct {
@@ -58,4 +61,33 @@ func (s *service) CreateAccount(data RegisterRequest) (model.User, int, error) {
 		return model.User{}, http.StatusInternalServerError, err
 	}
 	return res, http.StatusOK, nil
+}
+func(s *service) SetOtp(Username string) (string, string, int, error){
+	User, err := s.repo.FindUser(Username)
+
+	if err != nil {
+		if err.Error() == "Not found" {
+			return  "","",http.StatusNotFound, errors.New("Username not found")
+		}
+		return  "","", http.StatusInternalServerError, err
+	}
+	data, err := s.repo.FindOTP(User.ID)
+	if err != nil {
+		return  "","", http.StatusInternalServerError, err
+	}
+	// time.Now().Sub(time.Minute *1)
+	if data.Code == "" || data.Expire.Before(time.Now()){
+		userLog := model.UserOTP{
+			UserID: User.ID,
+			Code: custom.RandStringBytes(6),
+			Expire: time.Now().Add(5 * time.Minute),
+		}
+		err = s.repo.AddOTP(&userLog)
+		if err != nil {
+			return  "","", http.StatusInternalServerError, err
+		}
+		return userLog.Code, User.Email, http.StatusOK, nil
+	}
+	
+	return data.Code, User.Email, http.StatusOK, nil
 }

@@ -19,6 +19,7 @@ func (s *server) SetupRouter() {
 	authHandler := auth.NewHandler(authService)
 	s.Router.POST("/create-account", authHandler.CreateUser)
 	s.Router.POST("/login", authHandler.Login)
+	s.Router.POST("/send", authHandler.SendKey)
 	//example validation auth route
 
 	middleware := custom.MiddleWare{}

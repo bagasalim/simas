@@ -75,3 +75,38 @@ func (h *Handler) Login(c *gin.Context) {
 	return
 }
 
+func (h *Handler) SendKey(c *gin.Context){
+	
+	var req SendOTPRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		messageErr := custom.ParseError(err)
+		if messageErr == nil {
+			messageErr = []string{"Input data not suitable"}
+		}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+	token,email, status, err := h.Service.SetOtp(req.Username)
+	if err != nil{
+		c.JSON(status, gin.H{
+			"message":err.Error(),
+		})
+		return 
+	}
+    to := []string{email}
+    cc := []string{}
+    subject := "OTP Kode"
+    message := "OTP Kode:"+token
+	err = custom.SendMail(to, cc, subject, message)
+	resp :="sukses"
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": resp,
+	})
+	
+}
