@@ -60,4 +60,7 @@ func (h *Handler) AddInfo(c *gin.Context)  {
 		})
 		return
 	}
+	c.JSON(status, gin.H{
+		"message": "success",
+	})
 }

@@ -46,7 +46,7 @@ func (s *server) SetupRouter() {
 	infoPromoHandler := infoPromo.NewHandler(infoPromoService)
 	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
 	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
-	csRoute.POST("/postinfopromo", infoPromoHandler.AddInfo)
+	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
 	// s.Router.Use(custom.MiddlewareAuth)
 
 	// s.Router.POST("/test", authHandler.Test)

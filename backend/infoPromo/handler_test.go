@@ -2,7 +2,6 @@ package infoPromo
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -129,14 +128,14 @@ func TestAddInfoHandler(t *testing.T){
 	assert.Equal(t, http.StatusBadRequest, w.Code)
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &resMes))
 
-	payload = `{"judul": "test", "kategori":"test", "startdate":"2022-10-10", "enddate":"2022-10-10", "kodepromo":"201212", "foto":"test", "deskripsi":"test", "syarat":"test"}`
+	payload = `{"Judul": "test", "Kategori":"test", "Startdate":"2022-10-10", "Enddate":"2022-10-10", "Kodepromo":"201212", "Foto":"test", "Deskripsi":"test", "Syarat":"test"}`
 
 	req, err = http.NewRequest("POST", post, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	w = httptest.NewRecorder()
 	r.ServeHTTP(w, req)
+	res:= responseSuccess{}
 	assert.Equal(t, http.StatusOK, w.Code)
-	fmt.Println()
-	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &resMes))
+	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &res))
 }  
