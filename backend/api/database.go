@@ -68,7 +68,7 @@ func SetupDb() (*gorm.DB, error) {
 			},
 			{
 				LinkType:  "Zoom",
-				LinkValue: "https://zoom.us/w/99582712162?tk=-ZsgZOP5esSZvy2g1sfWt8R3ugl9woAjQGuFFgUaU3k.DQMAAAAXL5eZYhZvdW5zcWJ4elJvaUt3cHFza1FBaVZRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=SzRUOFNIVldlRkR6SlFpc004OUs1Zz09",
+				LinkValue: " ",
 				UpdatedBy: "System",
 			},
 		}

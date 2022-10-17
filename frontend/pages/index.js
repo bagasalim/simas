@@ -54,8 +54,6 @@ export default function Nasabah() {
       setLoading(false);
       return true;
     } catch (e) {
-      if (typeof e === "string") {
-      }
       setLoading(false);
       return false;
     }

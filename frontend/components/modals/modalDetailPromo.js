@@ -5,8 +5,6 @@ import Image from "next/future/image";
 import cslaki from "../../public/promotion.jpg";
 const ConfirmationDetailCart = (props) => {
     
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
     return (
       <>
       <div className={style.container}>
