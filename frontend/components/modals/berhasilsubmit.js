@@ -2,7 +2,7 @@ import React from "react";
 
 // reactstrap components
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Button, Modal, ModalBody } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 import style from "./berhasilsubmit.module.scss";
 
 function BerhasilSubmit(props) {

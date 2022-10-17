@@ -1,10 +1,7 @@
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import style from "./modalwadanzoom.module.scss";
-import { useState, useEffect } from "react";
 const ConfirmationModal = (props) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
+  
   return (
     <>
       <Modal isOpen={props.show} cancel={props.close}>

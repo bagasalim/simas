@@ -1,12 +1,8 @@
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import {  Modal, ModalBody } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
-import { useState, useEffect } from "react";
 import Image from "next/future/image";
 import cslaki from "../../public/covid.jpg";
 const ConfirmationDetailCart = (props) => {
-    
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
     return (
       <>
       <div className={style.container}>

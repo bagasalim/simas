@@ -7,7 +7,7 @@ import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 
 const Sidebar = ({ toggleActive }) => {
   const logout = () => {
