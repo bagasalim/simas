@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/bagasalim/simas/auth"
 	"github.com/bagasalim/simas/custom"
+	"github.com/bagasalim/simas/infoPromo"
 	"github.com/bagasalim/simas/managelink"
 	"github.com/bagasalim/simas/zoomhistory"
 	"github.com/gin-contrib/cors"
@@ -39,6 +40,13 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+
+	infoPromoRepo := infoPromo.NewRepository(s.DB)
+	infoPromoService := infoPromo.NewService(infoPromoRepo)
+	infoPromoHandler := infoPromo.NewHandler(infoPromoService)
+	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
+	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
+	csRoute.POST("/postinfopromo", infoPromoHandler.AddInfo)
 	// s.Router.Use(custom.MiddlewareAuth)
 
 	// s.Router.POST("/test", authHandler.Test)
