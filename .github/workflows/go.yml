@@ -5,25 +5,43 @@ on:
     branches:
     - main
     - staging
+    - hotfix
   pull_request:
     branches:
     - main
     - staging
+    - hotfix
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.19
-
-    - name: test
-      run : |
-        go test -cover -v ./auth 
-        go test -cover -v ./managelink 
-        go test -cover -v ./zoomhistory 
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.19
+    
+    # Install all the dependencies
+    - name: Install dependencies
+      run: |
+        go version
+        go get -u golang.org/x/lint/golint 
       working-directory: backend
+
+    - name: Build
+      run: go build -v ./...
+      working-directory: backend
+    - name: Test with the Go CLI 
+      run: |
+        go test -v ./... -covermode count -coverprofile coverage.out
+      working-directory: backend
+
+
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -14,6 +14,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const (
+	login      = "/login"
+	createuser = "/create-user"
+)
+
 func TestLogin(t *testing.T) {
 	db := newTestDB(t)
 	repo := NewRepository(db)
@@ -30,9 +35,9 @@ func TestLogin(t *testing.T) {
 	handler := NewHandler(service)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
-	r.POST("/login", handler.Login)
+	r.POST(login, handler.Login)
 	payload := `{"username": "remasertu", "password":"123456"}`
-	req, err := http.NewRequest("POST", "/login", strings.NewReader(payload))
+	req, err := http.NewRequest("POST", login, strings.NewReader(payload))
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
@@ -59,7 +64,7 @@ func TestLogin(t *testing.T) {
 
 	//validation
 	payload = ``
-	req, err = http.NewRequest("POST", "/login", strings.NewReader(payload))
+	req, err = http.NewRequest("POST", login, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 
@@ -71,7 +76,7 @@ func TestLogin(t *testing.T) {
 
 	//validation
 	payload = `{"username": "remasertu", "password":"12345"}`
-	req, err = http.NewRequest("POST", "/login", strings.NewReader(payload))
+	req, err = http.NewRequest("POST", login, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 
@@ -98,10 +103,10 @@ func TestCreateUser(t *testing.T) {
 	handler := NewHandler(service)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
-	r.POST("/create-user", handler.CreateUser)
+	r.POST(createuser, handler.CreateUser)
 
 	payload := `{"username": "remasertu", "password":"123456", "name":"rema"}`
-	req, err := http.NewRequest("POST", "/create-user", strings.NewReader(payload))
+	req, err := http.NewRequest("POST", createuser, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	type responseMess struct {
@@ -116,7 +121,7 @@ func TestCreateUser(t *testing.T) {
 
 	// error validation
 	payload = ``
-	req, err = http.NewRequest("POST", "/create-user", strings.NewReader(payload))
+	req, err = http.NewRequest("POST", createuser, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	w = httptest.NewRecorder()
@@ -131,7 +136,7 @@ func TestCreateUser(t *testing.T) {
 
 	//error duplicate
 	payload = `{"username": "remasertu", "password":"123456", "name":"rema"}`
-	req, err = http.NewRequest("POST", "/create-user", strings.NewReader(payload))
+	req, err = http.NewRequest("POST", createuser, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
 	w = httptest.NewRecorder()
