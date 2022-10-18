@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/bagasalim/simas/model"
 	"github.com/stretchr/testify/assert"
@@ -80,4 +81,19 @@ func TestCreateAccountService(t *testing.T) {
 	// res, _, err = service.Login(data)
 	// assert.NotNil(t, err)
 
+}
+
+func TestUpdateLastLoginService(t *testing.T) {
+	db := newTestDB(t)
+	repo := NewRepository(db)
+	service := NewService(repo)
+
+	data := LastLoginRequest{
+		Username:  "cindu",
+		LastLogin: time.Now(),
+	}
+	//sukses
+	res, _, err := service.UpdateLastLogin(data)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
 }
