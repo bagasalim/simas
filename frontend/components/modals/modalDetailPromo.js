@@ -1,7 +1,5 @@
-import { Modal, ModalBody } from "reactstrap";
+import { Button, Modal, ModalBody } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
-import Image from "next/future/image";
-import cslaki from "../../public/promotion.jpg";
 const ConfirmationDetailCart = (props) => {
   const snk = props.data.syarat.split(";");
   return (
