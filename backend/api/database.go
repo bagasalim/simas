@@ -10,6 +10,12 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	kategoriPromo  = "Promo Bank"
+	syaratPromo    = "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday."
+	syaratAsuransi = "Minimal 17 tahun dan maksimal 62 tahun, WNI"
+)
+
 func SetupDb() (*gorm.DB, error) {
 	var db *gorm.DB
 	var err error
@@ -111,43 +117,43 @@ func SetupDb() (*gorm.DB, error) {
 			},
 			{
 				Judul:     "Cicilan 0 dengan Kartu Kredit Indigo Bank Sinarmas",
-				Kategori:  "Promo Bank",
+				Kategori:  kategoriPromo,
 				Startdate: "2022-10-11",
-				Enddate:   "2022-12-25",
+				Enddate:   "2022-12-24",
 				Kodepromo: "102121",
 				Foto:      "https://www.banksinarmas.com/id/public/upload/thumb/5c32ce7f7ec50_thumb-cicilan-jd-id.jpg",
 				Deskripsi: "Cicilan 0 dapat dilakukan lebih dari 1 (satu) kali pembelanjaan selama periode program dan limit Kartu Kredit tersedia",
-				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
+				Syarat:    syaratPromo,
 			},
 			{
 				Judul:     "Makin Banyak Transaksi, Banyak Hadiah Menanti",
-				Kategori:  "Promo Bank",
-				Startdate: "2022-10-11",
+				Kategori:  kategoriPromo,
+				Startdate: "2022-10-12",
 				Enddate:   "2022-12-25",
 				Kodepromo: "1044221",
 				Foto:      "https://www.banksinarmas.com/id/public/upload/images/60c0b841ba003_sosial-media-HHH-UV.jpg",
 				Deskripsi: "Bayar apapun mudah, hadiahnya berlimpah! Transaksi di SimobiPlus kamu langsung dapat 1x kesempatan menangkan berbagai hadiah keren. Semakin sering bertransaksi, semakin besar kesempatan kamu dapat hadiah. Semakin tinggi nilai transaksi, semakin besar nilai hadiah yang kamu dapatkan.",
-				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
+				Syarat:    syaratPromo,
 			},
 			{
 				Judul:     "Nabung Terus, Bisa Internet Unlimited",
-				Kategori:  "Promo Bank",
-				Startdate: "2022-10-11",
-				Enddate:   "2022-12-25",
+				Kategori:  kategoriPromo,
+				Startdate: "2022-10-13",
+				Enddate:   "2022-12-26",
 				Kodepromo: "1059021",
 				Foto:      "https://pbs.twimg.com/media/DapOdJWVAAQqIMv.jpg",
 				Deskripsi: "Raih keuntungan cashback senilai Rp200.000 untuk pembelian produk Smartfren Andromax Prime dan bisa Internetan sepuasnya.",
-				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
+				Syarat:    syaratPromo,
 			},
 			{
 				Judul:     "Buka Tabungan 100% Online dan belanja pakai QRIS di Alfamart.",
-				Kategori:  "Promo Bank",
-				Startdate: "2022-10-11",
-				Enddate:   "2022-12-25",
+				Kategori:  kategoriPromo,
+				Startdate: "2022-10-14",
+				Enddate:   "2022-12-27",
 				Kodepromo: "1050621",
 				Foto:      "https://www.banksinarmas.com/id/public/upload/images/607d043c7ed25_core.png",
 				Deskripsi: "Asyik, beneran bisa untung hingga Rp125.000! Cukup dengan buka Tabungan 100% Online dan belanja pakai QRIS di Alfamart.",
-				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
+				Syarat:    syaratPromo,
 			},
 		}
 
@@ -157,7 +163,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             110000,
 				UangPertanggungan: 111675000,
 				Deskripsi:         "Memberikan penggantian yang maksimal sesuai dengan program yang dipilih jika Tertanggung meninggal dunia/cacat tetap akibat kecelakaan",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://www.banksinarmas.com/id/public/upload/thumb/60b8a9ec8489a_thumb-simas-insurtech-travel.jpg",
 			},
 			{
@@ -165,7 +171,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             100000,
 				UangPertanggungan: 90000000,
 				Deskripsi:         "Jalani aktivitas seru dengan kenyamanan dan perlindungan dari Simas Pet Insurance. Sepenuh hati #UntukYangTersayang",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://img11.jd.id/Indonesia/s380x380_/amZzL3Q4Mi8xMjQvMTA3MDkyODg5OTQvNjc4Mjk2L2VmNWExZTg2LzYxMjcxYTQ3Tjc3NGM1ZTE4.jpg.dpg.webp",
 			},
 			{
@@ -173,7 +179,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             125000,
 				UangPertanggungan: 467000000,
 				Deskripsi:         "Produk asuransi Sinarmas untuk individu berupa asuransi jiwa, unit link, asuransi kecelakaan diri dan asuransi syariah.",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://www.qoala.app/id/blog/wp-content/uploads/2021/12/Ads-Blog-Square-Life-Update.jpg",
 			},
 			{
@@ -181,7 +187,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             525000,
 				UangPertanggungan: 125000000,
 				Deskripsi:         "Simas Income Protection ini memberikan manfaat berupa Uang Pertanggungan dengan masa bayar premi yang singkat, masa perlindungan yang optimal serta jaminan pengembalian premi dengan bonus pasti",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://image.akurat.co/uploads/images/2022/09/big/img_632a969e937619-88037312-37333846.jpg",
 			},
 			{
@@ -189,7 +195,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             70000,
 				UangPertanggungan: 75000000,
 				Deskripsi:         "Produk bancassurance dari Asuransi Simas Jiwa (ASJ) dan Bank Sinarmas yang menggabungkan fungsi proteksi dan investasi.",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://pbs.twimg.com/media/EZva1ePX0AAz44t?format=jpg&name=medium",
 			},
 			{
@@ -197,7 +203,7 @@ func SetupDb() (*gorm.DB, error) {
 				Premi:             150000,
 				UangPertanggungan: 54000000,
 				Deskripsi:         "Menjamin biaya yang dikeluarkan tertanggung akibat kecelakaan.",
-				Syarat:            "Minimal 17 tahun dan maksimal 62 tahun, WNI",
+				Syarat:            syaratAsuransi,
 				Foto:              "https://simasinsurtech.com/wp-content/themes/SimasInsurtech/assets/images2/partner%20sinarmas%20asset%20management.jpg",
 			},
 		}
