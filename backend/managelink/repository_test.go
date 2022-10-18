@@ -97,8 +97,8 @@ func TestUpdateLink(t *testing.T) {
 
 	//No Link
 	link = model.Link{
-		LinkType:  "No Link",
-		LinkValue: "No Link",
+		LinkType:  "No Link Type",
+		LinkValue: "No Link Value",
 		UpdatedBy: "System",
 	}
 	res, err = repo.UpdateLink(link)

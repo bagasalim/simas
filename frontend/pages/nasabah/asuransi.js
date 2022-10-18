@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import Header from "../../components/Header";
 import UserFooter from "../../components/userfooter";
 import style from "./asuransi.module.scss";
 import Image from "next/future/image";
 import jumbotron from "../../public/jumbotron.png";
 import ConfirmationModal from "../../components/modals/modalDetailCart";
-import promotionDummy from "../../public/promotion.jpg";
-import React from "react";
 import { useRouter } from "next/router";
 
 const Promo = () => {
