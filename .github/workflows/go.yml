@@ -6,11 +6,13 @@ on:
     - main
     - staging
     - hotfix
+    - coldfix
   pull_request:
     branches:
     - main
     - staging
     - hotfix
+    - coldfix
 
 jobs:
 
