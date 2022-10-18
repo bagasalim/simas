@@ -13,3 +13,25 @@
     max-width: 700px;
   }
 }
+
+.alert {
+  
+  padding: 20px;
+  background-color: #4fb281;
+  color: rgb(0, 0, 0);
+  //animation: hide 3s 3s forwards;
+
+  .closebtn:hover {
+    color: black;
+  }
+  
+  @keyframes hide {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+
