@@ -100,23 +100,23 @@ func SetupDb() (*gorm.DB, error) {
 				Syarat:    "1. Satu rekening hanya bisa melakukan pembayaran satu kali; 2. Satu nomor hp hanya bisa melakukan pembayaran satu kali; 3. Nasabah dapat membuka rekening melalui simobiplus",
 			},
 			{
-				Judul:     "Belanja di Alfamart & UniPin",
+				Judul:     "Ajak Teman & Dapatkan Reward-mu!",
 				Kategori:  "Promo Kartu Kredit",
-				Startdate: "2022-04-11",
-				Enddate:   "2022-06-05",
+				Startdate: "2022-01-11",
+				Enddate:   "2022-12-05",
 				Kodepromo: "202123",
-				Foto:      "https://glints.com/id/lowongan/wp-content/uploads/2019/12/clothes-on-sale-2292953.jpg",
-				Deskripsi: "Cukup belanja Rp100 ribu di Alfamart atau UniPin melalui fitur Lifetyle SimobiPlus, kamu BISA dapat hadiah E-Voucher Perfect Beauty senilai Rp100 ribu! Nilai transaksi berlaku akumulasi selama periode program berlangsung.",
+				Foto:      "https://www.banksinarmas.com/id/public/upload/images/610d0d5ade3f4_Image%20Dalam.jpg",
+				Deskripsi: "Ikuti program Member Get Member (MGM) Bank Sinarmas dengan mengajak temanmu buka tabungan dan setor Rp100 ribu, buka Deposito Online dengan bunga kompetitif, serta ajukan kartu kredit via SimobiPlus, mobile banking Bank Sinarmas.",
 				Syarat:    "1. Nasabah harus melakukan transaksi senilai Rp100 ribu di Alfamart atau UniPin melalui Fitur Lifestyle SimobiPlus; 2. Perhitungan belanja/transaksi Rp 100 ribu berlaku akumulasi selama program berlangsung; 3. Hadiah E-Voucher Perfect Beauty akan diterima Nasabah melalui aplikasi SimobiPlus pada 21 Oktober 2022",
 			},
 			{
-				Judul:     "Penuhi Gaya Hidupmu Lebih Ringan dengan Cicilan 0% Tenor 3 Bulan via SimobiPlus",
+				Judul:     "Cicilan 0 dengan Kartu Kredit Indigo Bank Sinarmas",
 				Kategori:  "Promo Bank",
 				Startdate: "2022-10-11",
 				Enddate:   "2022-12-25",
 				Kodepromo: "102121",
-				Foto:      "https://glints.com/id/lowongan/wp-content/uploads/2019/12/clothes-on-sale-2292953.jpg",
-				Deskripsi: "Belanja, traveling, kulineran, atau penuhi kebutuhan lainnya tak perlu ragu pakai Kartu Kredit Platinum Bank Sinarmas. Nikmati cicilannya sekarang via SimobiPlus!",
+				Foto:      "https://www.banksinarmas.com/id/public/upload/thumb/5c32ce7f7ec50_thumb-cicilan-jd-id.jpg",
+				Deskripsi: "Cicilan 0 dapat dilakukan lebih dari 1 (satu) kali pembelanjaan selama periode program dan limit Kartu Kredit tersedia",
 				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
 			},
 			{
@@ -144,12 +144,13 @@ func SetupDb() (*gorm.DB, error) {
 				Kategori:  "Promo Bank",
 				Startdate: "2022-10-11",
 				Enddate:   "2022-12-25",
-				Kodepromo: "1059021",
+				Kodepromo: "1050621",
 				Foto:      "https://www.banksinarmas.com/id/public/upload/images/607d043c7ed25_core.png",
 				Deskripsi: "Asyik, beneran bisa untung hingga Rp125.000! Cukup dengan buka Tabungan 100% Online dan belanja pakai QRIS di Alfamart.",
 				Syarat:    "1. Transaksi yang telah mendapatkan potongan langsung/diskon tidak dapat dijadikan cicilan pada aplikasi merchant E-commerce; 2. Transaksi dapat dibatalkan apabila barang rusak atau tidak tersedia/out of stock, dengan catatan transaksi dibatalkan sebelum tagihan jatuh tempo. Refund yang masuk atas pembatalan transaksi ini akan secara otomatis mengurangi tagihan bulan berjalan; 3. Program Reguler tidak berlaku jika telah memasuki Program Payday.",
 			},
 		}
+
 		asuransis := []model.Asuransi{
 			{
 				Judul:             "Simas Insurtech Travel",
