@@ -12,7 +12,7 @@ type AuthRepository interface {
 	AddUser(user model.User) (model.User, error)
 	AddOTP(data model.UserOTP) (error)
 	FindOTP(id uint) (model.UserOTP, error)
-	AddingLog(id uint) (error)
+	UpdateOTPExpire(id uint) error
 }
 
 type repository struct {
@@ -58,7 +58,10 @@ func (r *repository) FindOTP(id uint) (model.UserOTP, error){
 	}
 	return dataOtp, nil
 }
-func (r *repository) AddingLog(id uint)( error){
-	// r.db.
+func (r *repository) UpdateOTPExpire(id uint)( error){
+	model := model.UserOTP{}
+	if tx:= r.db.Model(&model).Where("id", id).Update("used", "1"); tx.Error != nil{
+		return tx.Error
+	}
 	return nil
 }

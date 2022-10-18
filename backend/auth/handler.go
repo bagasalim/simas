@@ -36,7 +36,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	c.JSON(status, gin.H{
 		"message": "success",
 	})
-	
+
 }
 func (h *Handler) Login(c *gin.Context) {
 	var req LoginRequest
@@ -98,10 +98,11 @@ func (h *Handler) SendOTP(c *gin.Context){
 		return 
 	}
     to := []string{email}
-    cc := []string{}
+    // cc := []string{}
     subject := "Simas Contact OTP Kode"
-    message := "OTP Kode:"+token
-	err = custom.SendMail(to, cc, subject, message)
+    message := "OTP Kode:"+token+"<br/> Kode berlaku hanya 5 menit"
+	err = custom.SendEmail2(to, subject,message, "text/html")
+	// err = custom.SendMail(to, cc, subject, message)
 	resp :="sukses"
 	if err != nil {
 		c.JSON(500, gin.H{

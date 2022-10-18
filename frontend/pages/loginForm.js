@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Login.module.css";
 
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import Image from "next/image";
 export default function LoginForm() {
   const [kode, setKode] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [timeLeft, setTimeLeft] = useState(null);
+  const [isOTPSend, setIsOTPSend] = useState(false)
+  const [load, setLoad] = useState(false)
+  const route = useRouter()
   useEffect(() => {
     let user = localStorage.getItem("user");
     let token = localStorage.getItem("token");
@@ -56,8 +59,9 @@ export default function LoginForm() {
       if(res.status != 200){
         throw "Gagal dapatin kode otp"
       }
+      setIsOTPSend(true)
       // responseMessage = await res.json()
-      setTimeLeft(60*3)
+      setTimeLeft(60*2)
       // alert("OTP telah dikirim, expired 5 menit")
     }catch(err){
       if(typeof err=="string"){
@@ -66,14 +70,18 @@ export default function LoginForm() {
         alert("Gagal dapatin OTP")
       }
     }
+    setLoad(false)
    
   }
   async function doLogin() {
     // e.preventDefault();
     // const formData = new FormData(e.currentTarget);
+    if(load) return
+    setLoad(true)
     const body = {
       username: username,
       password: password,
+      code: kode
     };
     try{
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}login`, {
@@ -83,25 +91,38 @@ export default function LoginForm() {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-  
+      if(res.status != 200){
+        if(data.message == "OTP is wrong")
+          throw "Kode OTP is wrong"
+        if(data.message == "OTP is wrong")
+          throw "Kode OTP is wrong"  
+      }
       if (data.token) {
         localStorage.setItem("token", data.token);
   
         localStorage.setItem("user", JSON.stringify(data.data));
         if (data.data.role == 1) {
-          Router.replace("/project/admin");
+          route.push("/project/admin")
+          // Router.replace("/project/admin");
         } else if (data.data.role == 2) {
-          Router.replace("/project/customerservice");
+          route.push("/project/customerservice")
+          // Router.replace("/project/customerservice");
         } else {
           console.log("Tidak ada Role");
         }
       } else {
-        alert("Username Password salah");
+        alert("Username / Password / OTP salah");
       }
     
     }catch(err){
-      alert("Username Password salah");
+      if (typeof err == "string"){
+        alert(err)
+      }else{
+        alert("Username atau Password salah");
+      }
+      
     }
+    setLoad(false)
   }
   let minute,second = 0
   if(timeLeft){
@@ -114,6 +135,18 @@ export default function LoginForm() {
       useGrouping: false
     })
   }
+  let css={
+    cursorLogin:""
+  }
+  if(!isOTPSend){
+    css.cursorLogin = "default"
+  }else if(load){
+    css.cursorLogin="wait"
+
+  }else{
+    css.cursorLogin=""
+  }
+  
   return (
     <div>
       <div className={styles.background}>
@@ -143,7 +176,7 @@ export default function LoginForm() {
         
         <div className="row">
           <div className="col-md-8">
-          <input type="text" max="6" onChange={(e)=>setKode(e.target.value)} value={kode} className={styles.input} />
+          <input type="text" max="6" placeholder="Kode OTP" onChange={(e)=>setKode(e.target.value)} value={kode} className={styles.input} />
           </div>
           <div className="col-md-4">
             <button className="btn btn-success" disabled={timeLeft?true:false} onClick={sendOTP} style={{marginTop:"8px",height:"50px", width:"100%"}}>Send</button>
@@ -153,7 +186,7 @@ export default function LoginForm() {
         {/* <a href="#" style={{ marginLeft: "70%", color: "#4A8CFF" }}>
           Lupa Kata Sandi ?
         </a> */}
-        <button className={styles.button} onClick={doLogin}>Masuk</button>
+        <button className={styles.button} onClick={doLogin} style={{cursor:css.cursorLogin}}  disabled={!isOTPSend} >Masuk</button>
       </div>
     </div>
     

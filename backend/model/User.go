@@ -1,6 +1,10 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
 	gorm.Model
@@ -9,4 +13,5 @@ type User struct {
 	Name     string `json:"name" gorm:"type:varchar(50); not null"`
 	Role     int8   `json:"role"  `
 	Email 	string `json:"email" gorm:"type:varchar(100);"`
+	LastLogin time.Time `json:"lastLogin" gorm:"type:timestamp;"`
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import Header from "../../components/Header";
 import UserFooter from "../../components/userfooter";
 import style from "./asuransi.module.scss";
@@ -6,19 +6,17 @@ import Image from "next/future/image";
 import jumbotron from "../../public/jumbotron.png";
 import ConfirmationModal from "../../components/modals/modalDetailCart";
 import covid from "../../public/covid.jpg";
-import React from "react";
 import { useRouter } from "next/router";
 
 const Asuransi = () => {
   const [data, setData] = useState(null);
-  const [newLink, setNewLink] = useState("");
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [body, setBodyData] = React.useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [body, setBodyData] = useState("");
   const router = useRouter();
 
   const onSubmit = async (e) => {
     const dataform = {
-      newlink: newLink,
+      newlink: "newLink",
     };
     setBodyData(dataform);
     setModalOpen(true);
@@ -34,8 +32,7 @@ const Asuransi = () => {
 
   const getData = async () => {
     try {
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_URL}`);
-      // const data = await res.json();
+
       const data = [
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
         { judul: "Simas Covid", premi: "Rp. 50.000",uangpertanggungan: "Rp. 10.000.000" },
@@ -76,7 +73,7 @@ const Asuransi = () => {
               <h2 className={style.textContent}>{item.judul}</h2>
               <h5 className={style.textContent}>Premi: {item.premi}</h5>
               <h5 className={style.textContent}>Uang Pertanggungan: {item.uangpertanggungan}</h5>
-              <button className={style.buttonDetail} onClick={onSubmit}>Lihat Detail</button>
+              <button className={style.buttonDetail} onClick={onSubmit} data={body}>Lihat Detail</button>
           </div>
         </div>
         ))}

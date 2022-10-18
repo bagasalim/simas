@@ -33,10 +33,29 @@ func (s *service) Login(data LoginRequest) (model.User, int, error) {
 		}
 		return model.User{}, http.StatusInternalServerError, err
 	}
+	UserOtp, err := s.repo.FindOTP(User.ID)
+	loc, _ := time.LoadLocation("Asia/Jakarta")
+	// fmt.Println("data",UserOtp.Expire.In(loc),"now", time.Now().In(loc), UserOtp.Expire.In(loc).After(time.Now().In(loc)))
+	if err != nil || UserOtp.Code == ""{
+		return model.User{}, http.StatusUnauthorized, errors.New("OTP is wrong")
+	}
+	if UserOtp.Code != data.Code{
+		return model.User{}, http.StatusUnauthorized, errors.New("OTP is wrong")
+	}
+	if UserOtp.Expire.In(loc).Before(time.Now().In(loc)) || UserOtp.Used{
+		return model.User{}, http.StatusUnauthorized, errors.New("OTP is expire")
+	}
+	if err != nil || UserOtp.Code == "" || UserOtp.Code != data.Code || UserOtp.Expire.In(loc).Before(time.Now().In(loc)){
+		return model.User{}, http.StatusUnauthorized, errors.New("Token is wrong")
+	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(User.Password), []byte(data.Password))
 	if err != nil {
-		return model.User{}, http.StatusUnauthorized, errors.New(" Password is wrong")
+		return model.User{}, http.StatusUnauthorized, errors.New("Password is wrong")
+	}
+	err = s.repo.UpdateOTPExpire(UserOtp.ID)
+	if err != nil {
+		return model.User{}, http.StatusInternalServerError, err
 	}
 	User.Password = ""
 	return User, http.StatusOK, nil
@@ -76,14 +95,14 @@ func(s *service) SetOtp(Username string) (string, string, int, error){
 		return  "","", http.StatusInternalServerError, err
 	}
 	loc, _ := time.LoadLocation("Asia/Jakarta")
-	if data.Code != "" && data.Expire.In(loc).After(time.Now().In(loc)){
+	if data.Code != "" && data.Expire.Add(-2 * time.Minute).In(loc).After(time.Now().In(loc)) && data.Used == false{
 		return data.Code, User.Email, http.StatusOK, nil
 	}
 	loc, _ = time.LoadLocation("UTC")
 	userLog := model.UserOTP{
 		UserID: User.ID,
 		Code: custom.RandStringBytes(6),
-		Expire: time.Now().Add(3 * time.Minute).In(loc),
+		Expire: time.Now().Add(5 * time.Minute).In(loc),
 	}
 	err = s.repo.AddOTP(userLog)
 	if err != nil {

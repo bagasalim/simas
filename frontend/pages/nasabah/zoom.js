@@ -15,11 +15,11 @@ export default function Zoom() {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/Zoom`);
       if (res.status != 200) {
-        throw new "gagal mendapatkan pesan"();
+        throw "gagal mendapatkan pesan"();
       }
       const data = await res.json();
       if (!data.data) {
-        throw new "gagal mendapatkan data"();
+        throw "gagal mendapatkan data"();
       }
       setLink(data.data.linkvalue);
       setLoading(false);

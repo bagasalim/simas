@@ -1,7 +1,7 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import style from "./managewa.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
-import { useState, useEffect } from "react";
+
 
 const ManageWa = () => {
   const [data, setData] = useState(null);
@@ -10,8 +10,8 @@ const ManageWa = () => {
     getWa();
   }, []);
 
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [body, setBodyData] = React.useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [body, setBodyData] = useState("");
 
   const onSubmit = async (e) => {
     const dataform = {
@@ -45,7 +45,9 @@ const ManageWa = () => {
           UpdatedBy: "system",
         }),
       });
-      const resData = await res.json();
+      if(res.status != 200){
+        throw "gagal mendapatkan pesan WA"();
+      }
       const d = { ...data };
       d.data.linkvalue = body.newlink;
       console.log(d);

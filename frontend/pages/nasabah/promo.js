@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import Header from "../../components/Header";
 import UserFooter from "../../components/userfooter";
 import style from "./asuransi.module.scss";
@@ -6,21 +6,20 @@ import Image from "next/future/image";
 import jumbotron from "../../public/jumbotron.png";
 import ConfirmationModal from "../../components/modals/modalDetailPromo";
 import promotionDummy from "../../public/promotion.jpg";
-import React from "react";
 import { useRouter } from "next/router";
 
 const Promo = () => {
   const [data, setData] = useState(null);
-  const [newLink, setNewLink] = useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
   const [body, setBodyData] = React.useState("");
   const router = useRouter();
 
   const onSubmit = async (e) => {
     const dataform = {
-      newlink: newLink,
+      newlink: "newLink",
     };
     setBodyData(dataform);
+
     setModalOpen(true);
   };
 
@@ -34,8 +33,6 @@ const Promo = () => {
 
   const getData = async () => {
     try {
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_URL}`);
-      // const data = await res.json();
       const data = [
         { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
         { judul: "Serunya Oktober", startdate : "1 Oktober 2022",enddate: "31 Oktober 2022", kodepromo: "S1234" },
@@ -76,7 +73,7 @@ const Promo = () => {
               <h2 className={style.textContent}>{item.judul}</h2>
               <h5 className={style.textContent}>Periode: {item.startdate} - {item.enddate}</h5>
               <h5 className={style.textContent}>Kode Promo: {item.kodepromo}</h5>
-              <button className={style.buttonDetail} onClick={onSubmit}>Lihat Detail</button>
+              <button className={style.buttonDetail} onClick={onSubmit } data={body}>Lihat Detail</button>
           </div>
         </div>
         ))}
