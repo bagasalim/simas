@@ -10,9 +10,7 @@ const HalamanUtama = () => {
   const data_user  = localStorage.getItem('user')
   const newData = JSON.parse(data_user)
 
-  const current = new Date();
-  const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;           
-
+  const date = newData.lastlogin;
   const [data, setData] = useState('');
   const item = localStorage.getItem('location')
   const obj = JSON.parse(item);

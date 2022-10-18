@@ -55,10 +55,10 @@ export default function LoginForm() {
 
       localStorage.setItem("user", JSON.stringify(data.data));
       if (data.data.role == 1) {
-        postLastLogin()
+        postLastLogin();
         Router.replace("/project/admin");
       } else if (data.data.role == 2) {
-        postLastLogin()
+        postLastLogin();
         Router.replace("/project/customerservice");
       } else {
         console.log("Tidak ada Role");
