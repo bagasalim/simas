@@ -94,8 +94,8 @@ export default function LoginForm() {
       if(res.status != 200){
         if(data.message == "OTP is wrong")
           throw "Kode OTP is wrong"
-        if(data.message == "OTP is wrong")
-          throw "Kode OTP is wrong"  
+        if(data.message == "OTP is expire")
+          throw "Kode OTP is expire"  
       }
       if (data.token) {
         localStorage.setItem("token", data.token);
