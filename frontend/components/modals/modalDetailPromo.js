@@ -1,46 +1,54 @@
-import { Modal, ModalBody } from "reactstrap";
+import { Button, Modal, ModalBody } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
-import Image from "next/future/image";
-import cslaki from "../../public/promotion.jpg";
 const ConfirmationDetailCart = (props) => {
-    
-    return (
-      <>
+  const snk = props.data.syarat.split(";");
+  return (
+    <>
       <div className={style.container}>
-        <Modal className={style.container} isOpen={props.show} cancel={props.close}>
+        <Modal
+          className={style.container}
+          isOpen={props.show}
+          cancel={props.close}
+          toggle={props.close}
+        >
           <div className="modal-header" style={{ backgroundColor: "white" }}>
-            <h5 className="modal-title" id="exampleModalLabel">
-              Serunya Oktober<br></br>
-              <h6>Deskripsi <br></br>
-              <h6>Ayo Belanja sekarang dapatkan diskon 50%</h6>
-              </h6>
-            </h5>
-            <button aria-label="Close" className=" close" type="button" onClick={props.close}>
+            <h3 className="modal-title" id="exampleModalLabel">
+              {props.data.judul}
+            </h3>
+            <br />
+            <Button
+              aria-label="Close"
+              className=" close"
+              type="button"
+              onClick={props.close}
+            >
               <span aria-hidden={true}>×</span>
-            </button>
+            </Button>
           </div>
           <ModalBody>
-            <div className={style.body}> 
-            <Image className={style.cslaki} src={cslaki} alt="cslaki" />
+            <div className={style.body}>
+              <img
+                className={style.cslaki}
+                src={props.data.foto}
+                alt="cslaki"
+              />
             </div>
-            <div>
-              Syarat Dan Ketentuan
-            </div>
-            <div>
-              1.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
-            <div>
-            2.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
-            <div>
-            3.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
+            <p className={style.periode}>
+              Periode: {props.data.startdate.substring(0, 10)} s/d{" "}
+              {props.data.enddate.substring(0, 10)}
+            </p>
+            <h4>Deskripsi</h4>
+            <div className={style.deskripsi}>{props.data.deskripsi}</div>
+            <br />
+            <h4>Syarat dan Ketentuan</h4>
+            {snk.map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
           </ModalBody>
-         </Modal>
-         </div>
-      </>
-    );
-  };
-  
-  export default ConfirmationDetailCart;
-  
+        </Modal>
+      </div>
+    </>
+  );
+};
+
+export default ConfirmationDetailCart;
