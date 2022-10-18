@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/bagasalim/simas/asuransi"
 	"github.com/bagasalim/simas/auth"
 	"github.com/bagasalim/simas/custom"
 	"github.com/bagasalim/simas/infoPromo"
@@ -48,11 +49,17 @@ func (s *server) SetupRouter() {
 	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
 	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
 	// s.Router.Use(custom.MiddlewareAuth)
-
 	// s.Router.POST("/test", authHandler.Test)
-
 	//manage link
-
 	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
 	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
+	// s.Router.Use(custom.MiddlewareAuth)
+	adminRoute := authRoute.Group("")
+	adminRoute.Use(middleware.IsAdmin)
+	asuransiRepo := asuransi.NewRepository(s.DB)
+	asuransiService := asuransi.NewService(asuransiRepo)
+	asuransiHandler := asuransi.NewHandler(asuransiService)
+
+	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
+	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
 }

@@ -1,49 +1,62 @@
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
-import { useState, useEffect } from "react";
 import Image from "next/future/image";
-import cslaki from "../../public/covid.jpg";
+import cslaki from "../../public/promotion.jpg";
 const ConfirmationDetailCart = (props) => {
-    
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-    return (
-      <>
+  const snk = props.data.syarat.split(";");
+  return (
+    <>
       <div className={style.container}>
-        <Modal className={style.container} isOpen={props.show} cancel={props.close}>
+        <Modal
+          className={style.container}
+          isOpen={props.show}
+          cancel={props.close}
+          toggle={props.close}
+        >
           <div className="modal-header" style={{ backgroundColor: "white" }}>
-            <h5 className="modal-title" id="exampleModalLabel">
-              Simas Covid<br></br>
-              <h6>Deskripsi <br></br>
-              <h6>Premi mulai dari Rp. 50.000</h6>
-              </h6>
-            </h5>
-            <button aria-label="Close" className=" close" type="button" onClick={props.close}>
+            <h3 className="modal-title" id="exampleModalLabel">
+              {props.data.judul}
+            </h3>
+            <br />
+            <Button
+              aria-label="Close"
+              className=" close"
+              type="button"
+              onClick={props.close}
+            >
               <span aria-hidden={true}>×</span>
-            </button>
+            </Button>
           </div>
           <ModalBody>
-            <div className={style.body}> 
-            <Image className={style.cslaki} src={cslaki} alt="cslaki" />
+            <div className={style.body}>
+              <img
+                className={style.cslaki}
+                src={props.data.foto}
+                alt="cslaki"
+              />
             </div>
-            <div>
-              Syarat Dan Ketentuan
-            </div>
-            <div>
-              1.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
-            <div>
-            2.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
-            <div>
-            3.Gatau ngisi apaan pusing mau nulis apaan otak ngeblank aja tiba-tiba
-            </div>
+            <p>
+                <h4> Premi </h4>
+                Rp{props.data.premi}
+            </p>
+
+            <p>
+                <h4> Uang Pertanggungan </h4>
+                Rp{props.data.uangpertanggungan}
+            </p>
+
+            <h4>Deskripsi</h4>
+            <div className={style.deskripsi}>{props.data.deskripsi}</div>
+            <br />
+            <h4>Syarat dan Ketentuan</h4>
+            {snk.map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
           </ModalBody>
-         </Modal>
-         </div>
-      </>
-    );
-  };
-  
-  export default ConfirmationDetailCart;
-  
+        </Modal>
+      </div>
+    </>
+  );
+};
+
+export default ConfirmationDetailCart;
