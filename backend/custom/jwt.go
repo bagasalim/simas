@@ -11,17 +11,19 @@ import (
 )
 
 type DataJWT struct {
-	Username string
-	Name     string
-	Role     int8
+	Username  string
+	Name      string
+	Role      int8
+	LastLogin int64
 	jwt.StandardClaims
 }
 
-func GenerateJWT(username string, name string, role int8) (string, error) {
+func GenerateJWT(username string, name string, role int8, LastLogin time.Time) (string, error) {
 	claim := DataJWT{
-		Username: username,
-		Name:     name,
-		Role:     role,
+		Username:  username,
+		Name:      name,
+		Role:      role,
+		LastLogin: LastLogin.Unix(),
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(60 * time.Minute).Unix(),
 		},

@@ -56,7 +56,7 @@ func (h *Handler) Login(c *gin.Context) {
 		return
 	}
 
-	token, err := custom.GenerateJWT(res.Username, res.Name, res.Role)
+	token, err := custom.GenerateJWT(res.Username, res.Name, res.Role, res.LastLogin)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),
@@ -67,9 +67,10 @@ func (h *Handler) Login(c *gin.Context) {
 	c.JSON(status, gin.H{
 		"token": token,
 		"data": map[string]any{
-			"name":     res.Name,
-			"username": res.Username,
-			"role":     res.Role,
+			"name":      res.Name,
+			"username":  res.Username,
+			"role":      res.Role,
+			"lastlogin": res.LastLogin,
 		},
 	})
 	return
