@@ -10,7 +10,9 @@ const HalamanUtama = () => {
   const data_user  = localStorage.getItem('user')
   const newData = JSON.parse(data_user)
 
-  const date = newData.lastlogin;
+  const dateRes = newData.lastlogin.substring(0,10)
+  const timeRes = newData.lastlogin.substring(11,19)
+  const date = dateRes + " " + timeRes
   const [data, setData] = useState('');
   const item = localStorage.getItem('location')
   const obj = JSON.parse(item);
