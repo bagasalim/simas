@@ -45,8 +45,8 @@ const HalamanUtama = () => {
         <hr />
         {obj !== null ? 
           <div className={style.alert}>
-          <p>Login At : {date}</p> 
-          <p>Current Location : {obj.locality} {obj.city} {obj.principalSubdivision} {obj.countryName} </p> 
+          <p>Terakhir Login : {date}</p> 
+          <p>Lokasi Sekarang : {obj.locality} {obj.city} {obj.principalSubdivision} {obj.countryName} </p> 
           </div> : ''
         }
         <br />
