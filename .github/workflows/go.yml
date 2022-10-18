@@ -32,9 +32,8 @@ jobs:
       working-directory: backend
 
     - name: Build
-      run: |
-        go build -v ./...
-	    working-directory: backend
+      run: go build -v ./...
+      working-directory: backend
     - name: Test with the Go CLI 
       run: |
         go test -v ./... -covermode count -coverprofile coverage.out
