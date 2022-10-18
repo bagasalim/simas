@@ -10,6 +10,7 @@ export default function Zoom() {
   const [link, setLink] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [data, setData] = useState('');
 
   const getLinkZoom = async () => {
     try {
@@ -35,11 +36,14 @@ export default function Zoom() {
   const postDataZoom = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const item = localStorage.getItem('location')
+    const obj = JSON.parse(item);
     const body = {
       nama: formData.get("namaZoom"),
       email: formData.get("emailZoom"),
       kategori: formData.get("kategoriZoom"),
       keterangan: formData.get("keluhanZoom"),
+      lokasi: obj !== null ? obj.city : "",
     };
     console.log(body);
     try {
@@ -60,8 +64,26 @@ export default function Zoom() {
     }
   };
 
+  const getLocation = async (lat, lang) => {
+    try {
+      const newUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lang}&localityLanguage=id`
+      const res = await fetch(newUrl);
+      const data = await res.json();
+      setData(data);
+
+    }
+    catch (error) {
+      alert("Gagal get location");
+    }
+  }
+
   useEffect(() => {
     getLinkZoom();
+    if(localStorage.getItem('location') === null) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        getLocation(position.coords.latitude, position.coords.longitude)
+      });
+    }
   }, []);
 
   return (

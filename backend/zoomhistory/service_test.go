@@ -17,6 +17,7 @@ func TestCreateZoomHistory(t *testing.T) {
 		Email:      "cayo@gmail.com",
 		Kategori:   "Kredit",
 		Keterangan: "gatau",
+		Lokasi:     "Jakarta",
 	}
 	res, _, err := service.CreateZoomHistory(data)
 	fmt.Println("test", data.Nama, res, err)

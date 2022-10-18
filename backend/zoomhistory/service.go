@@ -24,6 +24,7 @@ func (s *service) CreateZoomHistory(data ZoomHistoryRequest) (model.Riwayat, int
 		Email:      data.Email,
 		Kategori:   data.Kategori,
 		Keterangan: data.Keterangan,
+		Lokasi:     data.Lokasi,
 	}
 	res, err := s.repo.AddUser(Riwayat)
 	if err != nil {
