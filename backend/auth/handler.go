@@ -74,3 +74,31 @@ func (h *Handler) Login(c *gin.Context) {
 	})
 	return
 }
+func (h *Handler) UpdateLastLogin(c *gin.Context) {
+	_, exist := c.Get("user")
+	if !exist {
+		return
+	}
+
+	var req LastLoginRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		messageErr := custom.ParseError(err)
+		if messageErr == nil {
+			messageErr = []string{"Input data not suitable"}
+		}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+	_, status, err := h.Service.UpdateLastLogin(req)
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(status, gin.H{
+		"message": "success",
+	})
+
+}

@@ -11,9 +11,7 @@ const HalamanUtama = () => {
   const newData = JSON.parse(data_user)
 
   const current = new Date();
-  const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
-  //const date =  Date().toLocaleString();
-  
+  const date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;           
 
   const [data, setData] = useState('');
   const item = localStorage.getItem('location')
@@ -23,16 +21,9 @@ const HalamanUtama = () => {
   useEffect(() => {
     if(localStorage.getItem('location') === null) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        //console.log("Latitude is :", position.coords.latitude);
-        //console.log("Longitude is :", position.coords.longitude);
         getLocation(position.coords.latitude, position.coords.longitude)
-        
       });
     }
-
-    
-    
-
   }, []);
 
   const getLocation = async (lat, lang) => {

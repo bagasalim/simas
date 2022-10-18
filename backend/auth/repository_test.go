@@ -56,5 +56,5 @@ func TestFindUser(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	_, err1 := repo.FindUser("remasertu1")
-	assert.Equal(t, err1.Error(), errors.New("Not found").Error())
+	assert.Equal(t, err1.Error(), errors.New("not found").Error())
 }

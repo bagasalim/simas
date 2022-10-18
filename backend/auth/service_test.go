@@ -39,7 +39,7 @@ func TestLoginService(t *testing.T) {
 		Password: "123456",
 	}
 	_, _, err = service.Login(data)
-	assert.Equal(t, err.Error(), "Username or Password is wrong")
+	assert.Equal(t, err.Error(), "username or password is wrong")
 
 	data = LoginRequest{
 		Username: "remasertu",
@@ -70,7 +70,7 @@ func TestCreateAccountService(t *testing.T) {
 		Name:     "rema",
 	}
 	_, _, err = service.CreateAccount(data)
-	assert.Equal(t, err.Error(), "Duplicate Data")
+	assert.Equal(t, err.Error(), "duplicate data")
 
 	// data = RegisterRequest{
 	// 	Username: "remasertu",
