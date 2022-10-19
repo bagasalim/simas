@@ -12,6 +12,20 @@ export default function Zoom() {
   const router = useRouter();
   const [data, setData] = useState('');
 
+  const getLocation = async (lat, lang) => {
+    try {
+      const newUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lang}&localityLanguage=id`
+      const res = await fetch(newUrl);
+      const data = await res.json();
+      setData(data);
+      console.log(data);
+
+    }
+    catch (error) {
+      alert("Gagal get location");
+    }
+  }
+
   const getLinkZoom = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}get-link/Zoom`);
@@ -36,14 +50,12 @@ export default function Zoom() {
   const postDataZoom = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const item = localStorage.getItem('location')
-    const obj = JSON.parse(item);
     const body = {
       nama: formData.get("namaZoom"),
       email: formData.get("emailZoom"),
       kategori: formData.get("kategoriZoom"),
       keterangan: formData.get("keluhanZoom"),
-      lokasi: obj !== null ? obj.city : "",
+      lokasi: data !== null ? data.city : "",
     };
     console.log(body);
     try {
@@ -63,19 +75,6 @@ export default function Zoom() {
       return false;
     }
   };
-
-  const getLocation = async (lat, lang) => {
-    try {
-      const newUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lang}&localityLanguage=id`
-      const res = await fetch(newUrl);
-      const data = await res.json();
-      setData(data);
-
-    }
-    catch (error) {
-      alert("Gagal get location");
-    }
-  }
 
   useEffect(() => {
     getLinkZoom();
