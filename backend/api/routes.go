@@ -26,6 +26,7 @@ func (s *server) SetupRouter() {
 	middleware := custom.MiddleWare{}
 	authRoute := s.Router.Group("")
 	authRoute.Use(middleware.Auth)
+	authRoute.POST("/updatelastlogin", authHandler.UpdateLastLogin)
 
 	manageLinkRepo := managelink.NewRepository(s.DB)
 	manageLinkService := managelink.NewService(manageLinkRepo)

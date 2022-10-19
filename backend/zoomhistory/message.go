@@ -5,4 +5,5 @@ type ZoomHistoryRequest struct {
 	Email      string `json:"email" binding:"required"`
 	Kategori   string `json:"kategori" binding:"required"`
 	Keterangan string `json:"keterangan" binding:"required"`
+	Lokasi     string `json:"lokasi"`
 }

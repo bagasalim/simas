@@ -13,6 +13,7 @@ const Sidebar = ({ toggleActive }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("location");
     console.log(localStorage.getItem("token"));
     Router.replace("/loginForm");
   };
