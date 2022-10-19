@@ -39,10 +39,10 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="#" onClick={logout}>
+            <div href="#" onClick={logout}>
               <LogoutIcon className={style.icon} />
               <span>Keluar</span>
-            </a>
+            </div>
           </li>
         </ul>
       </div>

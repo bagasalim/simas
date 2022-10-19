@@ -1,5 +1,7 @@
 package auth
 
+import "time"
+
 type LoginRequest struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
@@ -12,4 +14,8 @@ type RegisterRequest struct {
 }
 type SendOTPRequest struct {
 	Username string `json:"username" binding:"required"`
+}
+type LastLoginRequest struct {
+	Username  string    `json:"username" binding:"required"`
+	LastLogin time.Time `json:"lastlogin" binding:"required"`
 }

@@ -1,8 +1,10 @@
 package api
 
 import (
+	"github.com/bagasalim/simas/asuransi"
 	"github.com/bagasalim/simas/auth"
 	"github.com/bagasalim/simas/custom"
+	"github.com/bagasalim/simas/infoPromo"
 	"github.com/bagasalim/simas/managelink"
 	"github.com/bagasalim/simas/zoomhistory"
 	"github.com/gin-contrib/cors"
@@ -25,6 +27,7 @@ func (s *server) SetupRouter() {
 	middleware := custom.MiddleWare{}
 	authRoute := s.Router.Group("")
 	authRoute.Use(middleware.Auth)
+	authRoute.POST("/updatelastlogin", authHandler.UpdateLastLogin)
 
 	manageLinkRepo := managelink.NewRepository(s.DB)
 	manageLinkService := managelink.NewService(manageLinkRepo)
@@ -40,12 +43,25 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+
+	infoPromoRepo := infoPromo.NewRepository(s.DB)
+	infoPromoService := infoPromo.NewService(infoPromoRepo)
+	infoPromoHandler := infoPromo.NewHandler(infoPromoService)
+	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
+	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
+	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
 	// s.Router.Use(custom.MiddlewareAuth)
-
 	// s.Router.POST("/test", authHandler.Test)
-
 	//manage link
-
 	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
 	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
+	// s.Router.Use(custom.MiddlewareAuth)
+	adminRoute := authRoute.Group("")
+	adminRoute.Use(middleware.IsAdmin)
+	asuransiRepo := asuransi.NewRepository(s.DB)
+	asuransiService := asuransi.NewService(asuransiRepo)
+	asuransiHandler := asuransi.NewHandler(asuransiService)
+
+	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
+	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
 }

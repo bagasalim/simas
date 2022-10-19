@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/bagasalim/simas/model"
 	"github.com/stretchr/testify/assert"
@@ -39,7 +40,7 @@ func TestLoginService(t *testing.T) {
 		Password: "123456",
 	}
 	_, _, err = service.Login(data)
-	assert.Equal(t, err.Error(), "Username or Password is wrong")
+	assert.Equal(t, err.Error(), "username or password is wrong")
 
 	data = LoginRequest{
 		Username: "remasertu",
@@ -70,7 +71,7 @@ func TestCreateAccountService(t *testing.T) {
 		Name:     "rema",
 	}
 	_, _, err = service.CreateAccount(data)
-	assert.Equal(t, err.Error(), "Duplicate Data")
+	assert.Equal(t, err.Error(), "duplicate data")
 
 	// data = RegisterRequest{
 	// 	Username: "remasertu",
@@ -80,4 +81,19 @@ func TestCreateAccountService(t *testing.T) {
 	// res, _, err = service.Login(data)
 	// assert.NotNil(t, err)
 
+}
+
+func TestUpdateLastLoginService(t *testing.T) {
+	db := newTestDB(t)
+	repo := NewRepository(db)
+	service := NewService(repo)
+
+	data := LastLoginRequest{
+		Username:  "cindu",
+		LastLogin: time.Now(),
+	}
+	//sukses
+	res, _, err := service.UpdateLastLogin(data)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
 }

@@ -11,6 +11,19 @@ export default function LoginForm() {
   const [isOTPSend, setIsOTPSend] = useState(false)
   const [load, setLoad] = useState(false)
   const route = useRouter()
+  const current = new Date();
+  const month = '0' + (current.getMonth() + 1);
+  const day = '0' + current.getDate();
+  const hours = '0' + current.getHours();
+  const minutes = '0' + current.getMinutes();
+  const second = '0' + current.getSeconds();
+  const dateRequest = current.getFullYear() + '-'
+              + month.substring(month.length-2,month.length) + '-'
+              + day.substring(day.length-2,day.length) + 'T'
+              + hours.substring(hours.length-2,hours.length) + ':'
+              + minutes.substring(minutes.length-2,minutes.length) + ':'
+              + second.substring(second.length-2,second.length) + '.000Z';
+
   useEffect(() => {
     let user = localStorage.getItem("user");
     let token = localStorage.getItem("token");
@@ -101,6 +114,7 @@ export default function LoginForm() {
         localStorage.setItem("token", data.token);
   
         localStorage.setItem("user", JSON.stringify(data.data));
+        postLastLogin();
         if (data.data.role == 1) {
           route.push("/project/admin")
           // Router.replace("/project/admin");
@@ -124,13 +138,13 @@ export default function LoginForm() {
     }
     setLoad(false)
   }
-  let minute,second = 0
+  let minute,seconds = 0
   if(timeLeft){
     minute = Math.floor(timeLeft / 60).toLocaleString('en-US', {
       minimumIntegerDigits: 2,
       useGrouping: false
     })
-    second = (timeLeft - minute * 60).toLocaleString('en-US', {
+    seconds = (timeLeft - minute * 60).toLocaleString('en-US', {
       minimumIntegerDigits: 2,
       useGrouping: false
     })
@@ -147,6 +161,28 @@ export default function LoginForm() {
     css.cursorLogin=""
   }
   
+  async function postLastLogin() {
+    const data_user  = localStorage.getItem('user');
+    const newData = JSON.parse(data_user);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}updatelastlogin`, {
+        method: "POST",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          username: newData.username,
+          lastlogin: dateRequest,
+        }),
+      });
+      if(res.status != 200){
+        throw "gagal mendapatkan response update last login"();
+      }
+    } catch (error) {
+      alert("Update Last Login Gagal");
+    }
+  }
+
   return (
     <div>
       <div className={styles.background}>
@@ -170,7 +206,7 @@ export default function LoginForm() {
         <input type="password" placeholder="Password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)} className={styles.input} />
         {
           timeLeft? (<label  >
-            sisa : {minute } : {second}
+            sisa : {minute } : {seconds}
           </label>):<></>
         }
         
