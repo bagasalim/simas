@@ -3,27 +3,32 @@ import style from "./index.module.scss";
 import HalamanUtama from "../../../components/halamanutamaadmin/halamanutama";
 
 import { useEffect, useState } from "react";
-import Router from "next/router";
+import Router,{useRouter} from "next/router";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
+  const route = useRouter()
   useEffect(() => {
     const token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
     if (token == null || user == null) {
       console.log("logout");
-      Router.replace("/loginForm");
+      route.push('/loginForm')
+      // Router.replace("/loginForm");
       return;
     }
     user = JSON.parse(user);
     if (user.role != 1) {
       if (user.role == 2) {
         console.log("redirect");
-        Router.replace("/project/customerservice");
+        route.back()
+        // route.push('/project/customerservice')
+        // Router.replace("/project/customerservice");
         return;
       }
-      console.log("load", user);
-      Router.replace("/loginForm");
+      route.push('/loginForm')
+      // console.log("load", user);
+      // Router.replace("/loginForm");
       return;
     }
     setLoading(false);
