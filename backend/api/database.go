@@ -47,7 +47,7 @@ func SetupDb() (*gorm.DB, error) {
 	}
 
 	if os.Getenv("AUTO_MIGRATE") == "Y" {
-		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}, model.InfoPromo{}, model.Asuransi{}); err != nil {
+		if err := db.AutoMigrate(model.User{}, model.Link{}, model.Riwayat{}, model.UserOTP{}, model.Asuransi{},model.InfoPromo{}); err != nil {
 			return nil, fmt.Errorf("failed to migrate database: %w", err)
 		}
 
@@ -56,12 +56,15 @@ func SetupDb() (*gorm.DB, error) {
 				Username: "admin",
 				Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
 				Name:     "Administrator",
+				Email: 	"simaskominfo@gmail.com",
 				Role:     1,
+				
 			},
 			{
 				Username: "CS01",
 				Password: "$2a$10$BQHCjmHmEsFGJXCGWm7et.2lvVPecg0ibhFd/tgOCCCncTu5ieiA.",
 				Name:     "Customer Service",
+				Email: "simaskominfo@gmail.com",
 				Role:     2,
 			},
 		}
