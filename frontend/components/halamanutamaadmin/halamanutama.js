@@ -3,7 +3,7 @@ import AdminCard from "../admincard/admincard";
 import Image from "next/image";
 import foto1 from "../../public/assets/info1.jpg";
 import foto2 from "../../public/assets/info2.jpg";
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 
 const HalamanUtama = () => {
   const dataUser  = localStorage.getItem('user')
@@ -12,10 +12,9 @@ const HalamanUtama = () => {
   const dateRes = newData.lastlogin.substring(0,10)
   const timeRes = newData.lastlogin.substring(11,19)
   const date = dateRes + " " + timeRes
-  const [data, setData] = useState('');
   const item = localStorage.getItem('location')
   const obj = JSON.parse(item);
-  const [error, setError] = useState(null);
+  
   
   useEffect(() => {
     if(localStorage.getItem('location') === null) {
@@ -30,12 +29,10 @@ const HalamanUtama = () => {
       const newUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lang}&localityLanguage=en`
       const res = await fetch(newUrl);
       const data = await res.json();
-      setData(data);
       localStorage.setItem("location", JSON.stringify(data))
-      //console.log(data)
     }
     catch (error) {
-      setError(error);
+  
     }
   }
 

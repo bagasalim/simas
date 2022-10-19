@@ -13,10 +13,8 @@ const HalamanUtama = () => {
   const dateRes = newData.lastlogin.substring(0,10)
   const timeRes = newData.lastlogin.substring(11,19)
   const date = dateRes + " " + timeRes
-  const [data, setData] = useState('');
   const item = localStorage.getItem('location')
   const obj = JSON.parse(item);
-  const [error, setError] = useState(null);
   
   useEffect(() => {
     if(localStorage.getItem('location') === null) {
@@ -31,12 +29,9 @@ const HalamanUtama = () => {
       const newUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lang}&localityLanguage=en`
       const res = await fetch(newUrl);
       const data = await res.json();
-      setData(data);
       localStorage.setItem("location", JSON.stringify(data))
-      //console.log(data)
     }
     catch (error) {
-      setError(error);
     }
   }
 
