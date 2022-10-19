@@ -3,7 +3,7 @@ import Image from "next/image";
 import foto1 from "../../public/assets/info1.jpg";
 import foto2 from "../../public/assets/info2.jpg";
 
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 
 
 const HalamanUtama = () => {
