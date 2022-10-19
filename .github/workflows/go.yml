@@ -6,11 +6,13 @@ on:
     - main
     - staging
     - hotfix
+    - coldfix
   pull_request:
     branches:
     - main
     - staging
     - hotfix
+    - coldfix
 
 jobs:
 
@@ -31,12 +33,14 @@ jobs:
         go get -u golang.org/x/lint/golint 
       working-directory: backend
 
-    - name: Go test
-      run : |
-        go test -cover -v ./auth 
-        go test -cover -v ./managelink 
-        go test -cover -v ./zoomhistory 
+    - name: Build
+      run: go build -v ./...
       working-directory: backend
+    - name: Test with the Go CLI 
+      run: |
+        go test -v ./... -covermode count -coverprofile coverage.out
+      working-directory: backend
+
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
