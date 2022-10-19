@@ -78,11 +78,9 @@ export default function Zoom() {
 
   useEffect(() => {
     getLinkZoom();
-    if(localStorage.getItem('location') === null) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
         getLocation(position.coords.latitude, position.coords.longitude)
-      });
-    }
+    });
   }, []);
 
   return (
