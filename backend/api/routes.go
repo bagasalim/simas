@@ -44,6 +44,7 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+	csRoute.GET("/getzoomhistory", zoomHistoryHandler.GetRiwayat)
 
 	infoPromoRepo := infoPromo.NewRepository(s.DB)
 	infoPromoService := infoPromo.NewService(infoPromoRepo)
