@@ -86,7 +86,7 @@ func (h *Handler) SendOTP(c *gin.Context){
 	if err := c.ShouldBindJSON(&req); err != nil {
 		messageErr := custom.ParseError(err)
 		if messageErr == nil {
-			messageErr = []string{"Input data not suitable"}
+			messageErr = []string{message}
 		}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return
@@ -127,7 +127,7 @@ func (h *Handler) UpdateLastLogin(c *gin.Context) {
 	if err := c.ShouldBindJSON(&req); err != nil {
 		messageErr := custom.ParseError(err)
 		if messageErr == nil {
-			messageErr = []string{"Input data not suitable"}
+			messageErr = []string{message}
 		}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return

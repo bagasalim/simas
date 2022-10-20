@@ -17,18 +17,18 @@ const CONFIG_SENDER_NAME = "SIMAS CONTACT"
 
 func SendMail(to []string, cc []string, subject, message string) error {
 	// "Cc: " + strings.Join(cc, ",") + "\n" +
-	CONFIG_AUTH_EMAIL := os.Getenv("email_sender")
-	CONFIG_AUTH_PASSWORD := os.Getenv("pass_sender")
+	authEmail := os.Getenv("email_sender")
+	authPass := os.Getenv("pass_sender")
 	body := "From: " + CONFIG_SENDER_NAME + "\n" +
 		"To: " + strings.Join(to, ",") + "\n" +
 		
 		"Subject: " + subject + "\n\n" +
 		message
 
-	auth := smtp.PlainAuth("", CONFIG_AUTH_EMAIL, CONFIG_AUTH_PASSWORD, CONFIG_SMTP_HOST)
+	auth := smtp.PlainAuth("", authEmail, authPass, CONFIG_SMTP_HOST)
 	smtpAddr := fmt.Sprintf("%s:%d", CONFIG_SMTP_HOST, CONFIG_SMTP_PORT)
 
-	err := smtp.SendMail(smtpAddr, auth, CONFIG_AUTH_EMAIL, append(to, cc...), []byte(body))
+	err := smtp.SendMail(smtpAddr, auth, authEmail, append(to, cc...), []byte(body))
 	if err != nil {
 		return err
 	}
@@ -37,15 +37,15 @@ func SendMail(to []string, cc []string, subject, message string) error {
 }
 func SendEmail2(to []string, subject, message, typeBody string) error{
 	if os.Getenv("testing") != "y"{
-		CONFIG_AUTH_EMAIL := os.Getenv("email_sender")
-		CONFIG_AUTH_PASSWORD := os.Getenv("pass_sender")
+		authEmail := os.Getenv("email_sender")
+		authPass := os.Getenv("pass_sender")
 		fmt.Println("send email", to)
 		m := gomail.NewMessage()
 		m.SetAddressHeader("From", "simaskominfo@gmail.com", CONFIG_SENDER_NAME)
 		m.SetHeader("To", to...)
 		m.SetHeader("Subject", subject)
 		m.SetBody(typeBody, message)
-		dialer := gomail.Dialer{Host: CONFIG_SMTP_HOST, Port: CONFIG_SMTP_PORT, Username: CONFIG_AUTH_EMAIL, Password: CONFIG_AUTH_PASSWORD}
+		dialer := gomail.Dialer{Host: CONFIG_SMTP_HOST, Port: CONFIG_SMTP_PORT, Username: authEmail, Password: authPass}
 		// d := gomail.NewDialer(CONFIG_SMTP_HOST, CONFIG_SMTP_PORT, CONFIG_AUTH_EMAIL, CONFIG_AUTH_PASSWORD)
 		err := dialer.DialAndSend(m)
 		if err != nil {

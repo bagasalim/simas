@@ -70,18 +70,14 @@ export default function LoginForm() {
       });
       
       if(res.status != 200){
-        throw "Gagal dapatin kode otp"
+        throw "Gagal dapatin kode otp"()
       }
       setIsOTPSend(true)
       // responseMessage = await res.json()
       setTimeLeft(60*2)
       // alert("OTP telah dikirim, expired 5 menit")
     }catch(err){
-      if(typeof err=="string"){
-        alert(err)
-      }else{
-        alert("Gagal dapatin OTP")
-      }
+      alert("Gagal mendapatkan OTP")
     }
     setLoad(false)
    
@@ -106,9 +102,9 @@ export default function LoginForm() {
       const data = await res.json();
       if(res.status != 200){
         if(data.message == "OTP is wrong")
-          throw "Kode OTP is wrong"
+          throw new Error("Kode OTP is wrong")
         if(data.message == "OTP is expire")
-          throw "Kode OTP is expire"  
+          throw new Error("Kode OTP is expire")
       }
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -117,26 +113,26 @@ export default function LoginForm() {
         postLastLogin();
         if (data.data.role == 1) {
           route.push("/project/admin")
-          // Router.replace("/project/admin");
         } else if (data.data.role == 2) {
           route.push("/project/customerservice")
-          // Router.replace("/project/customerservice");
         } else {
           console.log("Tidak ada Role");
         }
+        
       } else {
         alert("Username / Password / OTP salah");
+        setLoad(false)
       }
     
     }catch(err){
-      if (typeof err == "string"){
-        alert(err)
+      if (err.message.startsWith("Kode OTP")){
+        alert(err.message)
       }else{
         alert("Username atau Password salah");
       }
-      
+      setLoad(false)
     }
-    setLoad(false)
+    
   }
   let minute,seconds = 0
   if(timeLeft){
