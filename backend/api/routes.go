@@ -6,6 +6,7 @@ import (
 	"github.com/bagasalim/simas/custom"
 	"github.com/bagasalim/simas/infoPromo"
 	"github.com/bagasalim/simas/managelink"
+	"github.com/bagasalim/simas/manageuser"
 	"github.com/bagasalim/simas/zoomhistory"
 	"github.com/gin-contrib/cors"
 )
@@ -64,4 +65,9 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
 	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
+
+	userRepo := manageuser.NewRepository(s.DB)
+	userService := manageuser.NewService(userRepo)
+	userHandler := manageuser.NewHandler(userService)
+	s.Router.GET("/getUser", userHandler.GetUser)
 }
