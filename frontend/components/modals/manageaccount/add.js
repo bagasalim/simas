@@ -6,6 +6,33 @@ const ModalAdd = (props) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordConfirmShown, setPasswordConfirmShown] = useState(false);
 
+  const addUser = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const body = {
+      //MASUKKAN BODY
+      // nama: formData.get("username"),
+      // email: formData.get("nama"),
+      // kategori: formData.get("role"),
+      // keterangan: formData.get("email"),
+      // keterangan: formData.get("katasandi"),
+    };
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+      if(res.status != 200){
+        throw "gagal membuat user CS"();
+      }
+    } catch (e) {
+      if (typeof e === "string") {
+        alert("Gagal membuat user CS, silahkan refresh ulang");
+      }
+      return false;
+    }
+  };
+
   return (
     <>
       <Modal isOpen={props.show} toggle={props.close}>
@@ -122,6 +149,7 @@ const ModalAdd = (props) => {
                 type="submit"
                 className={style.buttonHijau}
                 style={{ marginTop: "20px" }}
+                onSubmit={addUser}
               >
                 Kirim
               </button>
