@@ -1,6 +1,6 @@
 import style from "./managezoom.module.scss";
 import ConfirmationModal from "../modals/modalwadanzoom";
-import React,{ useState, useEffect, } from "react";
+import React, { useState, useEffect } from "react";
 
 const ManageWa = () => {
   const [data, setData] = useState(null);
@@ -44,7 +44,7 @@ const ManageWa = () => {
           UpdatedBy: "system",
         }),
       });
-      if(res.status != 200){
+      if (res.status != 200) {
         throw "gagal mendapatkan pesan Zoom"();
       }
       const d = { ...data };

@@ -7,5 +7,5 @@ type GetUserRequest struct {
 type UpdateUserRequest struct {
 	Email string `json:"email" binding:"required"`
 	Role  int8   `json:"role" binding:"required"`
-	Name  string `json:"Name" binding:"required"`
+	Name  string `json:"name" binding:"required"`
 }

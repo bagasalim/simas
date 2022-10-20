@@ -23,7 +23,6 @@ func (s *server) SetupRouter() {
 	s.Router.POST("/create-account", authHandler.CreateUser)
 	s.Router.POST("/login", authHandler.Login)
 	s.Router.POST("/send-otp", authHandler.SendOTP)
-	//example validation auth route
 
 	middleware := custom.MiddleWare{}
 	authRoute := s.Router.Group("")
@@ -44,6 +43,7 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+	csRoute.GET("/getzoomhistory", zoomHistoryHandler.GetRiwayat)
 
 	infoPromoRepo := infoPromo.NewRepository(s.DB)
 	infoPromoService := infoPromo.NewService(infoPromoRepo)
@@ -51,12 +51,7 @@ func (s *server) SetupRouter() {
 	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
 	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
 	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
-	// s.Router.Use(custom.MiddlewareAuth)
-	// s.Router.POST("/test", authHandler.Test)
-	//manage link
-	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
-	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
-	// s.Router.Use(custom.MiddlewareAuth)
+	
 	adminRoute := authRoute.Group("")
 	adminRoute.Use(middleware.IsAdmin)
 	asuransiRepo := asuransi.NewRepository(s.DB)
@@ -70,7 +65,7 @@ func (s *server) SetupRouter() {
 	manageUserService := manageuser.NewService(manageUserRepo)
 	manageUserHandler := manageuser.NewHandler(manageUserService)
 
-	s.Router.GET("/getuser", manageUserHandler.GetUser)
-	s.Router.PUT("/updateuser", manageUserHandler.UpdateUser)
-	s.Router.DELETE("/deleteuser/:id", manageUserHandler.DeleteUser)
+	adminRoute.GET("/getUser", manageUserHandler.GetUser)
+	adminRoute.PUT("/updateuser", manageUserHandler.UpdateUser)
+	adminRoute.DELETE("/deleteuser/:id", manageUserHandler.DeleteUser)
 }

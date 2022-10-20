@@ -5,14 +5,15 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Router, {useRouter} from "next/router";
-const Sidebar = () => {
-  const route = useRouter()
+import Router, { useRouter } from "next/router";
+
+const Sidebar = ({ toggleActive }) => {
+  const route = useRouter();
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     console.log(localStorage.getItem("token"));
-    route.push("/loginForm")
+    route.push("/loginForm");
     // Router.replace("/loginForm");
   };
   return (
@@ -24,11 +25,11 @@ const Sidebar = () => {
       <div className={style.center}>
         <ul>
           <p className={style.title}>MAIN MENU</p>
-          <li>
+          <li onClick={() => toggleActive("halamanutama")}>
             <HomeIcon className={style.icon} />
             <span>Halaman Utama</span>
           </li>
-          <li>
+          <li onClick={() => toggleActive("managecs")}>
             <AccountBoxIcon className={style.icon} />
             <span>Akun CS</span>
           </li>

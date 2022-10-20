@@ -5,6 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ChatIcon from "@mui/icons-material/Chat";
 import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Router from "next/router";
@@ -47,6 +48,10 @@ const Sidebar = ({ toggleActive }) => {
           <li onClick={() => toggleActive("managewa")}>
             <WhatsAppIcon className={style.icon} />
             <span>Manage WA</span>
+          </li>
+          <li onClick={() => toggleActive("zoomhistory")}>
+            <HistoryIcon className={style.icon} />
+            <span>Riwayat Akses Zoom</span>
           </li>
           <li>
             <a href="#" onClick={logout}>

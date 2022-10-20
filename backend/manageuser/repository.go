@@ -24,13 +24,13 @@ func NewRepository(db *gorm.DB) *repository {
 }
 
 func (r *repository) GetUser() ([]model.User, error) {
-	var user []model.User
-	res := r.db.Find(&user)
+	var User []model.User
+	res := r.db.Where("role=2").Find(&User)
 	if res.Error != nil {
 		log.Println("Get Data error : ", res.Error)
 		return nil, res.Error
 	}
-	return user, nil
+	return User, nil
 }
 
 func (r *repository) GetUserReq(username string) (model.User, error) {

@@ -38,3 +38,18 @@ func (h *Handler) CreateZoom(c *gin.Context) {
 	})
 
 }
+
+func (h *Handler) GetRiwayat(c *gin.Context) {
+	riwayat, status, err := h.Service.GetRiwayat()
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    riwayat,
+	})
+}
