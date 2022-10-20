@@ -66,8 +66,11 @@ func (s *server) SetupRouter() {
 	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
 	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
 
-	userRepo := manageuser.NewRepository(s.DB)
-	userService := manageuser.NewService(userRepo)
-	userHandler := manageuser.NewHandler(userService)
-	s.Router.GET("/getUser", userHandler.GetUser)
+	manageUserRepo := manageuser.NewRepository(s.DB)
+	manageUserService := manageuser.NewService(manageUserRepo)
+	manageUserHandler := manageuser.NewHandler(manageUserService)
+
+	s.Router.GET("/getuser", manageUserHandler.GetUser)
+	s.Router.PUT("/updateuser", manageUserHandler.UpdateUser)
+	s.Router.DELETE("/deleteuser/:id", manageUserHandler.DeleteUser)
 }

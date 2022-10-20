@@ -1,8 +1,10 @@
 package manageuser
 
 import (
-	"fmt"
+	"log"
+	"net/http"
 
+	"github.com/bagasalim/simas/custom"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +17,30 @@ func NewHandler(service Service) *Handler {
 }
 
 func (h *Handler) GetUser(c *gin.Context) {
-	todos, status, err := h.Service.GetUser()
+	user, status, err := h.Service.GetUser()
+	if err != nil {
+		log.Println("Error handler Get : ", err)
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    user,
+	})
+}
+
+func (h *Handler) GetUserReq(c *gin.Context) {
+	var req GetUserRequest
+	username := c.Query("username")
+	if username == "" {
+		messageErr := []string{"Input data not suitable"}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+	req = GetUserRequest{Username: username}
+	user, status, err := h.Service.GetUserReq(req)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),
@@ -25,13 +50,37 @@ func (h *Handler) GetUser(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"message": "success",
-		"data":    todos,
+		"data":    user,
 	})
 }
 
 func (h *Handler) UpdateUser(c *gin.Context) {
-	fmt.Println("UpdateHandler")
-	todos, status, err := h.Service.GetUser()
+	
+
+	var req UpdateUserRequest
+	username := c.Query("username")
+
+	if username == "" {
+		messageErr := []string{"Param data not suitable"}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		messageErr := custom.ParseError(err)
+		if messageErr == nil {
+			messageErr = []string{"Input data not suitable"}
+		}
+		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
+		return
+	}
+
+	reqFix := UpdateUserRequest{
+		Email: req.Email,
+		Role: req.Role,
+		Name: req.Name,
+	}
+	user, status, err := h.Service.UpdateUser(reqFix, username)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),
@@ -41,14 +90,16 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"message": "success",
-		"data":    todos,
+		"data":    user,
 	})
-	//tinggal diubah
+
 }
+
 func (h *Handler) DeleteUser(c *gin.Context) {
-	fmt.Println("DeleteHandler")
-	todos, status, err := h.Service.GetUser()
+	userId := c.Param("id")
+	_, status, err := h.Service.DeleteUser(userId)
 	if err != nil {
+		log.Println("Error handler Delete : ", err)
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
@@ -56,8 +107,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	}
 
 	c.JSON(status, gin.H{
-		"message": "success",
-		"data":    todos,
+		"message": "deleted success",
+		"id":      userId,
 	})
-	//tinggal diubah
 }
