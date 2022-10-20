@@ -18,11 +18,11 @@ const ModalAdd = (props) => {
       // keterangan: formData.get("katasandi"),
     };
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}create-account`, {
         method: "POST",
         body: JSON.stringify(body),
       });
-      if(res.status != 200){
+      if (res.status != 200) {
         throw "gagal membuat user CS"();
       }
     } catch (e) {
@@ -107,16 +107,8 @@ const ModalAdd = (props) => {
                     rgba(17, 17, 26, 0.1) 0px 0px 8px`,
                   }}
                 />
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  onClick={() => setPasswordShown(!passwordShown)}
-                />
-                <label
-                  class="form-check-label"
-                  for="exampleCheck1"
-                  style={{ fontSize: "14px", paddingLeft: "5px" }}
-                >
+                <input type="checkbox" class="form-check-input" onClick={() => setPasswordShown(!passwordShown)} />
+                <label class="form-check-label" for="exampleCheck1" style={{ fontSize: "14px", paddingLeft: "5px" }}>
                   Show Password
                 </label>
               </div>
@@ -132,25 +124,12 @@ const ModalAdd = (props) => {
                     rgba(17, 17, 26, 0.1) 0px 0px 8px`,
                   }}
                 />
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  onClick={() => setPasswordConfirmShown(!passwordConfirmShown)}
-                />
-                <label
-                  class="form-check-label"
-                  for="exampleCheck1"
-                  style={{ fontSize: "14px", paddingLeft: "5px" }}
-                >
+                <input type="checkbox" class="form-check-input" onClick={() => setPasswordConfirmShown(!passwordConfirmShown)} />
+                <label class="form-check-label" for="exampleCheck1" style={{ fontSize: "14px", paddingLeft: "5px" }}>
                   Show Password
                 </label>
               </div>
-              <button
-                type="submit"
-                className={style.buttonHijau}
-                style={{ marginTop: "20px" }}
-                onSubmit={addUser}
-              >
+              <button type="submit" className={style.buttonHijau} style={{ marginTop: "20px" }} onSubmit={addUser}>
                 Kirim
               </button>
             </form>

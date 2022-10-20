@@ -12,7 +12,7 @@ const ManageCS = () => {
   const [body, setBody] = useState("");
   const [modalDelete, setModalDelete] = useState(false);
   const [data, setData] = useState(null);
-  
+
   const getUser = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}getUser`, {
@@ -48,7 +48,6 @@ const ManageCS = () => {
         className={style.buttonHijau}
         onClick={() => {
           setModalAdd(true);
-          setBody(data);
         }}
       >
         + Tambah Data
@@ -99,13 +98,9 @@ const ManageCS = () => {
           ))}
         </tbody>
       </table>
-      <Add show={modalAdd} close={() => setModalAdd(false)} data={body} />
+      <Add show={modalAdd} close={() => setModalAdd(false)} />
       <Edit show={modalEdit} close={() => setModalEdit(false)} data={body} />
-      <Delete
-        show={modalDelete}
-        close={() => setModalDelete(false)}
-        data={body}
-      />
+      <Delete show={modalDelete} close={() => setModalDelete(false)} data={body} />
     </div>
   );
 };
