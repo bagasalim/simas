@@ -69,5 +69,5 @@ func (s *server) SetupRouter() {
 	userRepo := manageuser.NewRepository(s.DB)
 	userService := manageuser.NewService(userRepo)
 	userHandler := manageuser.NewHandler(userService)
-	s.Router.GET("/getUser", userHandler.GetUser)
+	adminRoute.GET("/getUser", userHandler.GetUser)
 }

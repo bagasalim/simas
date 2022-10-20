@@ -23,7 +23,7 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) GetUser() ([]model.User, error) {
 	var User []model.User
-	res := r.db.Find(&User)
+	res := r.db.Where("role=2").Find(&User)
 	if res.Error != nil {
 		return nil, res.Error
 	}
