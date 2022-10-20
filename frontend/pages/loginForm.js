@@ -83,8 +83,6 @@ export default function LoginForm() {
    
   }
   async function doLogin() {
-    // e.preventDefault();
-    // const formData = new FormData(e.currentTarget);
     if(load) return
     setLoad(true)
     const body = {
@@ -101,10 +99,15 @@ export default function LoginForm() {
       });
       const data = await res.json();
       if(res.status != 200){
-        if(data.message == "OTP is wrong")
-          throw new Error("Kode OTP is wrong")
-        if(data.message == "OTP is expire")
-          throw new Error("Kode OTP is expire")
+        if(data.message == "OTP is wrong"){
+          alert("Kode OTP is wrong")
+          setLoad(false)
+          return
+        }else if(data.message == "OTP is expire"){
+          alert("Kode OTP is expire")
+          setLoad(false)
+          return
+        }
       }
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -125,11 +128,12 @@ export default function LoginForm() {
       }
     
     }catch(err){
-      if (err.message.startsWith("Kode OTP")){
-        alert(err.message)
-      }else{
-        alert("Username atau Password salah");
-      }
+      alert("Server sedang bermasalah");
+      // if (err.message.startsWith("Kode OTP")){
+      //   alert(err.message)
+      // }else{
+      //   alert("Username atau Password salah");
+      // }
       setLoad(false)
     }
     
