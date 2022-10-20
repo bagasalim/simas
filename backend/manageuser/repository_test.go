@@ -81,10 +81,8 @@ func TestUpdateUserRepo(t *testing.T){
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 
-	db.Migrator().DropTable(&User)
-	repo = NewRepository(db)
-	res, err = repo.UpdateUser(user, "cindy")
-	assert.NotNil(t, err)
+	res, err = repo.UpdateUser(user, "")
+	assert.Error(t, err)
 	assert.Equal(t, res, User)
 }
 
