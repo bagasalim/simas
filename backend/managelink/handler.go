@@ -80,11 +80,6 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 }
 func (h *Handler) GetLinkRequest(c *gin.Context) {
 	linktype, _ := c.Params.Get("type")
-	// if exist == false {
-	// 	messageErr := []string{"Input data not suitable"}
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
-	// 	return
-	// }
 	req := GetLinkRequest{LinkType: linktype}
 	link, status, err := h.Service.GetLink(req)
 	if err != nil {

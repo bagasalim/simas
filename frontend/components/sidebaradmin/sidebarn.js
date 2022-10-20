@@ -5,16 +5,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Router, { useRouter } from "next/router";
-
+import  {useRouter} from "next/router";
 const Sidebar = ({ toggleActive }) => {
-  const route = useRouter();
+  const route = useRouter()
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     console.log(localStorage.getItem("token"));
-    route.push("/loginForm");
-    // Router.replace("/loginForm");
+    route.push("/loginForm")
   };
   return (
     <div className={style.sidebar}>

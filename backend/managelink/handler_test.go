@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 
@@ -50,15 +51,24 @@ type ResponseMessage struct {
 }
 
 func getToken(t *testing.T) string {
+	os.Setenv("testing","y")
+	// getOtp(t)
 	handler := initialRepoAuth(t)
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
-	r.POST("/login", handler.Login)
-	payload := `{"username": "CS01", "password":"123456"}`
-	req, _ := http.NewRequest("POST", "/login", strings.NewReader(payload))
-	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
+	r.POST("/send-otp", handler.SendOTP)
+	payload := `{"username": "CS01"}`
+	req, _ := http.NewRequest("POST", "/send-otp", strings.NewReader(payload))
 	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+	
+
+	r.POST("/login", handler.Login)
+	payload = `{"username": "CS01", "password":"123456","code":"123456"}`
+	req, _ = http.NewRequest("POST", "/login", strings.NewReader(payload))
+	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
+	w = httptest.NewRecorder()
 	data := resposeLogin{}
 	r.ServeHTTP(w, req)
 	json.Unmarshal(w.Body.Bytes(), &data)
@@ -107,6 +117,7 @@ func TestGetLinkHandler(t *testing.T) {
 	req.Header.Set("Authorization", token)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
+	fmt.Println("res test getlink",string(w.Body.Bytes()))
 	responseMessage := ResponseMessage{}
 	assert.Equal(t, 500, w.Code)
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &responseMessage))

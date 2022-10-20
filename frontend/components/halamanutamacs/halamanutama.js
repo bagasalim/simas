@@ -3,20 +3,30 @@ import Image from "next/image";
 import foto1 from "../../public/assets/info1.jpg";
 import foto2 from "../../public/assets/info2.jpg";
 
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 
 const HalamanUtama = () => {
-  const data_user  = localStorage.getItem('user')
-  const newData = JSON.parse(data_user)
-
-  const dateRes = newData.lastlogin.substring(0,10)
-  const timeRes = newData.lastlogin.substring(11,19)
-  const date = dateRes + " " + timeRes
-  const item = localStorage.getItem('location')
-  const obj = JSON.parse(item);
+  const [loc, setLoc] = useState(null)
+  const [date, setDate] = useState(null)
   
   useEffect(() => {
+    const data_user  = localStorage.getItem('user')
+    const newData = JSON.parse(data_user)
+    if(newData != null && newData != undefined){
+      if(newData["lastlogin"] != null && newData["lastlogin"] != undefined){
+        const dateRes = newData.lastlogin.substring(0,10)
+        const timeRes = newData.lastlogin.substring(11,19)
+        const date = dateRes + " " + timeRes
+        setDate(date)
+      }
+     
+    }
+    const item = localStorage.getItem('location')
+    const obj = JSON.parse(item);
+    if(obj != undefined && obj != null){
+      setLoc(obj)
+    }
     if(localStorage.getItem('location') === null) {
       navigator.geolocation.getCurrentPosition(function(position) {
         getLocation(position.coords.latitude, position.coords.longitude)
@@ -30,6 +40,7 @@ const HalamanUtama = () => {
       const res = await fetch(newUrl);
       const data = await res.json();
       localStorage.setItem("location", JSON.stringify(data))
+      setLoc(data)
     }
     catch (error) {
     }
@@ -40,10 +51,10 @@ const HalamanUtama = () => {
       <div className={style.utama}>
         <h1 className={style.title}>Selamat Datang {newData.name}</h1>
         <hr />
-        {obj !== null ? 
+        {loc !== null ? 
           <div className={style.alert}>
           <p>Terakhir Login : {date}</p> 
-          <p>Lokasi Sekarang : {obj.locality} {obj.city} {obj.principalSubdivision} {obj.countryName} </p> 
+          <p>Lokasi Sekarang : {loc.locality} {loc.city} {loc.principalSubdivision} {loc.countryName} </p> 
           </div> : ''
         }
         <br />

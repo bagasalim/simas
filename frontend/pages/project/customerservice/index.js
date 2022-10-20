@@ -4,8 +4,7 @@ import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import ManageWA from "../../../components/managewa/managewa";
 import ManageZoom from "../../../components/managezoom/managezoom";
 import { useEffect, useState } from "react";
-import Router, {useRouter} from "next/router";
-import ZoomHistory from "../../../components/zoomhistory/zoomhistory";
+import {useRouter} from "next/router";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
@@ -19,7 +18,6 @@ export default function Index() {
     if (token == null || user == null) {
       console.log("logout");
       route.push('/loginForm')
-      // Router.replace("/loginForm");
       return;
     }
     user = JSON.parse(user);
@@ -27,13 +25,10 @@ export default function Index() {
       if (user.role == 1) {
         console.log("redirect");
         route.back()
-        // route.push('/project/admin')
-        // Router.replace("/project/admin");
         return;
       }
       console.log("load", user);
       route.push('/loginForm')
-      // Router.replace("/loginForm");
       return;
     }
     setLoading(false);
