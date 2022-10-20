@@ -50,12 +50,7 @@ func (s *server) SetupRouter() {
 	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
 	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
 	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
-	// s.Router.Use(custom.MiddlewareAuth)
-	// s.Router.POST("/test", authHandler.Test)
-	//manage link
-	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
-	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
-	// s.Router.Use(custom.MiddlewareAuth)
+	
 	adminRoute := authRoute.Group("")
 	adminRoute.Use(middleware.IsAdmin)
 	asuransiRepo := asuransi.NewRepository(s.DB)
