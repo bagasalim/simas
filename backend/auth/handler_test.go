@@ -189,7 +189,7 @@ func TestCreateUser(t *testing.T) {
 	r := gin.Default()
 	r.POST(createuser, handler.CreateUser)
 
-	payload := `{"username": "remasertu", "password":"123456", "name":"rema"}`
+	payload := `{"username": "remasertu", "password":"123456", "name":"rema","email":"ali@gmail.com"}`
 	req, err := http.NewRequest("POST", createuser, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)
@@ -215,7 +215,7 @@ func TestCreateUser(t *testing.T) {
 	assert.NoError(t, json.Unmarshal(w.Body.Bytes(), &errValid))
 
 	//error duplicate
-	payload = `{"username": "remasertu", "password":"123456", "name":"rema"}`
+	payload = `{"username": "remasertu", "password":"123456", "name":"rema","email":"ali@gmail.com"}`
 	req, err = http.NewRequest("POST", createuser, strings.NewReader(payload))
 	assert.NoError(t, err)
 	assert.NotNil(t, req)

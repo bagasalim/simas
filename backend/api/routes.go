@@ -6,6 +6,7 @@ import (
 	"github.com/bagasalim/simas/custom"
 	"github.com/bagasalim/simas/infoPromo"
 	"github.com/bagasalim/simas/managelink"
+	"github.com/bagasalim/simas/manageuser"
 	"github.com/bagasalim/simas/zoomhistory"
 	"github.com/gin-contrib/cors"
 )
@@ -22,7 +23,6 @@ func (s *server) SetupRouter() {
 	s.Router.POST("/create-account", authHandler.CreateUser)
 	s.Router.POST("/login", authHandler.Login)
 	s.Router.POST("/send-otp", authHandler.SendOTP)
-	//example validation auth route
 
 	middleware := custom.MiddleWare{}
 	authRoute := s.Router.Group("")
@@ -43,6 +43,7 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+	csRoute.GET("/getzoomhistory", zoomHistoryHandler.GetRiwayat)
 
 	infoPromoRepo := infoPromo.NewRepository(s.DB)
 	infoPromoService := infoPromo.NewService(infoPromoRepo)
@@ -59,4 +60,12 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
 	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
+
+	manageUserRepo := manageuser.NewRepository(s.DB)
+	manageUserService := manageuser.NewService(manageUserRepo)
+	manageUserHandler := manageuser.NewHandler(manageUserService)
+
+	adminRoute.GET("/getUser", manageUserHandler.GetUser)
+	adminRoute.PUT("/updateuser", manageUserHandler.UpdateUser)
+	adminRoute.DELETE("/deleteuser/:id", manageUserHandler.DeleteUser)
 }

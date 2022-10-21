@@ -6,7 +6,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
 import  {useRouter} from "next/router";
-const Sidebar = () => {
+const Sidebar = ({ toggleActive }) => {
   const route = useRouter()
   const logout = () => {
     localStorage.removeItem("token");
@@ -23,20 +23,20 @@ const Sidebar = () => {
       <div className={style.center}>
         <ul>
           <p className={style.title}>MAIN MENU</p>
-          <li>
+          <li onClick={() => toggleActive("halamanutama")}>
             <HomeIcon className={style.icon} />
             <span>Halaman Utama</span>
           </li>
-          <li>
+          <li onClick={() => toggleActive("managecs")}>
             <AccountBoxIcon className={style.icon} />
             <span>Akun CS</span>
           </li>
-          <li>
+          {/* <li>
             <a href="">
               <InfoIcon className={style.icon} />
               <span>Informasi</span>
             </a>
-          </li>
+          </li> */}
           <li>
             <div href="#" onClick={logout}>
               <LogoutIcon className={style.icon} />

@@ -128,12 +128,7 @@ export default function LoginForm() {
       }
     
     }catch(err){
-      alert("Server sedang bermasalah");
-      // if (err.message.startsWith("Kode OTP")){
-      //   alert(err.message)
-      // }else{
-      //   alert("Username atau Password salah");
-      // }
+      alert("Server sedang bermasalah")
       setLoad(false)
     }
     

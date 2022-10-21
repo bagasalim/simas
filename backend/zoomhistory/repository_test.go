@@ -19,6 +19,15 @@ func newTestDB(t *testing.T) *gorm.DB {
 	err = db.AutoMigrate(&model.User{}, &model.Riwayat{})
 	assert.NoError(t, err)
 
+	Riwayat := model.Riwayat{
+		Nama:       "cindu",
+		Email:      "cindu@gmail.com",
+		Kategori:   "Perbankan",
+		Keterangan: "Isu Perbankan",
+		Lokasi:     "Jakarta",
+	}
+	db.Create(&Riwayat)
+
 	return db
 }
 
@@ -44,4 +53,13 @@ func TestCreateUser(t *testing.T) {
 	fmt.Println(err, res)
 	assert.NotNil(t, err)
 
+}
+
+func TestGetRiwayat(t *testing.T) {
+	db := newTestDB(t)
+	repo := NewRepository(db)
+
+	res, err := repo.GetRiwayat()
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
 }

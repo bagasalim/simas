@@ -5,6 +5,7 @@ import ManageWA from "../../../components/managewa/managewa";
 import ManageZoom from "../../../components/managezoom/managezoom";
 import { useEffect, useState } from "react";
 import {useRouter} from "next/router";
+import ZoomHistory from "../../../components/zoomhistory/zoomhistory";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,7 @@ export default function Index() {
               {showActive === "halamanutama" && <HalamanUtama />}
               {showActive === "managezoom" && <ManageZoom />}
               {showActive === "managewa" && <ManageWA />}
+              {showActive === "zoomhistory" && <ZoomHistory />}
             </>
           )}
         </div>

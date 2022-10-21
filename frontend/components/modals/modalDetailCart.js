@@ -2,6 +2,10 @@ import { Button, Modal, ModalBody } from "reactstrap";
 import style from "./modalDetailCart.module.scss";
 const ConfirmationDetailCart = (props) => {
   const snk = props.data.syarat.split(";");
+  const format = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  });
   return (
     <>
       <div className={style.container}>
@@ -35,12 +39,12 @@ const ConfirmationDetailCart = (props) => {
             </div>
             <p>
                 <h4> Premi </h4>
-                Rp{props.data.premi}
+                {format.format(props.data.premi)}
             </p>
 
             <p>
                 <h4> Uang Pertanggungan </h4>
-                Rp{props.data.uangpertanggungan}
+                {format.format(props.data.uangpertanggungan)}
             </p>
 
             <h4>Deskripsi</h4>

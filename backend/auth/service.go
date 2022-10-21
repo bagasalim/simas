@@ -71,6 +71,7 @@ func (s *service) CreateAccount(data RegisterRequest) (model.User, int, error) {
 		Username: data.Username,
 		Password: string(passwordHash),
 		Name:     data.Name,
+		Email: data.Email,
 		Role:     2,
 	}
 	res, err := s.repo.AddUser(User)
