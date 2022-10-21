@@ -2,8 +2,6 @@ import style from "./sidebarn.module.scss";
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
-import ChatIcon from "@mui/icons-material/Chat";
-import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
