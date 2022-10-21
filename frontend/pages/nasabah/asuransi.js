@@ -12,7 +12,10 @@ const Promo = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [body, setBodyData] = React.useState("");
   const router = useRouter();
-
+  const format = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  });
   const promo = () => {
     router.push("/nasabah/promo");
   };
@@ -74,10 +77,10 @@ const Promo = () => {
               />
               <h3 className={style.textContent}>{item.judul}</h3>
               <h5 className={style.textContent} style={{ fontSize: "1rem" }}>
-                Premi Per Tahun: {item.premi}
+                Premi Per Tahun: {format.format(item.premi)}
               </h5>
               <h5 className={style.textContent} style={{ fontSize: "1rem" }}>
-                Uang Pertanggungan: {item.uangpertanggungan}
+                UP: {format.format(item.uangpertanggungan)}
               </h5>
               <button
                 className={style.buttonDetail}

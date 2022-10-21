@@ -9,7 +9,8 @@ import {useEffect, useState} from 'react'
 const HalamanUtama = () => {
   const [loc, setLoc] = useState(null)
   const [date, setDate] = useState(null)
-  
+  const data_user  = localStorage.getItem('user')
+  const newData = JSON.parse(data_user)
   useEffect(() => {
     const data_user  = localStorage.getItem('user')
     const newData = JSON.parse(data_user)

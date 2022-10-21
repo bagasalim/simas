@@ -19,12 +19,13 @@ const ModalEdit = (props) => {
         body: JSON.stringify(body),
       });
       if (res.status != 200) {
-        throw "gagal mengubah data user CS"();
+        throw new Error("gagal mengubah data user CS")
       }
+      alert("Sukses mengubah data")
+      props.close()
     } catch (e) {
-      if (typeof e === "string") {
-        alert("Gagal mengubah data user CS, silahkan refresh ulang");
-      }
+      
+      alert("Gagal mengubah data user CS, silahkan refresh ulang");
       return false;
     }
   };

@@ -5,6 +5,7 @@ import ManageWA from "../../../components/managewa/managewa";
 import ManageZoom from "../../../components/managezoom/managezoom";
 import { useEffect, useState } from "react";
 import {useRouter} from "next/router";
+import ZoomHistory from "../../../components/zoomhistory/zoomhistory";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);

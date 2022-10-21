@@ -9,7 +9,7 @@ import {useRouter} from "next/router";
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [showActive, setShowActive] = useState("halamanutama");
-
+  const route = useRouter()
   const toggleActive = (key) =>
     setShowActive((active) => (active === key ? "halamanutama" : key));
 

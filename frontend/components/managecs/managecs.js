@@ -98,9 +98,9 @@ const ManageCS = () => {
           ))}
         </tbody>
       </table>
-      <Add show={modalAdd} close={() => setModalAdd(false)} />
-      <Edit show={modalEdit} close={() => setModalEdit(false)} data={body} />
-      <Delete show={modalDelete} close={() => setModalDelete(false)} data={body} />
+      <Add show={modalAdd} close={() => {setModalAdd(false); getUser();}} />
+      <Edit show={modalEdit} close={() => {setModalEdit(false);getUser();}} data={body} />
+      <Delete show={modalDelete} close={() => {setModalDelete(false);getUser();}} data={body} />
     </div>
   );
 };

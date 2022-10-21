@@ -11,12 +11,13 @@ const ModalDelete = (props) => {
         },
       });
       if (res.status != 200) {
-        throw "gagal menghapus user CS"();
+        throw new Error("gagal menghapus user CS")
       }
+      alert("Sukses menghapus")
+      props.close()
     } catch (e) {
-      if (typeof e === "string") {
-        alert("Gagal menghapus user CS, silahkan refresh ulang");
-      }
+      
+      alert("Gagal menghapus user CS, silahkan refresh ulang");
       return false;
     }
   };

@@ -27,7 +27,7 @@ func (r *repository) AddUser(Riwayat model.Riwayat) (model.Riwayat, error) {
 
 func (r *repository) GetRiwayat() ([]model.Riwayat, error) {
 	var Riwayat []model.Riwayat
-	res := r.db.Find(&Riwayat)
+	res := r.db.Limit(50).Order("created_at desc").Find(&Riwayat)
 	if res.Error != nil {
 		return nil, res.Error
 	}

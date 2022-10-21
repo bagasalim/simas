@@ -31,12 +31,12 @@ const Sidebar = ({ toggleActive }) => {
             <AccountBoxIcon className={style.icon} />
             <span>Akun CS</span>
           </li>
-          <li>
+          {/* <li>
             <a href="">
               <InfoIcon className={style.icon} />
               <span>Informasi</span>
             </a>
-          </li>
+          </li> */}
           <li>
             <div href="#" onClick={logout}>
               <LogoutIcon className={style.icon} />
