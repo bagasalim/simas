@@ -11,17 +11,19 @@ import (
 )
 
 type DataJWT struct {
-	Username string
-	Name     string
-	Role     int8
+	Username  string
+	Name      string
+	Role      int8
+	LastLogin int64
 	jwt.StandardClaims
 }
 
-func GenerateJWT(username string, name string, role int8) (string, error) {
+func GenerateJWT(username string, name string, role int8, LastLogin time.Time) (string, error) {
 	claim := DataJWT{
-		Username: username,
-		Name:     name,
-		Role:     role,
+		Username:  username,
+		Name:      name,
+		Role:      role,
+		LastLogin: LastLogin.Unix(),
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(60 * time.Minute).Unix(),
 		},
@@ -69,8 +71,11 @@ func ClaimToken(tokenString string) (DataJWT, error) {
 		fmt.Println("err claimToken", "novalid")
 		return DataJWT{}, errors.New("no valid")
 	}
-	if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) < 0*time.Second {
+	if time.Unix(claims.ExpiresAt, 0).Before(time.Now()){
 		return DataJWT{}, errors.New("expire")
 	}
+	// if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) < 0*time.Second {
+	// 	return DataJWT{}, errors.New("expire")
+	// }
 	return claims, nil
 }

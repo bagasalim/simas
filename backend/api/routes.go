@@ -6,6 +6,7 @@ import (
 	"github.com/bagasalim/simas/custom"
 	"github.com/bagasalim/simas/infoPromo"
 	"github.com/bagasalim/simas/managelink"
+	"github.com/bagasalim/simas/manageuser"
 	"github.com/bagasalim/simas/zoomhistory"
 	"github.com/gin-contrib/cors"
 )
@@ -21,11 +22,12 @@ func (s *server) SetupRouter() {
 	authHandler := auth.NewHandler(authService)
 	s.Router.POST("/create-account", authHandler.CreateUser)
 	s.Router.POST("/login", authHandler.Login)
-	//example validation auth route
+	s.Router.POST("/send-otp", authHandler.SendOTP)
 
 	middleware := custom.MiddleWare{}
 	authRoute := s.Router.Group("")
 	authRoute.Use(middleware.Auth)
+	authRoute.POST("/updatelastlogin", authHandler.UpdateLastLogin)
 
 	manageLinkRepo := managelink.NewRepository(s.DB)
 	manageLinkService := managelink.NewService(manageLinkRepo)
@@ -41,6 +43,7 @@ func (s *server) SetupRouter() {
 	zoomHistoryService := zoomhistory.NewService(zoomHistoryRepo)
 	zoomHistoryHandler := zoomhistory.NewHandler(zoomHistoryService)
 	s.Router.POST("/createzoomhistory", zoomHistoryHandler.CreateZoom)
+	csRoute.GET("/getzoomhistory", zoomHistoryHandler.GetRiwayat)
 
 	infoPromoRepo := infoPromo.NewRepository(s.DB)
 	infoPromoService := infoPromo.NewService(infoPromoRepo)
@@ -48,12 +51,7 @@ func (s *server) SetupRouter() {
 	csRoute.GET("/getpromos", infoPromoHandler.GetInfos)
 	s.Router.GET("/getrecentpromos", infoPromoHandler.GetRecentInfos)
 	s.Router.POST("/postinfopromo", infoPromoHandler.AddInfo)
-	// s.Router.Use(custom.MiddlewareAuth)
-	// s.Router.POST("/test", authHandler.Test)
-	//manage link
-	// s.Router.PUT("/updatelink", manageLinkHandler.UpdateLink)
-	// s.Router.GET("/getlink", manageLinkHandler.GetLink)
-	// s.Router.Use(custom.MiddlewareAuth)
+	
 	adminRoute := authRoute.Group("")
 	adminRoute.Use(middleware.IsAdmin)
 	asuransiRepo := asuransi.NewRepository(s.DB)
@@ -62,4 +60,12 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/getasuransi", asuransiHandler.GetAsuransi)
 	adminRoute.POST("/postasuransi", asuransiHandler.CreateAsuransi)
+
+	manageUserRepo := manageuser.NewRepository(s.DB)
+	manageUserService := manageuser.NewService(manageUserRepo)
+	manageUserHandler := manageuser.NewHandler(manageUserService)
+
+	adminRoute.GET("/getUser", manageUserHandler.GetUser)
+	adminRoute.PUT("/updateuser", manageUserHandler.UpdateUser)
+	adminRoute.DELETE("/deleteuser/:id", manageUserHandler.DeleteUser)
 }

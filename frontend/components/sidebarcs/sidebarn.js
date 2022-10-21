@@ -5,16 +5,19 @@ import HomeIcon from "@mui/icons-material/Home";
 import ChatIcon from "@mui/icons-material/Chat";
 import CallIcon from "@mui/icons-material/Call";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import Router from "next/router";
+import {useRouter} from "next/router";
 
 const Sidebar = ({ toggleActive }) => {
+  const route = useRouter()
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("location");
     console.log(localStorage.getItem("token"));
-    Router.replace("/loginForm");
+    route.push("/loginForm")
   };
   return (
     <div className={style.sidebar}>
@@ -29,16 +32,16 @@ const Sidebar = ({ toggleActive }) => {
             <HomeIcon className={style.icon} />
             <span>Halaman Utama</span>
           </li>
-          <li>
+          {/* <li>
             <ChatIcon className={style.icon} />
             <span>Manage Chat</span>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <a href="">
               <CallIcon className={style.icon} />
               <span>Manage Call</span>
             </a>
-          </li>
+          </li> */}
           <li onClick={() => toggleActive("managezoom")}>
               <VideocamIcon className={style.icon} />
               <span>Manage Zoom</span>
@@ -46,6 +49,10 @@ const Sidebar = ({ toggleActive }) => {
           <li onClick={() => toggleActive("managewa")}>
             <WhatsAppIcon className={style.icon} />
             <span>Manage WA</span>
+          </li>
+          <li onClick={() => toggleActive("zoomhistory")}>
+            <HistoryIcon className={style.icon} />
+            <span>Riwayat Akses Zoom</span>
           </li>
           <li>
             <a href="#" onClick={logout}>

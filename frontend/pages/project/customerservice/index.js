@@ -4,12 +4,13 @@ import HalamanUtama from "../../../components/halamanutamacs/halamanutama";
 import ManageWA from "../../../components/managewa/managewa";
 import ManageZoom from "../../../components/managezoom/managezoom";
 import { useEffect, useState } from "react";
-import Router from "next/router";
+import {useRouter} from "next/router";
+import ZoomHistory from "../../../components/zoomhistory/zoomhistory";
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [showActive, setShowActive] = useState("halamanutama");
-
+  const route = useRouter()
   const toggleActive = (key) => setShowActive((active) => (active === key ? "halamanutama" : key));
 
   useEffect(() => {
@@ -17,18 +18,18 @@ export default function Index() {
     let user = localStorage.getItem("user");
     if (token == null || user == null) {
       console.log("logout");
-      Router.replace("/loginForm");
+      route.push('/loginForm')
       return;
     }
     user = JSON.parse(user);
     if (user.role != 2) {
       if (user.role == 1) {
         console.log("redirect");
-        Router.replace("/project/admin");
+        route.back()
         return;
       }
       console.log("load", user);
-      Router.replace("/loginForm");
+      route.push('/loginForm')
       return;
     }
     setLoading(false);
@@ -48,6 +49,7 @@ export default function Index() {
               {showActive === "halamanutama" && <HalamanUtama />}
               {showActive === "managezoom" && <ManageZoom />}
               {showActive === "managewa" && <ManageWA />}
+              {showActive === "zoomhistory" && <ZoomHistory />}
             </>
           )}
         </div>

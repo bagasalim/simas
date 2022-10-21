@@ -1,6 +1,7 @@
-package managelink
+package manageuser
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/bagasalim/simas/custom"
@@ -15,16 +16,31 @@ func NewHandler(service Service) *Handler {
 	return &Handler{service}
 }
 
-func (h *Handler) GetLink(c *gin.Context) {
-	var req GetLinkRequest
-	linktype := c.Query("linktype")
-	if linktype == "" {
+func (h *Handler) GetUser(c *gin.Context) {
+	user, status, err := h.Service.GetUser()
+	if err != nil {
+		log.Println("Error handler Get : ", err)
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    user,
+	})
+}
+
+func (h *Handler) GetUserReq(c *gin.Context) {
+	var req GetUserRequest
+	username := c.Query("username")
+	if username == "" {
 		messageErr := []string{"Input data not suitable"}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return
 	}
-	req = GetLinkRequest{LinkType: linktype}
-	link, status, err := h.Service.GetLink(req)
+	req = GetUserRequest{Username: username}
+	user, status, err := h.Service.GetUserReq(req)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),
@@ -34,17 +50,17 @@ func (h *Handler) GetLink(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"message": "success",
-		"data":    link,
+		"data":    user,
 	})
 }
 
-func (h *Handler) UpdateLink(c *gin.Context) {
+func (h *Handler) UpdateUser(c *gin.Context) {
 	
 
-	var req UpdateLinkRequest
-	linktype := c.Query("linktype")
+	var req UpdateUserRequest
+	username := c.Query("username")
 
-	if linktype == "" {
+	if username == "" {
 		messageErr := []string{"Param data not suitable"}
 		c.JSON(http.StatusBadRequest, gin.H{"error": messageErr})
 		return
@@ -59,12 +75,12 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 		return
 	}
 
-	reqFix := UpdateLinkRequest{
-		LinkType:  linktype,
-		LinkValue: req.LinkValue,
-		UpdatedBy: req.UpdatedBy,
+	reqFix := UpdateUserRequest{
+		Email: req.Email,
+		Role: req.Role,
+		Name: req.Name,
 	}
-	link, status, err := h.Service.UpdateLink(reqFix)
+	user, status, err := h.Service.UpdateUser(reqFix, username)
 	if err != nil {
 		c.JSON(status, gin.H{
 			"message": err.Error(),
@@ -74,22 +90,24 @@ func (h *Handler) UpdateLink(c *gin.Context) {
 
 	c.JSON(status, gin.H{
 		"message": "success",
-		"data":    link,
+		"data":    user,
 	})
 
 }
-func (h *Handler) GetLinkRequest(c *gin.Context) {
-	linktype, _ := c.Params.Get("type")
-	req := GetLinkRequest{LinkType: linktype}
-	link, status, err := h.Service.GetLink(req)
+
+func (h *Handler) DeleteUser(c *gin.Context) {
+	userId := c.Param("id")
+	_, status, err := h.Service.DeleteUser(userId)
 	if err != nil {
+		log.Println("Error handler Delete : ", err)
 		c.JSON(status, gin.H{
 			"message": err.Error(),
 		})
 		return
 	}
+
 	c.JSON(status, gin.H{
-		"message": "success",
-		"data":    link,
+		"message": "deleted success",
+		"id":      userId,
 	})
 }

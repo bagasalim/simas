@@ -16,7 +16,7 @@ func newTestDB(t *testing.T) *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
 	assert.NoError(t, err)
 	assert.NotNil(t, db)
-	err = db.AutoMigrate(&model.Link{}, &model.User{})
+	err = db.AutoMigrate(&model.Link{}, &model.User{}, &model.UserOTP{})
 	assert.NoError(t, err)
 
 	link := []model.Link{
