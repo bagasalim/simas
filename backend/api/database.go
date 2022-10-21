@@ -82,20 +82,20 @@ func SetupDb() (*gorm.DB, error) {
 			},
 		}
 
-		riwayats := []model.Riwayat{
-			{
-				Nama:       "John",
-				Email:      "john@gmail.com",
-				Kategori:   "Kartu Kredit",
-				Keterangan: "Complain CC",
-			},
-			{
-				Nama:       "Doe",
-				Email:      "doe@gmail.com",
-				Kategori:   "Digital Loan",
-				Keterangan: "Cara Daftar Loan",
-			},
-		}
+		// riwayats := []model.Riwayat{
+		// 	{
+		// 		Nama:       "John",
+		// 		Email:      "john@gmail.com",
+		// 		Kategori:   "Kartu Kredit",
+		// 		Keterangan: "Complain CC",
+		// 	},
+		// 	{
+		// 		Nama:       "Doe",
+		// 		Email:      "doe@gmail.com",
+		// 		Kategori:   "Digital Loan",
+		// 		Keterangan: "Cara Daftar Loan",
+		// 	},
+		// }
 
 		infopromos := []model.InfoPromo{
 			{
@@ -221,10 +221,10 @@ func SetupDb() (*gorm.DB, error) {
 			return nil, fmt.Errorf("failed to seeding links database: %w", resLinks.Error)
 		}
 
-		resRiwayats := db.Create(&riwayats)
-		if resRiwayats == nil {
-			return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
-		}
+		// resRiwayats := db.Create(&riwayats)
+		// if resRiwayats == nil {
+		// 	return nil, fmt.Errorf("failed to seeding riwayats database: %w", resRiwayats.Error)
+		// }
 
 		resInfoPromos := db.Create(&infopromos)
 		if resInfoPromos == nil {

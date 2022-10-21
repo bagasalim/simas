@@ -11,20 +11,22 @@ const ModalEdit = (props) => {
       email: formData.get("email"),
     };
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}updateuser?username=${props.data.username}`, {
-        method: "PUT",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(body),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}updateuser?username=${props.data.username}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(body),
+        }
+      );
       if (res.status != 200) {
-        throw new Error("gagal mengubah data user CS")
+        throw new Error("gagal mengubah data user CS");
       }
-      alert("Sukses mengubah data")
-      props.close()
+      alert("Sukses mengubah data");
+      props.close();
     } catch (e) {
-      
       alert("Gagal mengubah data user CS, silahkan refresh ulang");
       return false;
     }
@@ -59,6 +61,7 @@ const ModalEdit = (props) => {
                     boxShadow: `rgba(17, 17, 26, 0.05) 0px 1px 0px,
                     rgba(17, 17, 26, 0.1) 0px 0px 8px`,
                   }}
+                  readOnly
                 />
               </div>
               <div className="form-group" style={{ marginBottom: "20px" }}>
@@ -77,7 +80,11 @@ const ModalEdit = (props) => {
               </div>
               <div className="form-group" style={{ marginBottom: "20px" }}>
                 <label>Posisi</label>
-                <select name="role" class="form-control" value={props.data.role}>
+                <select
+                  name="role"
+                  class="form-control"
+                  value={props.data.role}
+                >
                   <option value="2">Customer Service</option>
                 </select>
               </div>
@@ -95,7 +102,11 @@ const ModalEdit = (props) => {
                   }}
                 />
               </div>
-              <button type="submit" className={style.buttonHijau} style={{ marginTop: "20px" }}>
+              <button
+                type="submit"
+                className={style.buttonHijau}
+                style={{ marginTop: "20px" }}
+              >
                 Kirim
               </button>
             </form>
